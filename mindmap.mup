@@ -167,6 +167,20 @@
             "17": {
               "title": "events.php",
               "id": 63
+            },
+            "0.5": {
+              "title": "auth.php",
+              "id": 64,
+              "attr": {
+                "style": {}
+              }
+            },
+            "0.25": {
+              "title": "register",
+              "id": 67,
+              "attr": {
+                "style": {}
+              }
             }
           }
         },
@@ -402,6 +416,20 @@
                   "id": 56
                 }
               },
+              "attr": {
+                "style": {}
+              }
+            },
+            "0.6875": {
+              "title": "login",
+              "id": 65,
+              "attr": {
+                "style": {}
+              }
+            },
+            "0.65625": {
+              "title": "signup",
+              "id": 66,
               "attr": {
                 "style": {}
               }
