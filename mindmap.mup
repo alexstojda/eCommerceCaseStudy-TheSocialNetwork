@@ -1,0 +1,159 @@
+{
+  "title": "ROOT",
+  "id": 1,
+  "formatVersion": 2,
+  "ideas": {
+    "-1": {
+      "title": "includes",
+      "id": 6,
+      "attr": {
+        "position": [
+          60,
+          144.5,
+          6
+        ],
+        "style": {}
+      },
+      "ideas": {
+        "1": {
+          "title": "core",
+          "id": 7,
+          "attr": {
+            "position": [
+              105,
+              -68,
+              1
+            ],
+            "style": {}
+          },
+          "ideas": {
+            "1": {
+              "title": "banabook.php",
+              "id": 18,
+              "attr": {
+                "style": {}
+              }
+            },
+            "2": {
+              "title": "controller.php",
+              "id": 19,
+              "attr": {
+                "style": {}
+              }
+            }
+          }
+        },
+        "2": {
+          "title": "controllers",
+          "id": 9,
+          "attr": {
+            "style": {}
+          }
+        },
+        "3": {
+          "title": "models",
+          "id": 11,
+          "attr": {
+            "style": {}
+          }
+        },
+        "4": {
+          "title": "views",
+          "id": 12,
+          "ideas": {
+            "1": {
+              "title": "home",
+              "id": 13,
+              "attr": {
+                "style": {}
+              }
+            },
+            "2": {
+              "title": "timeline",
+              "id": 14,
+              "attr": {
+                "style": {}
+              }
+            }
+          },
+          "attr": {
+            "style": {}
+          }
+        },
+        "0.5": {
+          "title": "init.php",
+          "id": 17,
+          "attr": {
+            "position": [
+              90,
+              -122,
+              2
+            ],
+            "style": {}
+          }
+        },
+        "0.25": {
+          "title": ".htaccess",
+          "id": 23,
+          "attr": {
+            "position": [
+              62,
+              -172,
+              3
+            ],
+            "style": {}
+          }
+        }
+      }
+    },
+    "-0.5": {
+      "title": "public",
+      "id": 4,
+      "attr": {
+        "position": [
+          99,
+          -131.5,
+          5
+        ],
+        "style": {}
+      },
+      "ideas": {
+        "1": {
+          "title": "css (sass)",
+          "id": 16,
+          "ideas": {
+            "1": {
+              "title": "bourbon",
+              "id": 20,
+              "attr": {
+                "style": {}
+              }
+            },
+            "2": {
+              "title": "bootstrap",
+              "id": 21,
+              "attr": {
+                "style": {}
+              }
+            }
+          },
+          "attr": {
+            "style": {}
+          }
+        },
+        "2": {
+          "title": "index.php",
+          "id": 22,
+          "attr": {
+            "style": {}
+          }
+        }
+      }
+    }
+  },
+  "attr": {
+    "style": {
+      "background": false
+    }
+  }
+}
