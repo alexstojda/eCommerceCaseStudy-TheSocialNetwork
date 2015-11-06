@@ -43,14 +43,9 @@
       }
     },
     "-1": {
-      "title": "includes",
+      "title": "application",
       "id": 6,
       "attr": {
-        "position": [
-          175,
-          -4.5,
-          8
-        ],
         "style": {}
       },
       "ideas": {
