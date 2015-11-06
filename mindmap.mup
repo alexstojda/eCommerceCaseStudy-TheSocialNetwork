@@ -53,6 +53,10 @@
             "1": {
               "title": "home.php",
               "id": 24
+            },
+            "2": {
+              "title": "navbar.php",
+              "id": 26
             }
           }
         },
@@ -79,6 +83,62 @@
               "id": 14,
               "attr": {
                 "style": {}
+              }
+            },
+            "4": {
+              "title": "wall",
+              "id": 28,
+              "ideas": {
+                "1": {
+                  "title": "posts",
+                  "id": 27,
+                  "attr": {
+                    "style": {}
+                  }
+                },
+                "2": {
+                  "title": "friends",
+                  "id": 29,
+                  "attr": {
+                    "style": {}
+                  }
+                }
+              },
+              "attr": {
+                "position": [
+                  145,
+                  91,
+                  1
+                ],
+                "style": {}
+              }
+            },
+            "0.5": {
+              "title": " navbar",
+              "id": 30,
+              "ideas": {
+                "1": {
+                  "title": "normal",
+                  "id": 31,
+                  "attr": {
+                    "style": {}
+                  }
+                },
+                "2": {
+                  "title": "members",
+                  "id": 32,
+                  "attr": {
+                    "style": {}
+                  }
+                }
+              },
+              "attr": {
+                "style": {},
+                "position": [
+                  59,
+                  -99,
+                  2
+                ]
               }
             }
           },
@@ -108,6 +168,23 @@
               3
             ],
             "style": {}
+          }
+        },
+        "0.75": {
+          "title": "db",
+          "id": 33,
+          "attr": {
+            "style": {}
+          },
+          "ideas": {
+            "1": {
+              "title": "db_connect.php",
+              "id": 34
+            },
+            "2": {
+              "title": "db_functions.php",
+              "id": 35
+            }
           }
         }
       }
