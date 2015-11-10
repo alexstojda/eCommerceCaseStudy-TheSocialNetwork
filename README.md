@@ -10,9 +10,6 @@ The eCommerce case study
 DocumentRoot "C:\xampp\htdocs\eCommerceCaseStudy\public"
 ServerName devbana.tk
 ServerAlias www.devbana.tk
-
-# Other directives here
-
 </VirtualHost>
 4. Go to C:\Windows\System32\drivers\etc and edit the hosts file
 5. add the following line:
