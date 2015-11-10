@@ -15,6 +15,8 @@ ServerAlias www.devbana.tk
 ```
 4. Go to C:\Windows\System32\drivers\etc and edit the hosts file
 5. add the following line:
+```
 127.0.0.1           devbana.tk
+```
 
 Yay you are done!
