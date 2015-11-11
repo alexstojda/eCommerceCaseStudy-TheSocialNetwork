@@ -9,14 +9,14 @@ The eCommerce case study
 ```
 <VirtualHost *:80>
 DocumentRoot "C:\xampp\htdocs\eCommerceCaseStudy\public"
-ServerName devbana.tk
-ServerAlias www.devbana.tk
+ServerName devbana.local
+ServerAlias www.devbana.loc
 </VirtualHost>
 ```
 4. Go to C:\Windows\System32\drivers\etc and edit the hosts file
 5. add the following line:
 ```
-127.0.0.1           devbana.tk
+127.0.0.1           devbana.loc
 ```
 
 Yay you are done!
