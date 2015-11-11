@@ -9,7 +9,7 @@ The eCommerce case study
 ```
 <VirtualHost *:80>
 DocumentRoot "C:\xampp\htdocs\eCommerceCaseStudy\public"
-ServerName devbana.local
+ServerName devbana.loc
 ServerAlias www.devbana.loc
 </VirtualHost>
 ```
