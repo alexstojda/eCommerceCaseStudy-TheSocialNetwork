@@ -15,8 +15,8 @@ class User extends Model
 	}*/
 	private $username;
 	private $userID;
-	private $u_password;
-	private $u_email;
+	private $passwurd;
+	private $email;
 	private $fname;
 	private $lname;
 	private $phone;
@@ -27,26 +27,18 @@ class User extends Model
 	private $birth;
 	private $privacy;
 
-	public function isFriend($frdID = 0)
-	{
-
-		//TODO: Method body
-
-	}
 //andrew did $this...i don't understand it. -Evan
 	public function __construct($tempID = 0){
 			parent::__construct();
 	 }
-
 
 //LOOK AT THE GETTERS
 	 public function getUsername(){
 	 	return $this->username;
 	 }
 	 public function getPasswurd(){
-	 	return $this->u_password;
+	 	return $this->passwurd;
 	 }
-
 	 public function getEmail(){
 	 	return $this->email;
 	 }
@@ -82,7 +74,6 @@ class User extends Model
 	 public function setPasswurd($newThing){
 	 	$this->u_password = $newThing;
 	 }
-
 	 public function setEmail($newThings){
 	 	$this->email = $newThings;
 	 }
