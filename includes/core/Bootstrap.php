@@ -42,6 +42,7 @@ class Bootstrap {
 
         $url = filter_var($url, FILTER_SANITIZE_URL);
         $this->_url = explode('/', $url);
+        echo _url;
     }
     
     /**

@@ -23,5 +23,16 @@ class Session
     {
         session_destroy();
     }
-    
+
+    public static function checkMember()
+    {
+        self::init();
+
+        if (self::get('loggedIn') == false) {
+            self::destroy();
+            header('location: ../login');
+            exit;
+        }
+    }
+
 }
