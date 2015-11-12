@@ -7,10 +7,10 @@ class User extends Model
 	public $lname;
 	public $email;
 
-	//small validation rules for this model
+	//small validation rules for $$this model
 	public function isValid(){
-		$email = filter_var($this->email, FILTER_VALIDATE_EMAIL);
-		$name = $this->fname != '' && $this->lname != '';
+		$email = filter_var($$this->email, FILTER_VALIDATE_EMAIL);
+		$name = $$this->fname != '' && $$this->lname != '';
 		return $name && $email;
 	}*/
 	private $username;
@@ -30,22 +30,10 @@ class User extends Model
 	public function isFriend($frdID = 0)
 	{
 
-		//make sql code that returns results of created_date where id_a == this->userID 
-		//and id_b == $frdID. If returns a date. return true. 
-		//else 
-		//repeat process but reverse id's a and b. and try again. if not found return false;
-		$value = "SELECT created_date FROM friends WHERE id_a = $userID AND id_b = $frdID";
-		if($value != null)
-			return true;
-
-		$value = "SELECT created_date FROM friends WHERE id_b = $userID AND id_a = $frdID";
-		if($value != null)
-			return true;
-
-		return false;
+		//TODO: Method body
 
 	}
-//andrew did this...i don't understand it. -Evan
+//andrew did $this...i don't understand it. -Evan
 	public function __construct($tempID = 0){
 			parent::__construct();
 	 }
@@ -53,77 +41,77 @@ class User extends Model
 
 //LOOK AT THE GETTERS
 	 public function getUsername(){
-	 	return this->username;
+	 	return $this->username;
 	 }
 	 public function getPasswurd(){
-	 	return this->u_password;
+	 	return $this->u_password;
 	 }
 
 	 public function getEmail(){
-	 	return this->email;
+	 	return $this->email;
 	 }
 	 public function getFname(){
-	 	return this->fname;
+	 	return $this->fname;
 	 }
 	 public function getLname(){
-	 	return this->lname;
+	 	return $this->lname;
 	 }
 	 public function getPhone(){
-	 	return this->phone;
+	 	return $this->phone;
 	 }
 	 public function getAddress(){
-	 	return this->address;
+	 	return $this->address;
 	 }
 	 public function getCity(){
-	 	return this->city;
+	 	return $this->city;
 	 }
 	 public function getProvince(){
-	 	return this->province;
+	 	return $this->province;
 	 }
 	 public function getPostalcode(){
-	 	return this->postalcode;
+	 	return $this->postalcode;
 	 }
 	 public function getBirth(){
-	 	return this->birth;
+	 	return $this->birth;
 	 }
 	 public function getPrivacy(){
-	 	return this->privacy;
+	 	return $this->privacy;
 	 }
 
 	 /////////////setters
 	 public function setPasswurd($newThing){
-	 	this->u_password = $newThing;
+	 	$this->u_password = $newThing;
 	 }
 
-	 public function getEmail($newThings){
-	 	this->email = $newThings;
+	 public function setEmail($newThings){
+	 	$this->email = $newThings;
 	 }
-	 public function getFname($newThings){
-	 	 this->fname = $newThings;
+	 public function setFname($newThings){
+	 	 $this->fname = $newThings;
 	 }
-	 public function getLname($newThings){
-	 	 this->lname = $newThings;
+	 public function setLname($newThings){
+	 	 $this->lname = $newThings;
 	 }
-	 public function getPhone($newThings){
-	 	 this->phone = $newThings;
+	 public function setPhone($newThings){
+	 	 $this->phone = $newThings;
 	 }
-	 public function getAddress($newThings){
-	 	 this->address = $newThings;
+	 public function setAddress($newThings){
+	 	 $this->address = $newThings;
 	 }
-	 public function getCity($newThings){
-	 	 this->city = $newThings;
+	 public function setCity($newThings){
+	 	 $this->city = $newThings;
 	 }
-	 public function getProvince($newThings){
-	 	 this->province = $newThings;
+	 public function setProvince($newThings){
+	 	 $this->province = $newThings;
 	 }
-	 public function getPostalcode($newThings){
-	 	 this->postalcode = $newThings;
+	 public function setPostalcode($newThings){
+	 	 $this->postalcode = $newThings;
 	 }
-	 public function getBirth($newThings){
-	 	 this->birth = $newThings;
+	 public function setBirth($newThings){
+	 	 $this->birth = $newThings;
 	 }
-	 public function getPrivacy($newThings){
-	 	 this->privacy = $newThings;
+	 public function setPrivacy($newThings){
+	 	 $this->privacy = $newThings;
 	 }
 }
 

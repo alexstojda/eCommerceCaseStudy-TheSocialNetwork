@@ -17,33 +17,33 @@
 
 		//Getters
 		public function getMessage_id(){
-		 	return this->message;
+		 	return $this->message;
 		 }
 		 public function getFrom_id(){
-		 	return this->from;
+		 	return $this->from;
 		 }
 		 public function getTo_id(){
-		 	return this->to;
+		 	return $this->to;
 		 }
 		 public function getMessage(){
-		 	return this->message;
+		 	return $this->message;
 		 }
 	/*	 public function getDate(){
-		 	return this->creation_date;
+		 	return $this->creation_date;
 		 }*/
 		 
 		 //Setters
 		public function setToID($newThing){
-			this->to = $newThing;
+			$this->to = $newThing;
 		}
 		public function setFromID($newThing){
-			this->from = $newThing;
+			$this->from = $newThing;
 		}
 		public function setMessage($newThing){
-			this->message = $newThing;
+			$this->message = $newThing;
 		}
 	/*	public function setDate($newThing){
-			this->creation_date  = $newThing;
+			$this->creation_date  = $newThing;
 		}*/
 	}
 

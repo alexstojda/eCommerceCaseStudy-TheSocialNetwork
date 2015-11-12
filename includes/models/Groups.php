@@ -15,28 +15,28 @@
 
 		//Getters
 		public function getGroup_id(){
-		 	return this->group_id;
+		 	return $$this->group_id;
 		 }
 		 public function getName(){
-		 	return this->name;
+		 	return $this->name;
 		 }
 		 public function getPrivacy(){
-		 	return this->privacy;
+		 	return $this->privacy;
 		 }
 		 public function getDescription(){
-		 	return this->description;
+		 	return $this->description;
 		 }
 
 		 //Setters
 
 		public function setName($newThing){
-			this->name = $newThing;
+			$this->name = $newThing;
 		}
 		public function setPrivacy($newThing){
-			this->privacy = $newThing;
+			$this->privacy = $newThing;
 		}
 		public function setDescription($newThing){
-			this->description = $newThing;
+			$this->description = $newThing;
 		}
 	}
 

@@ -14,19 +14,19 @@
 
 		//Getters
 		public function getUA(){
-		 	return this->user_a;
+		 	return $this->user_a;
 		 }
 		 public function getUB(){
-		 	return this->user_b;
+		 	return $this->user_b;
 		 }
 		 public function getAcceptance(){
-		 	return this->dateAccepted;
+		 	return $this->dateAccepted;
 		 }
 
 		 //Setters
 
 		 public function setAcceptance($newThing){
-			this->dateAccepted = $newThing;
+			$this->dateAccepted = $newThing;
 		}
 	}
 
