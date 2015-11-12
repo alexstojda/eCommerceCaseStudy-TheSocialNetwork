@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="afd94b91-6814-4b82-85c7-4d6305169882" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/includes/models/User.php" afterPath="$PROJECT_DIR$/includes/models/User.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="eCommerceCaseStudy.iws" />
@@ -28,7 +27,7 @@
       <file leaf-file-name="Events.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/includes/models/Events.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-12.423077">
+            <state vertical-scroll-proportion="-1.0">
               <caret line="19" column="0" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
               <folding />
             </state>
@@ -48,7 +47,7 @@
       <file leaf-file-name="Group_Post.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/includes/models/Group_Post.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.8387458">
+            <state vertical-scroll-proportion="0.80963045">
               <caret line="51" column="17" selection-start-line="51" selection-start-column="17" selection-end-line="51" selection-end-column="17" />
               <folding />
             </state>
@@ -296,7 +295,13 @@
       <option name="project" value="LOCAL" />
       <updated>1447350687568</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Evan's Fucking bullshit&#10;&#10;(he's more fired)">
+      <created>1447351641080</created>
+      <option name="number" value="00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1447351641080</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -330,7 +335,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Andrew's bullshit" />
     <MESSAGE value="Evan's Fucking bullshit&#10;&#10;(he's fired)" />
-    <option name="LAST_COMMIT_MESSAGE" value="Evan's Fucking bullshit&#10;&#10;(he's fired)" />
+    <MESSAGE value="Evan's Fucking bullshit&#10;&#10;(he's more fired)" />
+    <option name="LAST_COMMIT_MESSAGE" value="Evan's Fucking bullshit&#10;&#10;(he's more fired)" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -385,14 +391,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/includes/models/Events.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-12.423077">
-          <caret line="19" column="0" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/includes/models/Friends.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-18.307692">
@@ -401,9 +399,17 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/includes/models/Events.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-1.0">
+          <caret line="19" column="0" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/includes/models/Group_Post.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.8387458">
+        <state vertical-scroll-proportion="0.80963045">
           <caret line="51" column="17" selection-start-line="51" selection-start-column="17" selection-end-line="51" selection-end-column="17" />
           <folding />
         </state>
