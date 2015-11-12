@@ -27,8 +27,9 @@ class Bootstrap {
             return false;
         }
 
-        $this->_loadExistingController();
-        $this->_callControllerMethod();
+        if ($this->_loadExistingController() != false)
+            $this->_callControllerMethod();
+
     }
     
     /**
@@ -37,7 +38,6 @@ class Bootstrap {
     private function _getUrl()
     {
         $url = isset($_GET['url']) ? $_GET['url'] : null;
-        $url = ltrim($url, 'public');
         $url = trim($url, '/');
 
         $url = filter_var($url, FILTER_SANITIZE_URL);
@@ -51,6 +51,7 @@ class Bootstrap {
     {
         require $this->_controllerPath . $this->_defaultFile;
         $this->_controller = new Index();
+        $this->_controller->index();
     }
     
     /**
@@ -63,7 +64,7 @@ class Bootstrap {
         $file = $this->_controllerPath . $this->_url[0] . '.php';
         
         if (file_exists($file)) {
-            require_once $file;
+            require $file;
             $this->_controller = new $this->_url[0];
             $this->_controller->loadModel($this->_url[0], $this->_modelPath);
         } else {
