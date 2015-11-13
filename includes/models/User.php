@@ -11,11 +11,11 @@ class User extends Model
     private $phone;
     private $address;
     private $city;
+    private $country;
     private $province;
     private $postalcode;
     private $birth;
     private $privacy;
-
 //andrew did $this...i don't understand it. -Evan
     public function __construct($tempID = 0)
     {
@@ -88,6 +88,10 @@ class User extends Model
     {
         return $this->userID;
     }
+    public function getCountry()
+    {
+        return $this->country;
+    }
 
     /////////////setters
     public function setPassword($newThing)
@@ -143,6 +147,10 @@ class User extends Model
     public function setPrivacy($newThings)
     {
         $this->privacy = $newThings;
+    }
+    public function setCountry($country)
+    {
+        $this->country = $country;
     }
 }
 
