@@ -9,13 +9,15 @@ class Login extends Controller {
     function index() 
     {    
         $this->view->title = 'Login';
-
+        echo 'login';
         $this->view->render('login/index');
     }
     
-    function run()
+    function doAuth()
     {
-        $this->model->run();
+        $this->loadModel('User');
+        echo 'auth';
+        $this->model->authenticate();
     }
     
 

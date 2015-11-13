@@ -38,6 +38,7 @@ class Bootstrap {
     private function _getUrl()
     {
         $url = isset($_GET['url']) ? $_GET['url'] : null;
+        $url = trim($url, 'public');
         $url = trim($url, '/');
 
         $url = filter_var($url, FILTER_SANITIZE_URL);
@@ -66,7 +67,8 @@ class Bootstrap {
         if (file_exists($file)) {
             require $file;
             $this->_controller = new $this->_url[0];
-            $this->_controller->loadModel($this->_url[0], $this->_modelPath);
+            //$this->_controller->loadModel($this->_url[0], $this->_modelPath);
+            return true;
         } else {
             $this->_loadDefaultController();
             return false;

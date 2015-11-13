@@ -10,6 +10,6 @@
                 <input type="checkbox" value="remember-me"> Remember me
             </label>
         </div>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Log In</button>
+        <button class="btn btn-lg btn-primary btn-block" type="submit" onsubmit="<?php echo URL?>login/doAuth>">Log In</button>
     </form>
 </div>

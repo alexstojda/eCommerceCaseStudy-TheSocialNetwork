@@ -28,9 +28,31 @@ class User extends Model
 	private $privacy;
 
 //andrew did $this...i don't understand it. -Evan
-	public function __construct($tempID = 0){
-			parent::__construct();
-	 }
+	public function __construct($tempID = 0) {
+		$this->userID = $tempID;
+		parent::__construct();
+	}
+
+	public function authenticate() {
+		$st = $this->db->prepare("SELECT * FROM user WHERE
+                login = :login AND password = :password");
+		$st->execute(array(
+				':login' => $_POST['inputUser'],
+				':password' => Hash::create('sha256', $_POST['inputPassword'], HASH_PASSWORD_KEY)
+		));
+
+		$data  = $st->fetch();
+		$count =  $st->rowCount();
+		if ($count > 0) {
+			// login
+			Session::init();
+			Session::set('loggedIn', true);
+			header('location: ../timeline');
+		} else {
+			header('location: ../login');
+		}
+
+	}
 
 //LOOK AT THE GETTERS
 	 public function getUsername(){
