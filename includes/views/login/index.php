@@ -1,4 +1,6 @@
+<h1>fu</h1>
 
+<<<<<<< HEAD
 <html>
 <body>
 <?php if(isset($this->errorMessage)) { ?>
@@ -33,3 +35,8 @@
 
 </body>
 </html>
+=======
+<p>
+    savage
+</p>
+>>>>>>> refs/remotes/origin/master
