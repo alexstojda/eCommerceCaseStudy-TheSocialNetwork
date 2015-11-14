@@ -27,6 +27,7 @@ class register extends Controller
             case 0:
                 $this->view->render('register/index');
                 break;
+
             default:
                 $this->view->render('register/index');
         }
