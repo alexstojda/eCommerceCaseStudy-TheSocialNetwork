@@ -9,7 +9,11 @@ class Database extends PDO
         
         //parent::setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTIONS);
     }
-    
+
+    public static function noParam() {
+        return new Database(DB_TYPE, DB_HOST, DB_NAME, DB_USER, DB_PASS);
+    }
+
     /**
      * select
      * @param string $sql An SQL string
@@ -33,14 +37,14 @@ class Database extends PDO
      * @param string $table A name of table to insert into
      * @param string $data An associative array
      */
-    public function insert($table, $data)
+    public function insert($table, Array $data)
     {
         ksort($data);
         
         $fieldNames = implode('`, `', array_keys($data));
         $fieldValues = ':' . implode(', :', array_keys($data));
         
-        $sth = $this->prepare("INSERT INTO $table (`$fieldNames`) VALUES ($fieldValues)");
+        $sth = $this->prepare("INSERT INTO $table ('$fieldNames') VALUES ($fieldValues)");
         
         foreach ($data as $key => $value) {
             $sth->bindValue(":$key", $value);
@@ -55,7 +59,7 @@ class Database extends PDO
      * @param string $data An associative array
      * @param string $where the WHERE query part
      */
-    public function update($table, $data, $where)
+    public function update($table, Array $data, $where)
     {
         ksort($data);
         
@@ -88,7 +92,9 @@ class Database extends PDO
     }
 
     public function getCountries() {
-        $this->prepare("SELECT * FROM countries");
+        $sth = $this->prepare("SELECT * FROM countries");
+        $sth->execute();
+        return $sth->fetchAll();
     }
     
 }
