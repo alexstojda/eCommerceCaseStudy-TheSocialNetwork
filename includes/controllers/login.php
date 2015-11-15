@@ -6,18 +6,22 @@ class Login extends Controller {
         parent::__construct();    
     }
     
-    function index() 
-    {    
+    function index($error = 0)
+    {   $this->error = $error;
         $this->view->title = 'Login';
-        echo 'login';
         $this->view->render('login/index');
     }
     
     function doAuth()
     {
         $this->loadModel('User');
-        echo 'auth';
         $this->model->authenticate();
+        if($_SESSION['loggedIn'] === true) {
+            header('Location: ../wall');
+        }
+        else {
+            header('Location: ../login');
+        }
     }
     
 

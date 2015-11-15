@@ -34,24 +34,21 @@ class User extends Model
 	}
 
 	public function authenticate() {
-		$st = $this->db->prepare("SELECT * FROM user WHERE
-                login = :login AND password = :password");
+		$st = $this->db->prepare("SELECT * FROM banacommercestudy_ecom.users WHERE
+                username = :login AND passwurd = :pass");
+
 		$st->execute(array(
 				':login' => $_POST['inputUser'],
-				':password' => Hash::create('sha256', $_POST['inputPassword'], HASH_PASSWORD_KEY)
+				':pass' => Hash::create('sha256', $_POST['inputPassword'], HASH_PW_KEY)
 		));
 
-		$data  = $st->fetch();
-		$count =  $st->rowCount();
-		if ($count > 0) {
-			// login
+		$data  = $st->fetchAll();
+        print_r($data);
+
+		if ($st->rowCount()) {
 			Session::init();
 			Session::set('loggedIn', true);
-			header('location: ../timeline');
-		} else {
-			header('location: ../login');
-		}
-
+        }
 	}
 
 //LOOK AT THE GETTERS
