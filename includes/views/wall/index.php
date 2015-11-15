@@ -1,5 +1,18 @@
+<?php
+
+if(isset($_GET['u'])){
+  $uid = $_GET['u'];
+}
+else{
+  if(isset($_SESSION['userID']))
+    header("Location: wall?u=". $_SESSION['userID']);
+  else
+     header("Location: home");
+}
+?>
+
 <div>
-<h1 align="center"><?= "name"; ?>'s Wall</h1>
+<h1 align="center"><?=  $uid ?>'s Wall</h1>
 </div>
 
 <div>

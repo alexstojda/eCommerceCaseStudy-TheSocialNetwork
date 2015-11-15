@@ -17,5 +17,4 @@ class View {
             require PATH . 'views/footer.php';
         }
     }
-
-}
+} 

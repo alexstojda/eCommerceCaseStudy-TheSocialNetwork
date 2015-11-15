@@ -38,11 +38,11 @@ class Bootstrap {
     private function _getUrl()
     {
         $url = isset($_GET['url']) ? $_GET['url'] : null;
-        $url = trim($url, 'public');
+        $url = ltrim($url, 'public');
         $url = trim($url, '/');
-
         $url = filter_var($url, FILTER_SANITIZE_URL);
         $this->_url = explode('/', $url);
+
     }
     
     /**
@@ -63,11 +63,11 @@ class Bootstrap {
     private function _loadExistingController()
     {
         $file = $this->_controllerPath . $this->_url[0] . '.php';
-
+        
         if (file_exists($file)) {
             require $file;
             $this->_controller = new $this->_url[0];
-            $this->_controller->loadModel($this->_url[0], $this->_modelPath);
+            //$this->_controller->loadModel($this->_url[0], $this->_modelPath);
             return true;
         } else {
             $this->_loadDefaultController();
@@ -76,7 +76,7 @@ class Bootstrap {
     }
     
     /**
-     * If a method is passed in the GET url parameter
+     * If a method is passed in the GET url paremter
      * 
      *  http://localhost/controller/method/(param)/(param)/(param)
      *  url[0] = Controller
@@ -88,6 +88,7 @@ class Bootstrap {
     private function _callControllerMethod()
     {
         $length = count($this->_url);
+        
         // Make sure the method we are calling exists
         if ($length > 1) {
             if (!method_exists($this->_controller, $this->_url[1])) {
@@ -95,29 +96,29 @@ class Bootstrap {
                 return false;
             }
         }
-        
+
         // Determine what to load
         switch ($length) {
             case 5:
                 //Controller->Method(Param1, Param2, Param3)
                 $this->_controller->{$this->_url[1]}($this->_url[2], $this->_url[3], $this->_url[4]);
                 break;
-            
+
             case 4:
                 //Controller->Method(Param1, Param2)
                 $this->_controller->{$this->_url[1]}($this->_url[2], $this->_url[3]);
                 break;
-            
+
             case 3:
                 //Controller->Method(Param1)
                 $this->_controller->{$this->_url[1]}($this->_url[2]);
                 break;
-            
+
             case 2:
                 //Controller->Method()
                 $this->_controller->{$this->_url[1]}();
                 break;
-            
+
             default:
                 $this->_controller->index();
                 break;

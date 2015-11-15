@@ -1,23 +1,21 @@
 <?php
 
-class Wall extends Controller {
+class Post extends Controller {
 
     function __construct() {
         parent::__construct();
     }
     
-    function index($userID = ' ') {
-        //echo Hash::create('sha256', 'jesse', HASH_PASSWORD_KEY);
-        //echo Hash::create('sha256', 'test2', HASH_PASSWORD_KEY);
+    function index() {
+
         //$this->loadModel("Wall");
         //$this->model->setID($userID);
        
-        $this->view->title = 'Wall';
-        $this->view->render('wall/index');
+
+        $this->view->render('post/index');
+        
 
     }
-    public function page($page) {
-
 
     }
     function getPosts() {
