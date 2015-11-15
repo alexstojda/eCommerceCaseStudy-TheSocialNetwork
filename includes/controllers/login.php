@@ -6,8 +6,12 @@ class Login extends Controller {
         parent::__construct();    
     }
     
-    function index($error = 0)
-    {   $this->error = $error;
+    function index($error = '')
+    {
+
+        if($error == 'invalid') {
+
+        }
         $this->view->title = 'Login';
         $this->view->render('login/index');
     }
