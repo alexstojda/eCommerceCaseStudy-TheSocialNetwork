@@ -86,5 +86,9 @@ class Database extends PDO
     {
         return $this->exec("DELETE FROM $table WHERE $where LIMIT $limit");
     }
+
+    public function getCountries() {
+        $this->prepare("SELECT * FROM countries");
+    }
     
 }
