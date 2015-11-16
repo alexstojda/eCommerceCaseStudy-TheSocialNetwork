@@ -7,10 +7,10 @@ define('LIBS', PATH . 'core/');
 
 
 define('DB_TYPE', 'mysql');
-define('DB_HOST', 'teambana.com');
-define('DB_NAME', 'mvc');
+define('DB_HOST', 'localhost');
+define('DB_NAME', 'banacommercestudy_ecom');
 define('DB_USER', 'ecommuser');
-define('DB_PASS', '');
+define('DB_PASS', 'ybu4a3agy');
 
 // The sitewide hashkey, do not change this because its used for passwords!
 // This is for other hash keys... Not sure yet
