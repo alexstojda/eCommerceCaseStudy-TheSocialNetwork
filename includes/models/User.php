@@ -25,16 +25,14 @@ class _User extends Model
 
 	public function authenticate() {
 
-        $st = $this->db->select('SELECT * FROM users WHERE username = :username AND password = :pass', array(
-            ':username' => $_POST['inputUser'],
-            ':pass' => Hash::create('sha256', $_POST['inputPassword'], HASH_PW_KEY)
-        ));
-
-        if(count($st) > 0) {
-            echo " yes you exist";
-            Session::init();
-			Session::set('loggedIn', true);
-        }
+	        $st = $this->db->select('SELECT * FROM users WHERE username = :username AND password = :pass', array(
+	            ':username' => $_POST['inputUser'],
+	            ':pass' => Hash::create('sha256', $_POST['inputPassword'], HASH_PW_KEY)
+	        ));
+	
+	        if(count($st) > 0) {
+			ession::set('loggedIn', true);
+	        }
 	}
 
 //LOOK AT THE GETTERS
