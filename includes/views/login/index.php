@@ -1,8 +1,8 @@
 <div style="margin: 10%">
-    <?php if(isset($this->errorMessage)) { ?>
-        <div class='alert alert-danger alert-dismissible' role='alert'>
+    <?php if(isset($this->error)) { ?>
+        <div class='alert alert-<?php echo $this->error[1]?> alert-dismissible' role='alert'>
             <button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button>
-            <?= $this->errorMessage ?>
+            <?= $this->error[0] ?>
         </div>
     <?php } ?>
 

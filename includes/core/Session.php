@@ -1,5 +1,6 @@
 <?php
 
+
 class Session
 {
     
@@ -18,20 +19,19 @@ class Session
         if (isset($_SESSION[$key]))
             return $_SESSION[$key];
         else
-            return null;
+            return false;
     }
     
     public static function destroy()
     {
-        session_destroy();
+        @session_unset();
+        @session_destroy();
     }
 
+    //Authenticate on member only pages
     public static function checkMember()
     {
-        self::init();
-        echo 'check ';
-        echo self::get('loggedIn');
-        if (self::get('loggedIn')) {
+        if (self::get('loggedIn') === false) {
             header('Location: ../login?error=2');
             exit;
         }
