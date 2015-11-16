@@ -44,11 +44,7 @@ class Login extends Controller {
         $this->loadModel('User');
         $this->model->authenticate();
         if(Session::get('loggedIn') === true) {
-<<<<<<< HEAD
             header('Location: ../wall');
-=======
-            header('Location: ../member');
->>>>>>> refs/remotes/origin/master
         }
         else {
             header('Location: ../login?error=1');
