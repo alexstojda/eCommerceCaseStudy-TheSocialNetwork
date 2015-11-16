@@ -7,7 +7,7 @@ define('LIBS', PATH . 'core/');
 
 
 define('DB_TYPE', 'mysql');
-define('DB_HOST', 'localhost');
+define('DB_HOST', 'teambana.com');
 define('DB_NAME', 'banacommercestudy_ecom');
 define('DB_USER', 'ecommuser');
 define('DB_PASS', 'ybu4a3agy');
@@ -17,4 +17,4 @@ define('DB_PASS', 'ybu4a3agy');
 define('HASH_GENERAL_KEY', 'IfYouNeedOtherHashes');
 
 // This is for database passwords only
-define('HASH_PASSWORD_KEY', 'Hello...IsItMeYoureLookingFor!!___TeamB4N4');
+define('HASH_PW_KEY', 'Hello...IsItMeYoureLookingFor!!___TeamB4N4');

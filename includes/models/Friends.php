@@ -1,6 +1,6 @@
 <?php
 
-	class Friends extends Model
+	class _Friends extends Model
 	{
 
 		private $user_a;

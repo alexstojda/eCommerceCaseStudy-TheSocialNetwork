@@ -19,7 +19,11 @@ class Controller {
         if (file_exists($path)) {
             require $modelPath .$name.'.php';
             
+<<<<<<< HEAD
             $modelName = $name . '';
+=======
+            $modelName = '_' . $name;
+>>>>>>> refs/remotes/origin/master
             $this->model = new $modelName();
         }        
     }/*
