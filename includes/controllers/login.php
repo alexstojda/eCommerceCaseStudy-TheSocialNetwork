@@ -10,10 +10,12 @@ class Login extends Controller {
     function index($error = '')
     {
         echo Hash::create('sha256', 'derp', HASH_PW_KEY);
-        if (isset($_GET['error'])){
+        if (isset($_GET['error'])) {
             switch ($_GET['error']) {
                 case 1:
                     $this->view->errorMessage = "Invalid Username/Password!";
+            }
+        }
 
         $this->view->title = 'Login';
         $this->view->render('login/index');
