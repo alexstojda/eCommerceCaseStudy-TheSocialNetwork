@@ -1,5 +1,11 @@
 <?php
 
+
+/**
+ * Class Index
+ *
+ * Basic home class to test mvc
+ */
 class Index extends Controller {
 
     function __construct() {
@@ -7,8 +13,6 @@ class Index extends Controller {
     }
     
     function index() {
-        //echo Hash::create('sha256', 'password', HASH_PW_KEY);
-
         $this->view->title = 'Home';
         $this->view->render('home/index');
 

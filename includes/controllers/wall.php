@@ -1,32 +1,33 @@
 <?php
 
-class Wall extends Controller {
+class  Wall extends Controller {
 
     function __construct() {
         parent::__construct();
     }
     
-    function index($userID = ' ') {
-        //echo Hash::create('sha256', 'jesse', HASH_PASSWORD_KEY);
-        //echo Hash::create('sha256', 'test2', HASH_PASSWORD_KEY);
-        //$this->loadModel("Wall");
-        //$this->model->setID($userID);
-       
+    function index() {
+
+        if(isset($_GET['u'])){
+          $uid = $_GET['u'];
+        }
+        else{
+            
+          if(isset($_Session['UserID']))
+            header("Location: ../wall?u=". $_Session['UserID']);
+          else
+             header("Location: ../home");
+        }
+
         $this->view->title = 'Wall';
+
+        $this->wall = $this->loadModel('Wall');
+        $this->post = $this->loadModel('Post');
+        $this->wall->init($uid);
+        $this->view->name = $this->wall->getName()['name'];
         $this->view->render('wall/index');
 
-    }
-    public function page($page) {
-
 
     }
-    function getPosts() {
-    	//This is where all the posts come form...it's pretty fucking savage
-    }
-    function getFriends() {
 
-    	//As sad as this method is named. It will be used to populate the table of friends on the side of the page. 
-    	//may want to make this link to other pages as well
-    }
-    
 }

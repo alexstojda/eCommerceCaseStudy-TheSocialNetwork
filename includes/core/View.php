@@ -3,7 +3,7 @@
 class View {
 
     function __construct() {
-        //echo 'this is the view';
+        //echo 'this is a view';
     }
 
     public function render($name, $noInclude = false)
@@ -12,10 +12,11 @@ class View {
             require PATH . 'views/' . $name . '.php';
         }
         else {
-            require PATH . 'views/header.php';
+            require PATH . 'views/header.php'; //replace by navbar eventually
             require PATH . 'views/navbar/index.php';
             require PATH . 'views/' . $name . '.php';
             require PATH . 'views/footer.php';
         }
     }
-} 
+
+}
