@@ -5,7 +5,7 @@ class Session
     
     public static function init()
     {
-        @session_start();
+        session_start();
     }
     
     public static function set($key, $value)

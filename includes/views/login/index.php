@@ -1,4 +1,14 @@
-<div style="margin: 5%">
+
+
+
+<div style="margin: 10%">
+    <?php if(isset($this->errorMessage)) { ?>
+        <div class='alert alert-danger alert-dismissible' role='alert'>
+            <button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button>
+            <?= $this->errorMessage ?>
+        </div>
+    <?php } ?>
+
     <form class="form-signin" action="<?php echo URL ?>login/doAuth" method="post">
         <h2 class="form-signin-heading">Log In</h2>
         <label for="inputUser" class="sr-only">Username</label>

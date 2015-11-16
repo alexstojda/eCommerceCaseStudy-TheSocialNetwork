@@ -32,7 +32,7 @@
 </head>
 <body>
 
-<?php Session::init(); ?>
+<?php //Session::init(); ?>
     
 <div id="header">
 

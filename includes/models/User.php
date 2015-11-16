@@ -34,18 +34,12 @@ class User extends Model
 	}
 
 	public function authenticate() {
-		$st = $this->db->prepare("SELECT * FROM banacommercestudy_ecom.users WHERE
-                username = :login AND passwurd = :pass");
+        $st = $this->db->select('SELECT * FROM users WHERE username = :username, passwurd = :pass', array(
+            ':username' => $_POST['inputUser'],
+            ':pass' => Hash::create('sha256', $_POST['inputPassword'], HASH_PW_KEY)
+        ));
 
-		$st->execute(array(
-				':login' => $_POST['inputUser'],
-				':pass' => Hash::create('sha256', $_POST['inputPassword'], HASH_PW_KEY)
-		));
-
-		$data  = $st->fetchAll();
-        print_r($data);
-
-		if ($st->rowCount()) {
+        if(count($st) > 0) {
 			Session::init();
 			Session::set('loggedIn', true);
         }

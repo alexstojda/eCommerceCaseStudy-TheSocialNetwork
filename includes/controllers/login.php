@@ -3,15 +3,23 @@
 class Login extends Controller {
 
     function __construct() {
-        parent::__construct();    
+        parent::__construct();
+
     }
     
     function index($error = '')
     {
-
-        if($error == 'invalid') {
-
+        echo Hash::create('sha256', 'derp', HASH_PW_KEY);
+        if (isset($_GET['error'])){
+            switch ($_GET['error']) {
+                case 1:
+                    $this->view->errorMessage = "Invalid Username/Password!";
+                    break;
+                default:
+                    $this->view->errorMessage = null;
+            }
         }
+
         $this->view->title = 'Login';
         $this->view->render('login/index');
     }
@@ -24,8 +32,12 @@ class Login extends Controller {
             header('Location: ../wall');
         }
         else {
-            header('Location: ../login');
+            header('Location: ../login?error=1');
         }
+    }
+
+    function doLogout() {
+        Session::destroy();
     }
     
 
