@@ -1,5 +1,5 @@
 <?php
-class Events extends Model
+class _Events extends Model
 {
 	private $eventID;
 	private $owner_id;

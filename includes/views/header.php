@@ -3,12 +3,24 @@
 <head>
 
     <title><?=(isset($this->title)) ? $this->title : 'MVC'; ?></title>
-    <link rel="stylesheet" href="<?php echo URL; ?>/css/default.css" />
+
+
+
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
     <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.17/themes/sunny/jquery-ui.css" />
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js"></script>
-    <script type="text/javascript" src="<?php echo URL; ?>public/js/custom.js"></script>
-    <?php 
+    <link rel="stylesheet" href="<?php echo URL; ?>/css/default.css" />
+
+    <link rel="stylesheet" href="<?php echo URL; ?>/css/font-awesome.min.css" />
+
+    <link rel="stylesheet" href="<?php echo URL; ?>/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="<?php echo URL; ?>/css/bootstrap-theme.min.css" />
+
+    <script type="text/javascript" src="<?php echo URL; ?>/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="<?php echo URL; ?>/js/npm.js"></script>
+
+    <?php
     if (isset($this->js)) 
     {
         foreach ($this->js as $js)
@@ -20,7 +32,7 @@
 </head>
 <body>
 
-<?php Session::init(); ?>
+<?php //Session::init(); ?>
     
 <div id="header">
 
@@ -38,7 +50,7 @@
         
         <a href="<?php echo URL; ?>dashboard/logout">Logout</a>    
     <?php else: ?>
-        <a href="<?php echo URL; ?>login">Login</a>
+        <a href="<?php echo URL; ?>login">DELETE FROM HEADER.PHP</a>
     <?php endif; ?>
 </div>
     

@@ -14,12 +14,12 @@ class Controller {
      */
     public function loadModel($name, $modelPath = '../includes/models/') {
         
-        $path = $modelPath . $name.'_model.php';
+        $path = $modelPath . $name.'.php';
         
         if (file_exists($path)) {
-            require $modelPath .$name.'_model.php';
+            require $modelPath .$name.'.php';
             
-            $modelName = $name . '_Model';
+            $modelName = '_' . $name;
             $this->model = new $modelName();
         }        
     }
