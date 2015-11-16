@@ -39,18 +39,21 @@ class Login extends Controller {
         $this->view->render('login/index');
     }
 
+
+
     //Attempt to authenticate user credentials
     function doAuth() {
-        $this->loadModel('User');
-        $this->model->authenticate();
-        if(Session::get('loggedIn') === true) {
-            header('Location: ../wall');
+        $user = $this->getModel('User');
+
+        if($user->authenticate()) {
+            header('Location: ../wall?u='.Session::get('my_user')['id']);
         }
         else {
             header('Location: ../login?error=1');
         }
-        exit();
+
     }
+
 
     //destroy session aka logout
     function doLogout() {

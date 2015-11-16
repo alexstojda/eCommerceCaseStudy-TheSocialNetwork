@@ -33,21 +33,17 @@
     
 <div id="header">
 
-    <?php if (Session::get('loggedIn') == false):?>
+    <?php if(!Session::get('my_user')) :?>
         <a href="<?php echo URL; ?>index">Index</a>
         <a href="<?php echo URL; ?>help">Help</a>
-    <?php endif; ?>    
-    <?php if (Session::get('loggedIn')  == true):?>
+    <?php endif; ?>
+    <?php if(Session::get('my_user')) :?>
         <a href="<?php echo URL; ?>dashboard">Dashboard</a>
         <a href="<?php echo URL; ?>note">Notes</a>
-        
-        <?php if (Session::get('role') == 'owner'):?>
-        <a href="<?php echo URL; ?>user">Users</a>
-        <?php endif; ?>
-        
-        <a href="<?php echo URL; ?>login/doLogout">fucking logout</a>
+
+        <a href="<?php echo URL; ?>login/doLogout"> logout</a>
     <?php else: ?>
-        <a href="<?php echo URL; ?>login">fucking login</a>
+        <a href="<?php echo URL; ?>login"> login</a>
     <?php endif; ?>
 </div>
     

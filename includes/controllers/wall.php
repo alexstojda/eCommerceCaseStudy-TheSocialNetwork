@@ -1,33 +1,34 @@
 <?php
 
-class  Wall extends Controller {
+class Wall extends Controller {
 
     function __construct() {
         parent::__construct();
+        Session::checkMember();
     }
-    
+
     function index() {
 
         if(isset($_GET['u'])){
-          $uid = $_GET['u'];
+            $uid = $_GET['u'];
         }
         else{
-            
-          if(isset($_Session['UserID']))
-            header("Location: ../wall?u=". $_Session['UserID']);
-          else
-             header("Location: ../home");
+
+            if(Session::get('my_user'))
+                header("Location: ../wall?u=". Session::get('my_user')['id']);
+            else
+                header("Location: ../home");
         }
-
+        //THIS FUCKING WORKS
         $this->view->title = 'Wall';
-
-        $this->wall = $this->loadModel('Wall');
-        $this->post = $this->loadModel('Post');
+        $this->wall = $this->getModel('Wall');
+        $this->wall->wallUser = $this->getModel('User',$uid);
+        $this->post = $this->getModel('Post');
         $this->wall->init($uid);
-        $this->view->name = $this->wall->getName()['name'];
+        $this->view->name = $this->wall->getName();
+
         $this->view->render('wall/index');
-
-
     }
+
 
 }
