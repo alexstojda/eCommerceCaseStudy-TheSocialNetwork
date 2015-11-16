@@ -1,6 +1,6 @@
 <?php
 
-	class Group_Post extends Model
+	class _Group_Post extends Model
 	{
 
 		private $post_id;

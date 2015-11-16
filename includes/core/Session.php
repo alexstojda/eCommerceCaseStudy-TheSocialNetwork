@@ -29,10 +29,10 @@ class Session
     public static function checkMember()
     {
         self::init();
-
-        if (self::get('loggedIn') == false) {
-            self::destroy();
-            header('location: '.URL.'login?error=1');
+        echo 'check ';
+        echo self::get('loggedIn');
+        if (self::get('loggedIn')) {
+            header('Location: ../login?error=2');
             exit;
         }
     }

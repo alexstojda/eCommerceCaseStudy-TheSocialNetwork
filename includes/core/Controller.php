@@ -19,7 +19,7 @@ class Controller {
         if (file_exists($path)) {
             require $modelPath .$name.'.php';
             
-            $modelName = $name . '';
+            $modelName = '_' . $name;
             $this->model = new $modelName();
         }        
     }

@@ -1,6 +1,6 @@
 <?php
 
-	class Groups extends Model
+	class _Groups extends Model
 	{
 
 		private $group_id;

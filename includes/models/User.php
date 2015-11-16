@@ -1,6 +1,6 @@
 <?php
 
-class User extends Model
+class _User extends Model
 {
     private $userID;
     private $username;
@@ -24,7 +24,7 @@ class User extends Model
 	}
 
 	public function authenticate() {
-        $st = $this->db->select('SELECT * FROM users WHERE username = :username, passwurd = :pass', array(
+        $st = $this->db->select('SELECT * FROM users WHERE username = :username AND password = :pass', array(
             ':username' => $_POST['inputUser'],
             ':pass' => Hash::create('sha256', $_POST['inputPassword'], HASH_PW_KEY)
         ));
