@@ -14,7 +14,7 @@ define('DB_PASS', 'ybu4a3agy');
 
 // The sitewide hashkey, do not change this because its used for passwords!
 // This is for other hash keys... Not sure yet
-define('HASH_GENERAL_KEY', 'MixitUp200');
+define('HASH_GENERAL_KEY', 'IfYouNeedOtherHashes');
 
 // This is for database passwords only
-define('HASH_PW_KEY', 'catsFLYhigh2000miles');
+define('HASH_PW_KEY', 'Hello...IsItMeYoureLookingFor!!___TeamB4N4');

@@ -1,6 +1,3 @@
-
-
-
 <div style="margin: 10%">
     <?php if(isset($this->errorMessage)) { ?>
         <div class='alert alert-danger alert-dismissible' role='alert'>

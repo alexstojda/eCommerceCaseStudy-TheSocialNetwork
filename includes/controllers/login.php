@@ -6,7 +6,7 @@ class Login extends Controller {
         parent::__construct();
 
     }
-    
+
     function index($error = '')
     {
         echo Hash::create('sha256', 'derp', HASH_PW_KEY);
@@ -14,15 +14,11 @@ class Login extends Controller {
             switch ($_GET['error']) {
                 case 1:
                     $this->view->errorMessage = "Invalid Username/Password!";
-                    break;
-                default:
-                    $this->view->errorMessage = null;
-            }
-        }
 
         $this->view->title = 'Login';
         $this->view->render('login/index');
     }
+
     
     function doAuth()
     {
@@ -39,6 +35,4 @@ class Login extends Controller {
     function doLogout() {
         Session::destroy();
     }
-    
-
 }

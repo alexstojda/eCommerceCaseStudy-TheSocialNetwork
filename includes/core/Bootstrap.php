@@ -63,7 +63,7 @@ class Bootstrap {
     private function _loadExistingController()
     {
         $file = $this->_controllerPath . $this->_url[0] . '.php';
-        
+
         if (file_exists($file)) {
             require $file;
             $this->_controller = new $this->_url[0];
@@ -76,7 +76,7 @@ class Bootstrap {
     }
     
     /**
-     * If a method is passed in the GET url paremter
+     * If a method is passed in the GET url parameter
      * 
      *  http://localhost/controller/method/(param)/(param)/(param)
      *  url[0] = Controller
@@ -88,7 +88,6 @@ class Bootstrap {
     private function _callControllerMethod()
     {
         $length = count($this->_url);
-        
         // Make sure the method we are calling exists
         if ($length > 1) {
             if (!method_exists($this->_controller, $this->_url[1])) {
