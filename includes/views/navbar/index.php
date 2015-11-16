@@ -1,3 +1,7 @@
+
+<!-- partial view navbar-->
+<!-- Bootstrap component-->
+
 <nav class="navbar navbar-default">
     <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
@@ -35,12 +39,20 @@
                 <button type="submit" class="btn btn-default">Submit</button>
             </form>
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="#" data-toggle="modal" data-target="#loginModal">Login</a></li>
+
+                <!-- Change corner link to either logout or login depending on session-->
+                <?php if(Session::get('loggedIn') === true) { ?>
+                    <li><a href="<?php echo URL ?>login/doLogout">Logout</a></li>
+                <?php } else { ?>
+                    <li><a href="#" data-toggle="modal" data-target="#loginModal">Login</a></li>
+                <?php } ?>
             </ul>
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
 </nav>
 
+<!-- Bootstrap modal component-->
+<!-- calls login/index.php for fancy login thing -->
 <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModal">
     <div class="modal-dialog modal-sm">
         <div class="modal-content">
