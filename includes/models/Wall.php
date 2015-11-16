@@ -1,13 +1,11 @@
 <?php
 
-	class Wall extends Model
+	class _Wall extends Model
 	{
 
 		private $user;
 		private $posts;
 		private $friends;
-		
-
 
 		//Getters
 		public function getUId(){
