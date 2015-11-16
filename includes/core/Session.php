@@ -28,10 +28,7 @@ class Session
 
     public static function checkMember()
     {
-        self::init();
-        echo 'check ';
-        echo self::get('loggedIn');
-        if (self::get('loggedIn')) {
+        if (self::get('loggedIn') == null) {
             header('Location: ../login?error=2');
             exit;
         }
