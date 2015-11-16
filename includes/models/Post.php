@@ -11,9 +11,9 @@ class _Post extends Model
 	private $date;
 	private $privacy;
 	
-	public function __construct($tempID = 0){
-		parent::__construct();
- 	}
+		public function __construct($tempID = 0){
+			parent::__construct();
+	 	}
 
 	//GETTERS
 	public function getPostID(){

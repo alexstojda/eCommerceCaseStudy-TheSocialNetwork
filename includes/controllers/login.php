@@ -31,7 +31,7 @@ class Login extends Controller {
                 case 2:
                     $this->view->error = ["You must login first", 'warning'];
                     break;
-            }
+           }
         }
 
         //render login partial view
@@ -39,18 +39,21 @@ class Login extends Controller {
         $this->view->render('login/index');
     }
 
+
+
     //Attempt to authenticate user credentials
     function doAuth() {
-        $this->loadModel('User');
-        $this->model->authenticate();
-        if(Session::get('loggedIn') === true) {
-            header('Location: ../member');
+        $user = $this->getModel('User');
+
+        if($user->authenticate()) {
+            header('Location: ../wall?u='.Session::get('my_user')['id']);
         }
         else {
             header('Location: ../login?error=1');
         }
-        exit();
+
     }
+
 
     //destroy session aka logout
     function doLogout() {

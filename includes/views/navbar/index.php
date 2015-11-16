@@ -41,7 +41,7 @@
             <ul class="nav navbar-nav navbar-right">
 
                 <!-- Change corner link to either logout or login depending on session-->
-                <?php if(Session::get('loggedIn') === true) { ?>
+                <?php if(Session::get('Status')) { ?>
                     <li><a href="<?php echo URL ?>login/doLogout">Logout</a></li>
                 <?php } else { ?>
                     <li><a href="#" data-toggle="modal" data-target="#loginModal">Login</a></li>
