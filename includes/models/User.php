@@ -1,6 +1,6 @@
 <?php
 
-class User extends Model
+class _User extends Model
 {
     private $userID;
     private $username;
@@ -16,11 +16,24 @@ class User extends Model
     private $postalcode;
     private $birth;
     private $privacy;
+
 //andrew did $this...i don't understand it. -Evan
-    public function __construct($tempID = 0)
-    {
-        parent::__construct();
-    }
+	public function __construct($tempID = 0) {
+		$this->userID = $tempID;
+		parent::__construct();
+	}
+
+	public function authenticate() {
+        $st = $this->db->select('SELECT * FROM users WHERE username = :username AND password = :pass', array(
+            ':username' => $_POST['inputUser'],
+            ':pass' => Hash::create('sha256', $_POST['inputPassword'], HASH_PW_KEY)
+        ));
+
+        if(count($st) > 0) {
+			Session::init();
+			Session::set('loggedIn', true);
+        }
+	}
 
 //LOOK AT THE GETTERS
 

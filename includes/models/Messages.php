@@ -1,6 +1,6 @@
 <?php
 
-	class Messages extends Model
+	class _Messages extends Model
 	{
 
 		private $message_id;

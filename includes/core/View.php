@@ -13,6 +13,7 @@ class View {
         }
         else {
             require PATH . 'views/header.php';
+            require PATH . 'views/navbar/index.php';
             require PATH . 'views/' . $name . '.php';
             require PATH . 'views/footer.php';
         }

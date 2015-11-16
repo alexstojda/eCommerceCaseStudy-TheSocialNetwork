@@ -1,6 +1,6 @@
 <?php
 
-class Post extends Model
+class _Post extends Model
 {
 	
 	private $post_id;

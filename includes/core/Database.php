@@ -29,6 +29,7 @@ class Database extends PDO
         }
         
         $sth->execute();
+
         return $sth->fetchAll($fetchMode);
     }
     

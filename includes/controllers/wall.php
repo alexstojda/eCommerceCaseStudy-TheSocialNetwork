@@ -1,6 +1,6 @@
 <?php
 
-class Index extends Controller {
+class Wall extends Controller {
 
     function __construct() {
         parent::__construct();
@@ -9,10 +9,12 @@ class Index extends Controller {
     function index() {
         //echo Hash::create('sha256', 'jesse', HASH_PASSWORD_KEY);
         //echo Hash::create('sha256', 'test2', HASH_PASSWORD_KEY);
+        $this->view->title = 'Wall';
+        $this->view->render('wall/index');
+    }
 
-        $this->view->title = 'Home';
-        $this->view->render('home/index');
-
+    function getPosts() {
+    	//This is where all the posts come form...it's pretty fucking savage
     }
     
 }
