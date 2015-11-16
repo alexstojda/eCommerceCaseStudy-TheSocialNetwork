@@ -65,9 +65,9 @@ class Bootstrap {
         $file = $this->_controllerPath . $this->_url[0] . '.php';
 
         if (file_exists($file)) {
-            require $file;
+            require_once $file;
             $this->_controller = new $this->_url[0];
-            //$this->_controller->loadModel($this->_url[0], $this->_modelPath);
+            $this->_controller->loadModel($this->_url[0], $this->_modelPath);
             return true;
         } else {
             $this->_loadDefaultController();
