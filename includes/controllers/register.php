@@ -23,13 +23,17 @@ class register extends Controller
     }
 
     public function page($page) {
-        switch ($page) {
-            case 0:
-                $this->view->render('register/index');
-                break;
 
-            default:
-                $this->view->render('register/index');
+        if ($page == 1) {
+            $this->view->render('register/authenticationInfo');
+        }
+        elseif ($page == 2) {
+            $db = Database::noParam();
+            $this->view->countries = $db->getCountries();
+            $this->view->render('register/profileInfo');
+        }
+        else {
+            $this->view->render('register/index');
         }
     }
 
