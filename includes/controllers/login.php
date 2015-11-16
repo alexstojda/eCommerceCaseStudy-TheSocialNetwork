@@ -13,7 +13,9 @@ class Login extends Controller {
         if (isset($_GET['error'])) {
             switch ($_GET['error']) {
                 case 1:
-                    $this->view->errorMessage = "Invalid Username/Password!";
+                    $this->view->error = ["Invalid Username/Password!","danger"];
+                case 2:
+                    $this->view->error = ["You must login","warning"];
             }
         }
 
