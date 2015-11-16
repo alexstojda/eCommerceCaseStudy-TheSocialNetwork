@@ -7,7 +7,7 @@ class Login extends Controller {
 
     }
 
-    function index($error = '')
+    function index()
     {
         echo Hash::create('sha256', 'derp', HASH_PW_KEY);
         if (isset($_GET['error'])) {
