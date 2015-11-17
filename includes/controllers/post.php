@@ -15,7 +15,7 @@ class Post extends Controller {
         $this->view->render('post/index');
     }
 
-    
+
     function getPosts() {
     	//This is where all the posts come form...it's pretty fucking savage
     }
