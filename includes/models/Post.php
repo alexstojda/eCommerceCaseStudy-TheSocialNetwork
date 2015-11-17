@@ -58,10 +58,4 @@ class _Post extends Model
 	 	$this->post_image = $newThing;
 	}
 
-
-
-
-
 }
-
-?>

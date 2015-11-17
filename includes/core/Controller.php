@@ -42,5 +42,6 @@ class Controller {
             else
                 return new $modelName();
         }
+        return null;
     }
 }

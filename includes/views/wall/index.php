@@ -5,8 +5,8 @@
 <div>
 	<style type="text/css">
 	.tg  {border-collapse:collapse;border-spacing:0;border-color:#aabcfe;border:none;}
-	.tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:0px;overflow:hidden;word-break:normal;border-color:#aabcfe;color:#669;background-color:#e8edff;}
-	.tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:0px;overflow:hidden;word-break:normal;border-color:#aabcfe;color:#039;background-color:#b9c9fe;}
+	.tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:0;overflow:hidden;word-break:normal;border-color:#aabcfe;color:#669;background-color:#e8edff;}
+	.tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:0;overflow:hidden;word-break:normal;border-color:#aabcfe;color:#039;background-color:#b9c9fe;}
 	.tg .tg-smzr{font-family:"Times New Roman", Times, serif !important;;vertical-align:top}
 	</style>
 	<table class="tg" align="left">
@@ -18,8 +18,8 @@
 
 	<style type="text/css" >
 	.ff  {border-collapse:collapse;border-spacing:0;border-color:#aabcfe;border:none;}
-	.ff td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:0px;overflow:hidden;word-break:normal;border-color:#aabcfe;color:#669;background-color:#e8edff;text-align:right}
-	.ff th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:0px;overflow:hidden;word-break:normal;border-color:#aabcfe;color:#039;background-color:#b9c9fe;}
+	.ff td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:0;overflow:hidden;word-break:normal;border-color:#aabcfe;color:#669;background-color:#e8edff;text-align:right}
+	.ff th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:0;overflow:hidden;word-break:normal;border-color:#aabcfe;color:#039;background-color:#b9c9fe;}
 	.ff .ff-smzr{font-family:"Times New Roman", Times, serif !important;;vertical-align:top}
 	</style>
 	<table class="ff" align="right">
@@ -30,7 +30,7 @@
 	</table>
 
 	<style type="text/css">
-	.gg  {border-collapse:collapse;border-spacing:0;border-color:#aabcfe;margin:0px auto;}
+	.gg  {border-collapse:collapse;border-spacing:0;border-color:#aabcfe;margin:0 auto;}
 	.gg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#aabcfe;color:#669;background-color:#e8edff;}
 	.gg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#aabcfe;color:#039;background-color:#b9c9fe;}
 	.gg .gg-7un6{background-color:#ffffff;color:#000000;text-align:center;vertical-align:top}

@@ -7,7 +7,7 @@ class _Wall extends Model
 	private $friends;
 	private $name;
 
-    public function init($uid) {
+    public function init() {
         $this->setUser($this->wallUser);
         $this->setName($this->wallUser->getName());
     }

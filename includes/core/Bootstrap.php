@@ -30,6 +30,7 @@ class Bootstrap {
         if ($this->_loadExistingController() != false)
             $this->_callControllerMethod();
 
+        return true;
     }
     
     /**
@@ -122,6 +123,7 @@ class Bootstrap {
                 $this->_controller->index();
                 break;
         }
+        return true;
     }
 
 }

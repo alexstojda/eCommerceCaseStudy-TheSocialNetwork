@@ -3,7 +3,7 @@
 <html>
 <head>
 
-    <title><?=(isset($this->title)) ? $this->title : 'MVC'; ?></title>
+    <title><?=(isset($this->title)) ? $this->title : 'NO TITLE'; ?></title>
 
     <!-- Jquery-->
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
@@ -13,10 +13,15 @@
     <!-- Font awesome-->
     <link rel="stylesheet" href="<?php echo URL; ?>/css/font-awesome.min.css" />
     <!-- Bootstrap-->
+
     <link rel="stylesheet" href="<?php echo URL; ?>/css/bootstrap.min.css" />
     <link rel="stylesheet" href="<?php echo URL; ?>/css/bootstrap-theme.min.css" />
 
-    <script type="text/javascript" src="<?php echo URL; ?>/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://bootswatch.com/paper/_bootswatch.scss" />
+    <link rel="stylesheet" href="https://bootswatch.com/paper/_variables.scss" /-->
+
+    <!--script type="text/javascript" src="<?php echo URL; ?>/js/bootstrap.min.js"></script-->
+    <script type="text/javascript" src="https://bootswatch.com/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="<?php echo URL; ?>/js/npm.js"></script>
 
     <?php
@@ -41,9 +46,9 @@
         <a href="<?php echo URL; ?>dashboard">Dashboard</a>
         <a href="<?php echo URL; ?>note">Notes</a>
 
-        <a href="<?php echo URL; ?>login/doLogout"> logout</a>
+        <a href="<?php echo URL; ?>auth/doLogout"> logout</a>
     <?php else: ?>
-        <a href="<?php echo URL; ?>login"> login</a>
+        <a href="<?php echo URL; ?>auth"> login</a>
     <?php endif; ?>
 </div>
     
