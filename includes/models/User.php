@@ -54,6 +54,34 @@ class _User extends Model
         }
     }
 
+    public function init_self($st) {
+
+        $this->init_generic($st);
+        $this->setPassword($st['password']);
+        $this->store();
+        //IMPORTANT
+        $this->db = null;
+    }
+
+    public function init_generic($st) {
+        $this->userID = $st['user_id'];
+        $this->username = $st['username'];
+        //self::setPassword($st['password']);
+        self::setEmail($st['email']);
+        self::setFname($st['first_name']);
+        self::setLname($st['last_name']);
+        self::setPhone($st['phone']);
+        self::setAddress($st['address']);
+        self::setCity($st['city']);
+        self::setProvince($st['province']);
+        self::setPostalcode($st['postalcode']);
+        self::setBirth($st['date_of_birth']);
+        self::setPrivacy($st['default_privacy']);
+        self:: setCountry($st['country']);
+        //IMPORTANT
+        //$this->db = null;
+    }
+
     //Save user info in session
     public function store()
     {
