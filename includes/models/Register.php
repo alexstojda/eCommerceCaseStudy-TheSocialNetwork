@@ -21,4 +21,15 @@ class _Register extends Model
     {
         return $this->db->select("SELECT * FROM countries");
     }
+
+    public function validateUsername($username)
+    {
+        $res = $this->db->select('SELECT user_id FROM users WHERE username = :username',
+            array(':username' => $username));
+        if (count($res) > 0)
+            return false;
+        else {
+            return true;
+        }
+    }
 }
