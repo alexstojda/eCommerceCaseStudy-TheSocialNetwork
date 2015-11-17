@@ -30,7 +30,6 @@ class _User extends Model
         ));
 
         if(count($st) > 0) {
-			Session::init();
 			Session::set('loggedIn', true);
         }
 	}

@@ -28,8 +28,9 @@ class register extends Controller
             $this->view->render('register/authenticationInfo');
         }
         elseif ($page == 2) {
-            $db = Database::noParam();
-            $this->view->countries = $db->getCountries();
+            echo 'loaded model';
+            $this->view->countries = $this->model->getCountries();
+            echo 'got countries';
             $this->view->render('register/profileInfo');
         }
         else {
