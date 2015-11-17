@@ -61,5 +61,3 @@ class _Events extends Model
 	}
 	
 }
-
-?>

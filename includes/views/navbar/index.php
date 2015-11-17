@@ -41,8 +41,8 @@
             <ul class="nav navbar-nav navbar-right">
 
                 <!-- Change corner link to either logout or login depending on session-->
-                <?php if(Session::get('loggedIn') === true) { ?>
-                    <li><a href="<?php echo URL ?>login/doLogout">Logout</a></li>
+                <?php if(Session::get('Status')) { ?>
+                    <li><a href="<?php echo URL ?>auth/doLogout">Logout</a></li>
                 <?php } else { ?>
                     <li><a href="#" data-toggle="modal" data-target="#loginModal">Login</a></li>
                 <?php } ?>
@@ -56,7 +56,7 @@
 <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModal">
     <div class="modal-dialog modal-sm">
         <div class="modal-content">
-            <?php require_once PATH . 'views/login/index.php' ?>
+            <?php require_once PATH . 'views/auth/index.php' ?>
         </div>
     </div>
 </div>

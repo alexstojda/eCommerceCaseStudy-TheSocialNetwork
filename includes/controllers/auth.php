@@ -5,7 +5,7 @@
  *
  * Deals with user authentication
  */
-class Login extends Controller {
+class Auth extends Controller {
 
     function __construct() {
         parent::__construct();
@@ -14,8 +14,8 @@ class Login extends Controller {
     function index() {
 
         //If already logged in, go to member area
-        if (Session::get('loggedIn') === true) {
-            header('Location: ../member');
+        if (Session::get('my_user')) {
+            header('Location: ../wall');
         }
 
         //logout alert
@@ -26,36 +26,39 @@ class Login extends Controller {
         else if (isset($_GET['error'])) {
             switch ($_GET['error']) {
                 case 1:
-                    $this->view->error = ["Invalid Username/Password!",'danger'];
+                    $this->view->error = ["Invalid Username/Password!", 'danger'];
                     break;
                 case 2:
-                    $this->view->error = ["You must login first",'warning'];
+                    $this->view->error = ["You must login first", 'warning'];
                     break;
            }
         }
 
         //render login partial view
         $this->view->title = 'Login';
-        $this->view->render('login/index');
+        $this->view->render('auth/index');
     }
+
+
 
     //Attempt to authenticate user credentials
     function doAuth() {
-        $this->loadModel('User');
-        $this->model->authenticate();
-        if(Session::get('loggedIn') === true) {
-            header('Location: ../member');
+        $user = $this->getModel('User');
+
+        if($user->authenticate()) {
+            header('Location: ../wall?u='.Session::get('my_user')['id']);
         }
         else {
-            header('Location: ../login?error=1');
+            header('Location: ../auth?error=1');
         }
-        exit();
+
     }
+
 
     //destroy session aka logout
     function doLogout() {
         Session::destroy();
-        header('Location: ../login?logout=1');
+        header('Location: ../auth?logout=1');
         exit();
     }
 }

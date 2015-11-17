@@ -7,7 +7,7 @@ require '../includes/config.php';
 function __autoload($class) {
     $file = LIBS . $class .".php";
     if (file_exists($file)) {
-        require $file;
+        require_once $file;
     }
 }
 // Load the Bootstrap!

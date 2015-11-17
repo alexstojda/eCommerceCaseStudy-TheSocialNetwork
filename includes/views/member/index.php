@@ -1,3 +1,1 @@
-<?php Session::checkMember() ?>
-
-This is member page
+This is test member page
