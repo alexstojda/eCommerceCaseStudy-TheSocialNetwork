@@ -3,7 +3,6 @@
 	class _Messages extends Model
 	{
 
-		private $message_id;
 		private $from;
 		private $to;
 		private $message;

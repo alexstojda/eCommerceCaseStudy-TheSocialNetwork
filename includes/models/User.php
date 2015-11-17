@@ -51,7 +51,6 @@ class _User extends Model
                 ))[0];
                 init_generic($st);
                 break;
-
         }
     }
 
@@ -90,11 +89,12 @@ class _User extends Model
             Session::set('Status', count($st));
             Session::set('id', $st['user_id']);
 
-        if(count($st) > 0) {
-			Session::init();
-			Session::set('loggedIn', true);
+            if (count($st) > 0) {
+                Session::init();
+                Session::set('loggedIn', true);
+            }
+            return false;
         }
-        return false;
     }
 
 //LOOK AT THE GETTERS
