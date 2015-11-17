@@ -29,5 +29,3 @@
 			$this->dateAccepted = $newThing;
 		}
 	}
-
-?>

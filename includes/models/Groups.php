@@ -39,5 +39,3 @@
 			$this->description = $newThing;
 		}
 	}
-
-?>

@@ -52,5 +52,3 @@
 			$this->creation_date  = $newThing;
 		}
 	}
-
-?>

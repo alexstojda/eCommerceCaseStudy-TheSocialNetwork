@@ -7,18 +7,9 @@ require '../includes/config.php';
 function __autoload($class) {
     $file = LIBS . $class .".php";
     if (file_exists($file)) {
-        require $file;
+        require_once $file;
     }
 }
-
-
 // Load the Bootstrap!
 $bootstrap = new Bootstrap();
-
-// Optional Path Settings
-//$bootstrap->setControllerPath();
-//$bootstrap->setModelPath();
-//$bootstrap->setDefaultFile();
-//$bootstrap->setErrorFile();
-
 $bootstrap->init();
