@@ -33,17 +33,32 @@
                     </ul>
                 </li>
             </ul>
-            <form class="navbar-form navbar-left" role="search">
+
+            <!-- USER UID IN SEARCH TO NAVIGATE AND TEST WALLS-->
+        <?php if (Session::get('my_user')) : ?>
+            <form class="navbar-form navbar-left" role="search" action="wall" method="get">
                 <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Search">
+                    <input type="text" name="u" class="form-control" required placeholder="Search">
                 </div>
                 <button type="submit" class="btn btn-default">Submit</button>
             </form>
+        <?php endif; ?>
             <ul class="nav navbar-nav navbar-right">
-
                 <!-- Change corner link to either logout or login depending on session-->
-                <?php if (Session::get('Status')) { ?>
-                    <li><a href="<?php echo URL ?>auth/doLogout">Logout</a></li>
+                <?php if (Session::get('my_user')) { ?>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                           aria-expanded="false">Hi <?= Session::get('my_user')['first_name']?> <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="<?php echo URL; ?>wall">Go to my Wall</a></li>
+                            <li><a href="#">Another action</a></li>
+                            <li><a href="#">Something else here</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="#">Separated link</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="<?php echo URL ?>auth/doLogout">Logout</a></li>
+                        </ul>
+                    </li>
                 <?php } else { ?>
                     <li><a href="#" data-toggle="modal" data-target="#loginModal">Login</a></li>
                 <?php } ?>
