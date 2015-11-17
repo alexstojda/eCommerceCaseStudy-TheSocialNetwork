@@ -16,6 +16,11 @@
     <link rel="stylesheet" href="<?php echo URL; ?>/css/bootstrap.min.css" />
     <link rel="stylesheet" href="<?php echo URL; ?>/css/bootstrap-theme.min.css" />
 
+
+
+    <link href="/css/screen.css" media="screen, projection" rel="stylesheet" type="text/css" />
+    <link href="/css/print.css" media="print" rel="stylesheet" type="text/css" />
+
     <link rel="stylesheet" href="https://bootswatch.com/paper/_bootswatch.scss" />
     <link rel="stylesheet" href="https://bootswatch.com/paper/_variables.scss" /-->
 
