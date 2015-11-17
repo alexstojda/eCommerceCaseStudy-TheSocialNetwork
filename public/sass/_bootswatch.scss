@@ -207,6 +207,7 @@ select.form-control {
   font-size: 16px;
   line-height: 1.5;
 
+  //noinspection CssInvalidPseudoSelector
   &::-ms-expand {
     display: none;
   }

@@ -55,54 +55,36 @@ class _User extends Model
         }
     }
 
-        //Save user info in session
-        public function store() {
-            Session::set('my_user',[
-                'id'        => $this->getUserID(),
-                'user'      => $this->getUsername(),
-                //'pass'      => $this->getID(),
-                'email'     => $this->getEmail(),
-                'first_name'=> $this->getFname(),
-                'last_name' => $this->getLname(),
-                'phone'     => $this->getPhone(),
-                'address'   => $this->getAddress(),
-                'city'      => $this->getCity(),
-                'country'   => $this->getCountry(),
-                'province'  => $this->getProvince(),
-                'postal'    => $this->getPostalcode(),
-                'birth'     => $this->getBirth(),
-                'privacy'   => $this->getPrivacy()
-            ]);
-        }
-
     //Save user info in session
-    public function store() {
-        Session::set('my_user',[
-            'id'        => $this->getUserID(),
-            'user'      => $this->getUsername(),
+    public function store()
+    {
+        Session::set('my_user', [
+            'id' => $this->getUserID(),
+            'user' => $this->getUsername(),
             //'pass'      => $this->getID(),
-            'email'     => $this->getEmail(),
-            'first_name'=> $this->getFname(),
+            'email' => $this->getEmail(),
+            'first_name' => $this->getFname(),
             'last_name' => $this->getLname(),
-            'phone'     => $this->getPhone(),
-            'address'   => $this->getAddress(),
-            'city'      => $this->getCity(),
-            'country'   => $this->getCountry(),
-            'province'  => $this->getProvince(),
-            'postal'    => $this->getPostalcode(),
-            'birth'     => $this->getBirth(),
-            'privacy'   => $this->getPrivacy()
+            'phone' => $this->getPhone(),
+            'address' => $this->getAddress(),
+            'city' => $this->getCity(),
+            'country' => $this->getCountry(),
+            'province' => $this->getProvince(),
+            'postal' => $this->getPostalcode(),
+            'birth' => $this->getBirth(),
+            'privacy' => $this->getPrivacy()
         ]);
     }
 
     //................. did you get it yet..... okay bye...
-    public function authenticate() {
+    public function authenticate()
+    {
         $st = $this->db->select('SELECT * FROM users WHERE username = :username AND password = :pass', array(
             ':username' => $_POST['inputUser'],
             ':pass' => Hash::create('sha256', $_POST['inputPassword'], HASH_PW_KEY)
         ))[0];
         //$this->db = null;
-        if(count($st) > 0) {
+        if (count($st) > 0) {
             $this->init_self($st);
             //THIS LOOKS RETARDED, BUT TRUST.
             Session::set('Status', count($st));
@@ -144,7 +126,8 @@ class _User extends Model
         return $this->lname;
     }
 
-    public function getName() {
+    public function getName()
+    {
         return $this->fname . ' ' . $this->lname;
     }
 
@@ -187,6 +170,7 @@ class _User extends Model
     {
         return $this->userID;
     }
+
     public function getCountry()
     {
         return $this->country;
@@ -247,6 +231,7 @@ class _User extends Model
     {
         $this->privacy = $newThings;
     }
+
     public function setCountry($country)
     {
         $this->country = $country;
