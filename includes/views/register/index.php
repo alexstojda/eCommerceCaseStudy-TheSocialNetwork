@@ -5,7 +5,7 @@
 
 <p>To begin, click the the continue button bellow</p>
 
-<form id="continue" method="post" action="<?= URL . "login/page/1" ?>">
+<form id="continue" method="post" action="<?= URL . "register/page/1" ?>">
     <input type="submit" value="submit"/>
 </form>
 

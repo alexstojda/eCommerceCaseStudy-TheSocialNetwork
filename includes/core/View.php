@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * @property array error
+ * @property string title
+ */
 class View {
 
     function __construct() {

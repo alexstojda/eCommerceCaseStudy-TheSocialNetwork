@@ -17,25 +17,25 @@ class _User extends Model
     private $birth;
     private $privacy;
 
-//andrew did $this...i don't understand it. -Evan
-//"Constructor makes generic if not logged in" -Evan
-    public function __construct($tempID = 0) {
+    //"Constructor makes generic if not logged in" -Evan
+    public function __construct($tempID = 0)
+    {
         parent::__construct();
-        switch($tempID){
+        switch ($tempID) {
             case 0 :
-                $this->userID      = 0;
-                $this->username    = 'guest';
-                $this->password    = 'nop';
-                $this->email       = 'nop';
-                $this->fname       = 'Guest';
-                $this->lname       = '';
-                $this->phone       = 'nop';
-                $this->address     = 'nop';
-                $this->city        = 'nop';
-                $this->province    = 'nop';
-                $this->postalcode  = 'nop';
-                $this->birth       = 'nop';
-                $this->privacy     = 'none';
+                $this->userID = 0;
+                $this->username = 'guest';
+                $this->password = 'nop';
+                $this->email = 'nop';
+                $this->fname = 'Guest';
+                $this->lname = '';
+                $this->phone = 'nop';
+                $this->address = 'nop';
+                $this->city = 'nop';
+                $this->province = 'nop';
+                $this->postalcode = 'nop';
+                $this->birth = 'nop';
+                $this->privacy = 'none';
                 break;
             case ($tempID === Session::get('id')) :
                 //$this->db = Database::noParam();
@@ -48,53 +48,13 @@ class _User extends Model
                 $st = $this->db->select('SELECT * FROM users WHERE user_id = :uid', array(
                     ':uid' => $tempID,
                 ))[0];
-                init_generic($st);
+                $this->init_generic($st);
                 break;
-
         }
-
-        $this->userID = $tempID;
     }
 
-    //Save user info in session
-    public function store() {
-        Session::set('my_user',[
-            'id'        => $this->getUserID(),
-            'user'      => $this->getUsername(),
-            //'pass'      => $this->getID(),
-            'email'     => $this->getEmail(),
-            'first_name'=> $this->getFname(),
-            'last_name' => $this->getLname(),
-            'phone'     => $this->getPhone(),
-            'address'   => $this->getAddress(),
-            'city'      => $this->getCity(),
-            'country'   => $this->getCountry(),
-            'province'  => $this->getProvince(),
-            'postal'    => $this->getPostalcode(),
-            'birth'     => $this->getBirth(),
-            'privacy'   => $this->getPrivacy()
-        ]);
-    }
-
-    //................. did you get it yet..... okay bye...
-    public function authenticate() {
-        $st = $this->db->select('SELECT * FROM users WHERE username = :username AND password = :pass', array(
-            ':username' => $_POST['inputUser'],
-            ':pass' => Hash::create('sha256', $_POST['inputPassword'], HASH_PW_KEY)
-        ))[0];
-        //$this->db = null;
-        if(count($st) > 0) {
-            $this->init_self($st);
-            //THIS LOOKS RETARDED, BUT TRUST.
-            Session::set('Status', count($st));
-            Session::set('id', $st['user_id']);
-
-            return true;
-        }
-        return false;
-    }
-
-    public function init_self($st) {
+    public function init_self($st)
+    {
 
         $this->init_generic($st);
         $this->setPassword($st['password']);
@@ -103,23 +63,67 @@ class _User extends Model
         $this->db = null;
     }
 
-    public function init_generic($st) {
+    public function init_generic($st)
+    {
         $this->userID = $st['user_id'];
         $this->username = $st['username'];
         //self::setPassword($st['password']);
         self::setEmail($st['email']);
-        self::setFname($st['first_name']);
-        self::setLname($st['last_name']);
+        self::setFName($st['first_name']);
+        self::setLName($st['last_name']);
         self::setPhone($st['phone']);
         self::setAddress($st['address']);
         self::setCity($st['city']);
         self::setProvince($st['province']);
-        self::setPostalcode($st['postalcode']);
+        self::setPostalCode($st['postalcode']);
         self::setBirth($st['date_of_birth']);
         self::setPrivacy($st['default_privacy']);
         self:: setCountry($st['country']);
         //IMPORTANT
         //$this->db = null;
+    }
+
+    public function store()
+    {
+        Session::set('my_user', [
+            'id' => $this->getUserID(),
+            'user' => $this->getUsername(),
+            //'pass'      => $this->getID(),
+            'email' => $this->getEmail(),
+            'first_name' => $this->getFname(),
+            'last_name' => $this->getLname(),
+            'phone' => $this->getPhone(),
+            'address' => $this->getAddress(),
+            'city' => $this->getCity(),
+            'country' => $this->getCountry(),
+            'province' => $this->getProvince(),
+            'postal' => $this->getPostalcode(),
+            'birth' => $this->getBirth(),
+            'privacy' => $this->getPrivacy()
+        ]);
+    }
+
+    public function authenticate()
+    {
+        $st = $this->db->select('SELECT * FROM users WHERE username = :username AND password = :pass', array(
+            ':username' => $_POST['inputUser'],
+            ':pass' => Hash::create('sha256', $_POST['inputPassword'], HASH_PW_KEY)
+        ))[0];
+        //$this->db = null;
+        if (count($st) > 0) {
+            $this->init_self($st);
+            //THIS LOOKS RETARDED, BUT TRUST.
+            //TODO-andrew further explain what the f*ck is going on here.
+            Session::set('Status', count($st));
+            Session::set('id', $st['user_id']);
+
+            if (count($st) > 0) {
+                Session::init();
+                Session::set('loggedIn', true);
+            }
+            return false;
+        }
+        return true;
     }
 
 //LOOK AT THE GETTERS
@@ -153,7 +157,8 @@ class _User extends Model
         return $this->lname;
     }
 
-    public function getName() {
+    public function getName()
+    {
         return $this->fname . ' ' . $this->lname;
     }
 
@@ -196,6 +201,7 @@ class _User extends Model
     {
         return $this->userID;
     }
+
     public function getCountry()
     {
         return $this->country;
@@ -204,7 +210,7 @@ class _User extends Model
     /////////////setters
     public function setPassword($newThing)
     {
-        $this->u_password = $newThing;
+        $this->password = $newThing;
     }
 
     public function setEmail($newThings)
@@ -212,12 +218,12 @@ class _User extends Model
         $this->email = $newThings;
     }
 
-    public function setFname($newThings)
+    public function setFName($newThings)
     {
         $this->fname = $newThings;
     }
 
-    public function setLname($newThings)
+    public function setLName($newThings)
     {
         $this->lname = $newThings;
     }
@@ -242,7 +248,7 @@ class _User extends Model
         $this->province = $newThings;
     }
 
-    public function setPostalcode($newThings)
+    public function setPostalCode($newThings)
     {
         $this->postalcode = $newThings;
     }
@@ -256,6 +262,7 @@ class _User extends Model
     {
         $this->privacy = $newThings;
     }
+
     public function setCountry($country)
     {
         $this->country = $country;

@@ -1,18 +1,21 @@
 <?php
 
-class Bootstrap {
+class Bootstrap
+{
 
     private $_url = null;
+    /**
+     * @var Controller
+     */
     private $_controller = null;
-    
-    private $_controllerPath =  '../includes/controllers/'; // Always include trailing slash
+
+    private $_controllerPath = '../includes/controllers/'; // Always include trailing slash
     private $_modelPath = '../includes/models/'; // Always include trailing slash
-    private $_errorFile = 'error.php';
     private $_defaultFile = 'index.php';
-    
+
     /**
      * Starts the Bootstrap
-     * 
+     *
      * @return boolean
      */
     public function init()
@@ -32,7 +35,7 @@ class Bootstrap {
 
         return true;
     }
-    
+
     /**
      * Fetches the $_GET from 'url'
      */
@@ -45,20 +48,21 @@ class Bootstrap {
         $url = filter_var($url, FILTER_SANITIZE_URL);
         $this->_url = explode('/', $url);
     }
-    
+
     /**
      * This loads if there is no GET parameter passed
      */
     private function _loadDefaultController()
     {
+        /** @noinspection PhpIncludeInspection */
         require $this->_controllerPath . $this->_defaultFile;
         $this->_controller = new Index();
         $this->_controller->index();
     }
-    
+
     /**
      * Load an existing controller if there IS a GET parameter passed
-     * 
+     *
      * @return boolean|string
      */
     private function _loadExistingController()
@@ -66,6 +70,7 @@ class Bootstrap {
         $file = $this->_controllerPath . $this->_url[0] . '.php';
 
         if (file_exists($file)) {
+            /** @noinspection PhpIncludeInspection */
             require_once $file;
             $this->_controller = new $this->_url[0];
             $this->_controller->loadModel($this->_url[0], $this->_modelPath);
@@ -75,10 +80,10 @@ class Bootstrap {
             return false;
         }
     }
-    
+
     /**
      * If a method is passed in the GET url parameter
-     * 
+     *
      *  http://localhost/controller/method/(param)/(param)/(param)
      *  url[0] = Controller
      *  url[1] = Method

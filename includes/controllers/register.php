@@ -8,6 +8,10 @@
  */
 class register extends Controller
 {
+    /**
+     * @var _Register
+     */
+    private $model;
 
     /**
      * register constructor.
@@ -17,27 +21,29 @@ class register extends Controller
         parent::__construct();
     }
 
-    public function index() {
+    public function index()
+    {
         $this->view->title = 'Create new account';
         $this->page(0);
     }
 
-    public function page($page) {
+    public function page($page)
+    {
 
         if ($page == 1) {
             $this->view->render('register/authenticationInfo');
-        }
-        elseif ($page == 2) {
-            $db = Database::noParam();
-            $this->view->countries = $db->getCountries();
+        } elseif ($page == 2) {
+            echo 'loaded model';
+            $this->view->countries = $this->model->getCountries();
+            echo 'got countries';
             $this->view->render('register/profileInfo');
-        }
-        else {
+        } else {
             $this->view->render('register/index');
         }
     }
 
-    public function doAuthInfo() {
+    public function doAuthInfo()
+    {
 
     }
 }
