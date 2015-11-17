@@ -17,12 +17,12 @@ class _User extends Model
     private $birth;
     private $privacy;
 
-    //"Constructor makes generic if not logged in" -Evan
-    public function __construct($tempID = 0)
+    //"Constructor makes generic if not own wall" -Evan
+    public function __construct($tempID = -1)
     {
         parent::__construct();
         switch ($tempID) {
-            case 0 :
+            case -1 :
                 $this->userID = 0;
                 $this->username = 'guest';
                 $this->password = 'nop';
@@ -37,18 +37,23 @@ class _User extends Model
                 $this->birth = 'nop';
                 $this->privacy = 'none';
                 break;
-            case ($tempID === Session::get('id')) :
-                //$this->db = Database::noParam();
+            case ($tempID === Session::get('my_user')['id']) : //load my wall.
                 $st = $this->db->select('SELECT * FROM users WHERE user_id = :uid', array(
                     ':uid' => $tempID,
-                ))[0];
-                $this->init_self($st);
+                ));
+                if(count($st) > 0)
+                    $this->init_self($st[0]);
+                else //that user doesn't exist, give error and redirect to self
+                    header("Location: ../wall?u=" . Session::get('my_user')['id']);
                 break;
-            default :
+            default : //check if wall exists TODO Add access control based on friendship
                 $st = $this->db->select('SELECT * FROM users WHERE user_id = :uid', array(
                     ':uid' => $tempID,
-                ))[0];
-                $this->init_generic($st);
+                ));
+                if (count($st) > 0)
+                    $this->init_generic($st[0]);
+                else //that user doesn't exist, give error and redirect to self
+                    header("Location: ../wall?u=" . Session::get('my_user')['id']);
                 break;
         }
     }
@@ -58,9 +63,7 @@ class _User extends Model
 
         $this->init_generic($st);
         $this->setPassword($st['password']);
-        $this->store();
-        //IMPORTANT
-        $this->db = null;
+        $this->store(); //STORE USER INFO IN SESSION ARRAY
     }
 
     public function init_generic($st)
@@ -79,8 +82,6 @@ class _User extends Model
         self::setBirth($st['date_of_birth']);
         self::setPrivacy($st['default_privacy']);
         self:: setCountry($st['country']);
-        //IMPORTANT
-        //$this->db = null;
     }
 
     public function store()
@@ -88,7 +89,7 @@ class _User extends Model
         Session::set('my_user', [
             'id' => $this->getUserID(),
             'user' => $this->getUsername(),
-            //'pass'      => $this->getID(),
+            //'pass'      => $this->getPassword(),
             'email' => $this->getEmail(),
             'first_name' => $this->getFname(),
             'last_name' => $this->getLname(),
@@ -105,25 +106,19 @@ class _User extends Model
 
     public function authenticate()
     {
+        //Search db for user/password and get as array
         $st = $this->db->select('SELECT * FROM users WHERE username = :username AND password = :pass', array(
             ':username' => $_POST['inputUser'],
             ':pass' => Hash::create('sha256', $_POST['inputPassword'], HASH_PW_KEY)
         ))[0];
         //$this->db = null;
-        if (count($st) > 0) {
-            $this->init_self($st);
-            //THIS LOOKS RETARDED, BUT TRUST.
-            //TODO-andrew further explain what the f*ck is going on here.
-            Session::set('Status', count($st));
-            Session::set('id', $st['user_id']);
-
-            if (count($st) > 0) {
-                Session::init();
-                Session::set('loggedIn', true);
-            }
-            return false;
+        if (count($st) > 0)  // if count is not 0, user & password was right
+        {
+            $this->init_self($st); //initialize from statement and store user info in session as array
+            Session::set('id', $st['user_id']); //Set user's own id to session (if we want to switch from using user info array)
+            return true;
         }
-        return true;
+        return false;
     }
 
 //LOOK AT THE GETTERS

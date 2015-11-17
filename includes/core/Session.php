@@ -11,7 +11,6 @@ class Session
             session_start();
         }
         //ALL THE SESSION DEBUGS...
-        //echo 'Login Status : ' . self::get('Status') . '         ' . '</br>';
         echo 'session file: ', ini_get('session.save_path') . '/' . 'sess_' . session_id(), ' ';
         echo 'size: ', filesize(ini_get('session.save_path') . '/' . 'sess_' . session_id()), "</br>";
         self::dump();
@@ -40,17 +39,19 @@ class Session
     //Authenticate on member only pages
     public static function checkMember()
     {
-        if (!self::get('Status')) {
-            header('Location: ../login?error=2');
+        if (!self::get('my_user')) {
+            header('Location: ../auth?error=2');
             exit;
         }
     }
 
+    //Sometimes needed cos sessions are being weird
     public static function commit()
     {
         session_write_close();
     }
 
+    //DEBUG
     public static function dump()
     {
         var_dump($_SESSION);
