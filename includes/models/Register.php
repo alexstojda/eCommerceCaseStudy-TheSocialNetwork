@@ -17,7 +17,8 @@ class _Register extends Model
         parent::__construct();
     }
 
-    public function getCountries() {
+    public function getCountries()
+    {
         return $this->db->select("SELECT * FROM countries");
     }
 }

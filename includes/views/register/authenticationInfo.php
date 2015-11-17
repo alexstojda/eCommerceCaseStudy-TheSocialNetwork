@@ -8,7 +8,7 @@
             <td>
                 <input type="text" pattern="^([A-z]|\d){2,16}$" name=username
                        id=username title="Between 6 and 16 alphanumeric characters"
-                       value='' />
+                       value=''/>
             </td>
         </tr>
         <tr>
@@ -17,7 +17,7 @@
             </td>
             <td>
                 <input type="password" pattern="^([A-z]|\d){6,16}$" name=password
-                       id=password title="Between 6 and 16 alphanumeric characters" />
+                       id=password title="Between 6 and 16 alphanumeric characters"/>
             </td>
         </tr>
         <tr>
@@ -27,12 +27,12 @@
             <td>
                 <input type="password" pattern="^([A-z]|\d){6,16}$"
                        name=confPassword id=confPassword
-                       title="Between 6 and 16 alphanumeric characters" />
+                       title="Between 6 and 16 alphanumeric characters"/>
             </td>
         </tr>
         <tr>
             <td colspan=2>
-                <input type=submit name=submitAccount id=page1submit value=Continue />
+                <input type=submit name=submitAccount id=page1submit value=Continue/>
             </td>
         </tr>
     </table>

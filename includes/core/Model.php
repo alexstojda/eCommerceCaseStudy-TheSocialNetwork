@@ -1,10 +1,12 @@
 <?php
 
-class Model {
+class Model
+{
 
     protected $db;
 
-    function __construct() {
+    function __construct()
+    {
         $this->db = Database::noParam();
     }
 

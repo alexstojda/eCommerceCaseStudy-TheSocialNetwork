@@ -1,43 +1,47 @@
 <?php
 
-class Controller {
+abstract class Controller
+{
 
-    function __construct() {
+    function __construct()
+    {
         Session::init(); //init session for all pages
         $this->view = new View();
     }
-    
+    abstract function index();
     /**
-     * 
+     *
      * @param string $name Name of the model
-     * @param string $path Location of the models
+     * @param string $modelPath
      */
-    public function loadModel($name, $modelPath = '../includes/models/') {
-        $path = $modelPath . $name.'.php';
+    public function loadModel($name, $modelPath = '../includes/models/')
+    {
+        $path = $modelPath . $name . '.php';
 
         if (file_exists($path)) {
-            require $modelPath .$name.'.php';
-            
+            require $modelPath . $name . '.php';
+
             $modelName = '_' . $name;
             $this->model = new $modelName();
-        }        
+        }
     }
 
     /**
      * Loads a specified model and returns it.
      *
      * @param string $name Name of the model
-     * @param if you want to pass construct parameter(s)
-     * @param string $path Location of the models
+     * @param string $modelPath
+     * @return null
      */
-    public function getModel($name, $param = null, $modelPath = '../includes/models/') {
+    public function getModel($name, $param = null, $modelPath = '../includes/models/')
+    {
         $path = $modelPath . $name . '.php';
 
         if (file_exists($path)) {
             require_once $modelPath . $name . '.php';
             $modelName = '_' . $name;
             echo 'got params:' . $param;
-            if(isset($param))
+            if (isset($param))
                 return new $modelName($param);
             else
                 return new $modelName();

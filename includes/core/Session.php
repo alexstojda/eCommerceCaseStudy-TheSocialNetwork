@@ -12,8 +12,8 @@ class Session
         }
         //ALL THE SESSION DEBUGS...
         //echo 'Login Status : ' . self::get('Status') . '         ' . '</br>';
-        echo 'session file: ', ini_get('session.save_path') . '/' . 'sess_'.session_id(), ' ';
-        echo 'size: ', filesize(ini_get('session.save_path') . '/' . 'sess_'.session_id()), "</br>";
+        echo 'session file: ', ini_get('session.save_path') . '/' . 'sess_' . session_id(), ' ';
+        echo 'size: ', filesize(ini_get('session.save_path') . '/' . 'sess_' . session_id()), "</br>";
         self::dump();
 
     }
@@ -30,7 +30,7 @@ class Session
         else
             return false;
     }
-    
+
     public static function destroy()
     {
         @session_unset();

@@ -5,13 +5,16 @@
  *
  * Deals with user authentication
  */
-class Auth extends Controller {
+class Auth extends Controller
+{
 
-    function __construct() {
+    function __construct()
+    {
         parent::__construct();
     }
 
-    function index() {
+    function index()
+    {
 
         //If already logged in, go to member area
         if (Session::get('my_user')) {
@@ -21,8 +24,7 @@ class Auth extends Controller {
         //logout alert
         if (isset($_GET['logout'])) {
             $this->view->error = ["You've logged out.", 'success'];
-        }
-        //error alerts
+        } //error alerts
         else if (isset($_GET['error'])) {
             switch ($_GET['error']) {
                 case 1:
@@ -31,7 +33,7 @@ class Auth extends Controller {
                 case 2:
                     $this->view->error = ["You must login first", 'warning'];
                     break;
-           }
+            }
         }
 
         //render login partial view
@@ -40,15 +42,15 @@ class Auth extends Controller {
     }
 
 
-
     //Attempt to authenticate user credentials
-    function doAuth() {
+    function doAuth()
+    {
         $user = $this->getModel('User');
 
-        if($user->authenticate()) {
-            header('Location: ../wall?u='.Session::get('my_user')['id']);
-        }
-        else {
+        /** @var _User $user */
+        if ($user->authenticate()) {
+            header('Location: ../wall?u=' . Session::get('my_user')['id']);
+        } else {
             header('Location: ../auth?error=1');
         }
 
@@ -56,7 +58,8 @@ class Auth extends Controller {
 
 
     //destroy session aka logout
-    function doLogout() {
+    function doLogout()
+    {
         Session::destroy();
         header('Location: ../auth?logout=1');
         exit();

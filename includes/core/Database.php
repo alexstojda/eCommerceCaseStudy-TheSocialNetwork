@@ -17,8 +17,8 @@ class Database extends PDO
     /**
      * select
      * @param string $sql An SQL string
-     * @param array $array Paramters to bind
-     * @param constant $fetchMode A PDO Fetch mode
+     * @param array $array Parameters to bind
+     * @param int $fetchMode A PDO Fetch mode
      * @return mixed
      */
     public function select($sql, $array = array(), $fetchMode = PDO::FETCH_ASSOC)
@@ -36,7 +36,7 @@ class Database extends PDO
     /**
      * insert
      * @param string $table A name of table to insert into
-     * @param string $data An associative array
+     * @param Array $data An associative array
      */
     public function insert($table, Array $data)
     {
@@ -57,7 +57,7 @@ class Database extends PDO
     /**
      * update
      * @param string $table A name of table to insert into
-     * @param string $data An associative array
+     * @param Array $data An associative array
      * @param string $where the WHERE query part
      */
     public function update($table, Array $data, $where)
