@@ -21,13 +21,14 @@ class Wall extends Controller
             //SETUP AND INIT BASIC WALL
 
             $this->loadModel('Wall');
-            $this->model->setUser($this->getModel('User', $uid));
-            $this->model->init();
+            $this->model->init($this->getModel('User', $uid));
             $this->view->name = $this->model->getName();
 
             //GET POSTS FROM MODEL
-            foreach ($this->model->getUPosts() as $a_post) {
-                $this->view->posts[] = $this->getModel('Post',$a_post['post_id']);
+            if (!empty($this->model->getUPosts())) {
+                foreach ($this->model->getUPosts() as $a_post) {
+                    $this->view->posts[] = $this->getModel('Post', $a_post['post_id']);
+                }
             }
 
             //FINALLY RENDER THE PAGE HTML

@@ -1,8 +1,5 @@
 <?php
 
-/**
- * @property _User wallUser
- */
 class _Wall extends Model
 {
     private $user;
@@ -14,46 +11,25 @@ class _Wall extends Model
         parent::__construct();
     }
 
-    public function init()
+    public function init($new_user)
     {
         //GET USER INFORMATION TODO: About user tab and short info block like FB
-        //$this->setUser($this->wallUser);
-        $this->setName($this->user->getName());
+        $this->setUser($new_user);
+        $this->setName($new_user->getName());
 
         //RETRIEVE ALL POSTS
         $st = $this->db->select('SELECT * FROM post WHERE post_to = :from', array(
-            ':from' => $this->user->getID()
+            ':from' => $new_user->getID()
         ));
 
         if(count($st) > 0) {
             $this->posts = $st;
         } else { //no posts on wall ;(
-            echo 'PUT NO POST MESSAGE ON THE WALL';
+            echo 'Sucks to suck, ' . $this->getName();
         }
     }
 
     //Getters
-    public function getUser()
-    {
-        return $this->user;
-    }
-
-    public function setUser($user)
-    {
-        $this->user = $user;
-    }
-
-    public function getUPosts()
-    {
-        return $this->posts;
-    }
-
-    public function getUFriends()
-    {
-        return $this->friends;
-    }
-
-    //Setters
 
     public function getName()
     {
@@ -64,6 +40,28 @@ class _Wall extends Model
     {
         $this->name = $name;
 
+    }
+
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    public function setUser($user)
+    {
+        $this->user = $user;
+    }
+
+    //Setters
+
+    public function getUPosts()
+    {
+        return $this->posts;
+    }
+
+    public function getUFriends()
+    {
+        return $this->friends;
     }
 
     public function setFriends($user)
