@@ -1,14 +1,21 @@
 <?php
 
+/**
+ * Class Controller
+ *
+ * @property model
+ * @property view
+ */
 abstract class Controller
 {
 
-    function __construct()
+    public function __construct()
     {
         Session::init(); //init session for all pages
         $this->view = new View();
     }
-    abstract function index();
+
+    abstract public function index();
     /**
      *
      * @param string $name Name of the model
@@ -19,7 +26,7 @@ abstract class Controller
         $path = $modelPath . $name . '.php';
 
         if (file_exists($path)) {
-            require $modelPath . $name . '.php';
+            require_once $modelPath . $name . '.php';
 
             $modelName = '_' . $name;
             $this->model = new $modelName();

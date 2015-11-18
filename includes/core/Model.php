@@ -1,11 +1,16 @@
 <?php
 
+/**
+ * Class Model
+ *
+ * @property $db
+ */
 class Model
 {
 
     protected $db;
 
-    function __construct()
+    public function __construct()
     {
         $this->db = Database::noParam();
     }

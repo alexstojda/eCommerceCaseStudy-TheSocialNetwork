@@ -19,10 +19,9 @@
     <!--link rel="stylesheet" href="<?php //echo URL; ?>/css/bootstrap.min.css" /-->
     <!--link rel="stylesheet" href="<?php //echo URL; ?>/css/bootstrap-theme.min.css" /-->
 
-    <!-- Bootstrap Theme-->
-    <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.5/paper/bootstrap.min.css" rel="stylesheet"
-          integrity="sha256-hMIwZV8FylgKjXnmRI2YY0HLnozYr7Cuo1JvRtzmPWs= sha512-k+wW4K+gHODPy/0gaAMUNmCItIunOZ+PeLW7iZwkDZH/wMaTrSJTt7zK6TGy6p+rnDBghAxdvu1LX2Ohg0ypDw=="
-          crossorigin="anonymous">
+    <!-- Bootstrap Theme @http://bootswatch>
+    <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.5/cerulean/bootstrap.min.css" rel="stylesheet"-->
+    <link href="<?php echo URL; ?>/css/bootstrap.min.css" rel="stylesheet">
     <script type="text/javascript" src="<?php echo URL; ?>/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="<?php echo URL; ?>/js/npm.js"></script>
 
@@ -43,8 +42,8 @@
         <a href="<?php echo URL; ?>help">Help</a>
     <?php endif; ?>
     <?php if (Session::get('my_user')) : ?>
-        <a href="<?php echo URL; ?>dashboard">Dashboard</a>
-        <a href="<?php echo URL; ?>note">Notes</a>
+        <a href="<?php echo URL; ?>timeline">Timeline</a>
+        <a href="<?php echo URL . 'wall?u=' . Session::get('my_user')['id'] ?>">My Wall</a>
 
         <a href="<?php echo URL; ?>auth/doLogout"> logout</a>
     <?php else: ?>

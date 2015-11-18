@@ -3,11 +3,11 @@
 class Bootstrap
 {
 
-    private $_url = null;
+    private $_url;
     /**
      * @var Controller
      */
-    private $_controller = null;
+    private $_controller;
 
     private $_controllerPath = '../includes/controllers/'; // Always include trailing slash
     private $_modelPath = '../includes/models/'; // Always include trailing slash
@@ -30,7 +30,7 @@ class Bootstrap
             return false;
         }
 
-        if ($this->_loadExistingController() != false)
+        if ($this->_loadExistingController() !== false)
             $this->_callControllerMethod();
 
         return true;

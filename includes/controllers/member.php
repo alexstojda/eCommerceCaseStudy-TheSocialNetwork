@@ -3,7 +3,7 @@
 class Member extends Controller
 {
 
-    function index()
+    public function index()
     {
         Session::checkMember();
         $this->view->title = 'Member';

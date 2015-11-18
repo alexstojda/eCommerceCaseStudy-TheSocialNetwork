@@ -44,7 +44,7 @@ class _User extends Model
                 if(count($st) > 0)
                     $this->init_self($st[0]);
                 else //that user doesn't exist, give error and redirect to self
-                    header("Location: ../wall?u=" . Session::get('my_user')['id']);
+                    header('Location: ../wall?u=' . Session::get('my_user')['id']);
                 break;
             default : //check if wall exists TODO Add access control based on friendship
                 $st = $this->db->select('SELECT * FROM users WHERE user_id = :uid', array(
@@ -53,7 +53,7 @@ class _User extends Model
                 if (count($st) > 0)
                     $this->init_generic($st[0]);
                 else //that user doesn't exist, give error and redirect to self
-                    header("Location: ../wall?u=" . Session::get('my_user')['id']);
+                    header('Location: ../wall?u=' . Session::get('my_user')['id']);
                 break;
         }
     }
@@ -104,6 +104,130 @@ class _User extends Model
         ]);
     }
 
+    public function getUserID()
+    {
+        return $this->userID;
+    }
+
+//LOOK AT THE GETTERS
+
+    public function getUsername()
+    {
+        return $this->username;
+    }
+
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    public function setEmail($newThings)
+    {
+        $this->email = $newThings;
+    }
+
+    public function getFname()
+    {
+        return $this->fname;
+    }
+
+    public function setFName($newThings)
+    {
+        $this->fname = $newThings;
+    }
+
+    public function getLname()
+    {
+        return $this->lname;
+    }
+
+    public function setLName($newThings)
+    {
+        $this->lname = $newThings;
+    }
+
+    public function getPhone()
+    {
+        return $this->phone;
+    }
+
+    public function setPhone($newThings)
+    {
+        $this->phone = $newThings;
+    }
+
+    public function getAddress()
+    {
+        return $this->address;
+    }
+
+    public function setAddress($newThings)
+    {
+        $this->address = $newThings;
+    }
+
+    public function getCity()
+    {
+        return $this->city;
+    }
+
+    public function setCity($newThings)
+    {
+        $this->city = $newThings;
+    }
+
+    public function getCountry()
+    {
+        return $this->country;
+    }
+
+    public function setCountry($country)
+    {
+        $this->country = $country;
+    }
+
+    public function getProvince()
+    {
+        return $this->province;
+    }
+
+    /////////////setters
+
+    public function setProvince($newThings)
+    {
+        $this->province = $newThings;
+    }
+
+    public function getPostalcode()
+    {
+        return $this->postalcode;
+    }
+
+    public function setPostalCode($newThings)
+    {
+        $this->postalcode = $newThings;
+    }
+
+    public function getBirth()
+    {
+        return $this->birth;
+    }
+
+    public function setBirth($newThings)
+    {
+        $this->birth = $newThings;
+    }
+
+    public function getPrivacy()
+    {
+        return $this->privacy;
+    }
+
+    public function setPrivacy($newThings)
+    {
+        $this->privacy = $newThings;
+    }
+
     public function authenticate()
     {
         //Search db for user/password and get as array
@@ -121,15 +245,9 @@ class _User extends Model
         return false;
     }
 
-//LOOK AT THE GETTERS
     public function getID()
     {
         return $this->userID;
-    }
-
-    public function getUsername()
-    {
-        return $this->username;
     }
 
     public function getPassword()
@@ -137,129 +255,13 @@ class _User extends Model
         return $this->password;
     }
 
-    public function getEmail()
-    {
-        return $this->email;
-    }
-
-    public function getFname()
-    {
-        return $this->fname;
-    }
-
-    public function getLname()
-    {
-        return $this->lname;
-    }
-
-    public function getName()
-    {
-        return $this->fname . ' ' . $this->lname;
-    }
-
-    public function getPhone()
-    {
-        return $this->phone;
-    }
-
-    public function getAddress()
-    {
-        return $this->address;
-    }
-
-    public function getCity()
-    {
-        return $this->city;
-    }
-
-    public function getProvince()
-    {
-        return $this->province;
-    }
-
-    public function getPostalcode()
-    {
-        return $this->postalcode;
-    }
-
-    public function getBirth()
-    {
-        return $this->birth;
-    }
-
-    public function getPrivacy()
-    {
-        return $this->privacy;
-    }
-
-    public function getUserID()
-    {
-        return $this->userID;
-    }
-
-    public function getCountry()
-    {
-        return $this->country;
-    }
-
-    /////////////setters
     public function setPassword($newThing)
     {
         $this->password = $newThing;
     }
 
-    public function setEmail($newThings)
+    public function getName()
     {
-        $this->email = $newThings;
-    }
-
-    public function setFName($newThings)
-    {
-        $this->fname = $newThings;
-    }
-
-    public function setLName($newThings)
-    {
-        $this->lname = $newThings;
-    }
-
-    public function setPhone($newThings)
-    {
-        $this->phone = $newThings;
-    }
-
-    public function setAddress($newThings)
-    {
-        $this->address = $newThings;
-    }
-
-    public function setCity($newThings)
-    {
-        $this->city = $newThings;
-    }
-
-    public function setProvince($newThings)
-    {
-        $this->province = $newThings;
-    }
-
-    public function setPostalCode($newThings)
-    {
-        $this->postalcode = $newThings;
-    }
-
-    public function setBirth($newThings)
-    {
-        $this->birth = $newThings;
-    }
-
-    public function setPrivacy($newThings)
-    {
-        $this->privacy = $newThings;
-    }
-
-    public function setCountry($country)
-    {
-        $this->country = $country;
+        return $this->fname . ' ' . $this->lname;
     }
 }

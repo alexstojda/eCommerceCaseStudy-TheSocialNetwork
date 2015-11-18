@@ -17,12 +17,12 @@ class _Wall extends Model
     public function init()
     {
         //GET USER INFORMATION TODO: About user tab and short info block like FB
-        $this->setUser($this->wallUser);
-        $this->setName($this->wallUser->getName());
+        //$this->setUser($this->wallUser);
+        $this->setName($this->user->getName());
 
         //RETRIEVE ALL POSTS
         $st = $this->db->select('SELECT * FROM post WHERE post_to = :from', array(
-            ':from' => $this->wallUser->getID()
+            ':from' => $this->user->getID()
         ));
 
         if(count($st) > 0) {
@@ -38,6 +38,11 @@ class _Wall extends Model
         return $this->user;
     }
 
+    public function setUser($user)
+    {
+        $this->user = $user;
+    }
+
     public function getUPosts()
     {
         return $this->posts;
@@ -48,15 +53,17 @@ class _Wall extends Model
         return $this->friends;
     }
 
+    //Setters
+
     public function getName()
     {
         return $this->name;
     }
 
-    //Setters
-    public function setUser($user)
+    public function setName($name)
     {
-        $this->user = $user;
+        $this->name = $name;
+
     }
 
     public function setFriends($user)
@@ -71,12 +78,6 @@ class _Wall extends Model
         /*
         Get posts from database
         */
-    }
-
-    public function setName($name)
-    {
-        $this->name = $name;
-
     }
 
 }

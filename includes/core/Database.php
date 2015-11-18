@@ -21,7 +21,7 @@ class Database extends PDO
      * @param int $fetchMode A PDO Fetch mode
      * @return mixed
      */
-    public function select($sql, $array = array(), $fetchMode = PDO::FETCH_ASSOC)
+    public function select($sql, array $array, $fetchMode = PDO::FETCH_ASSOC)
     {
         $sth = $this->prepare($sql);
         foreach ($array as $key => $value) {
@@ -38,7 +38,7 @@ class Database extends PDO
      * @param string $table A name of table to insert into
      * @param Array $data An associative array
      */
-    public function insert($table, Array $data)
+    public function insert($table, array $data)
     {
         ksort($data);
         
@@ -60,7 +60,7 @@ class Database extends PDO
      * @param Array $data An associative array
      * @param string $where the WHERE query part
      */
-    public function update($table, Array $data, $where)
+    public function update($table, array $data, $where)
     {
         ksort($data);
         

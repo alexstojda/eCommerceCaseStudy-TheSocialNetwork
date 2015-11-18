@@ -1,36 +1,37 @@
 <?php
 
 /**
- * @property _wall wall
+ * @property _Wall model
+ *
  */
 class Wall extends Controller
 {
 
-    function __construct()
+    public function __construct()
     {
         parent::__construct();
         Session::checkMember();
     }
 
-    function index()
+    public function index()
     {
-
         if (isset($_GET['u'])) {
             $uid = $_GET['u'];
 
             //SETUP AND INIT BASIC WALL
-            $this->view->title = 'Wall';
-            $this->wall = $this->getModel('Wall');
-            $this->wall->wallUser = $this->getModel('User', $uid);
-            $this->wall->init();
-            $this->view->name = $this->wall->getName();
+
+            $this->loadModel('Wall');
+            $this->model->setUser($this->getModel('User', $uid));
+            $this->model->init();
+            $this->view->name = $this->model->getName();
 
             //GET POSTS FROM MODEL
-            foreach($this->wall->getUPosts() as $a_post) {
+            foreach ($this->model->getUPosts() as $a_post) {
                 $this->view->posts[] = $this->getModel('Post',$a_post['post_id']);
             }
 
             //FINALLY RENDER THE PAGE HTML
+            $this->view->title = $this->model->getName() . '\'s Wall';
             $this->view->render('wall/index');
         } else {
 
@@ -39,8 +40,5 @@ class Wall extends Controller
             else
                 header("Location: ../home");
         }
-
     }
-
-
 }

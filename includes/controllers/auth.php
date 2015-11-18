@@ -8,12 +8,12 @@
 class Auth extends Controller
 {
 
-    function __construct()
+    public function __construct()
     {
         parent::__construct();
     }
 
-    function index()
+    public function index()
     {
 
         //If already logged in, go to member area
@@ -23,15 +23,15 @@ class Auth extends Controller
 
         //logout alert
         if (isset($_GET['logout'])) {
-            $this->view->error = ["You've logged out.", 'success'];
+            $this->view->alerts[] = ["You've logged out.", 'success'];
         } //error alerts
         else if (isset($_GET['error'])) {
             switch ($_GET['error']) {
                 case 1:
-                    $this->view->error = ["Invalid Username/Password!", 'danger'];
+                    $this->view->alerts[] = ["Invalid Username/Password!", 'danger'];
                     break;
                 case 2:
-                    $this->view->error = ["You must login first", 'warning'];
+                    $this->view->alerts[] = ["You must login first", 'warning'];
                     break;
             }
         }
@@ -43,7 +43,7 @@ class Auth extends Controller
 
 
     //Attempt to authenticate user credentials
-    function doAuth()
+    public function doAuth()
     {
         $user = $this->getModel('User');
 
@@ -58,7 +58,7 @@ class Auth extends Controller
 
 
     //destroy session aka logout
-    function doLogout()
+    public function doLogout()
     {
         Session::destroy();
         header('Location: ../auth?logout=1');

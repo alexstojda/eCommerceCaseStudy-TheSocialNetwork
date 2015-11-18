@@ -3,12 +3,12 @@
 class Post extends Controller
 {
 
-    function __construct()
+    public function __construct()
     {
         parent::__construct();
     }
 
-    function index()
+    public function index()
     {
 
         //$this->loadModel("Wall");
@@ -19,12 +19,12 @@ class Post extends Controller
     }
 
 
-    function getPosts()
+    public function getPosts()
     {
         //This is where all the posts come form...it's pretty fucking savage
     }
 
-    function getFriends()
+    public function getFriends()
     {
         //As sad as this method is named. It will be used to populate the table of friends on the side of the page.
         //may want to make this link to other pages as well

@@ -1,6 +1,5 @@
 .idea/
 .bs_less/
-bootswatch/
-public_bak/
+/includes/config.php
 *.xml
 *.iml
