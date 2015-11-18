@@ -28,7 +28,7 @@ Already comes installed with XAMPP, all you need is to enable it :)
 #### XAMPP php.ini Changes
 1. Open xampp control panel
 2. Hit apache config button and choose php.ini
-3. ```Ctrl+F``` and find [XDebug]  (at bottom if you feel like scrolling)
+3. ```Ctrl+F``` and find [XDebug]  at bottom if you feel like scrolling
 4. remove everything because we don't need profiler, that's too advanced bruh
 5. Copy & Paste these lines
 ```
