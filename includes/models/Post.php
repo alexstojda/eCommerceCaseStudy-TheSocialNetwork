@@ -23,7 +23,6 @@ class _Post extends Model
             ':id' => $tempID
         ));
         if(count($st) > 0) {
-            echo '</br></br>';
             $this->setAll($st[0]);
         }
     }
