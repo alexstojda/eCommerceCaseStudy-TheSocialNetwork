@@ -32,4 +32,14 @@ class _Register extends Model
             return true;
         }
     }
+
+    public function validateCountry($ISOid) {
+        $res = $this->db->select('SELECT country_ISO_ID FROM countries WHERE country_ISO_ID = :id',
+            array(':id' => $ISOid));
+        if (count($res) == 1)
+            return true;
+        else {
+            return false;
+        }
+    }
 }
