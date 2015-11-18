@@ -45,97 +45,16 @@
 	  <tr>
 		<th class="gg-7un6" colspan="2">Posts</th>
 	  </tr>
-	  <tr>
-		<td colspan="2">bitch 1 post</td>
-	  </tr>
-	  <tr>
-		<td class="gg-kixb" rowspan="2">First Post</td>
-		<td class="gg-kixb">Like / Dislike</td>
-	  </tr>
-	  <tr>
-		<td class="gg-pxng">Post's Karma</td>
-	  </tr>
-	  <tr>
-		<td colspan="2">bitch 2 post</td>
-	  </tr>
-	  <tr>
-		<td class="gg-kixb" rowspan="2">2</td>
-		<td class="gg-kixb">Like / Dislike</td>
-	  </tr>
-	  <tr>
-		<td class="gg-pxng">Post's Karma</td>
-	  </tr>
-	  <tr>
-		<td colspan="2">bitch 3 post</td>
-	  </tr>
-		<tr>
-		<td class="gg-kixb" rowspan="2">2</td>
-		<td class="gg-kixb">Like / Dislike</td>
-	  </tr>
-	  <tr>
-		<td class="gg-pxng">Post's Karma</td>
-	  </tr>
-	  <tr>
-		<td colspan="2">bitch 4 post</td>
-	  </tr>
-		<tr>
-		<td class="gg-kixb" rowspan="2">2</td>
-		<td class="gg-kixb">Like / Dislike</td>
-	  </tr>
-	  <tr>
-		<td class="gg-pxng">Post's Karma</td>
-	  </tr>
-	  <tr>
-		<td colspan="2">bitch 5 post</td>
-	  </tr>
-		<tr>
-			<td class="gg-kixb" rowspan="2">2</td>
-			<td class="gg-kixb">Like / Dislike</td>
-		</tr>
-	  <tr>
-		<td class="gg-pxng">Post's Karma</td>
-	  </tr>
-	  <tr>
-		<td colspan="2">bitch 5 post</td>
-	  </tr>
-		<tr>
-			<td class="gg-kixb" rowspan="2">2</td>
-			<td class="gg-kixb">Like / Dislike</td>
-		</tr>
-	  <tr>
-		<td class="gg-pxng">Post's Karma</td>
-	  </tr>
-	  <tr>
-		<td colspan="2">bitch 5 post</td>
-	  </tr>
-		<tr>
-			<td class="gg-kixb" rowspan="2">2</td>
-			<td class="gg-kixb">Like / Dislike</td>
-		</tr>
-	  <tr>
-		<td class="gg-pxng">Post's Karma</td>
-	  </tr>
-
-	  <tr>
-		<td colspan="2">bitch 5 post</td>
-	  </tr>
-		<tr>
-			<td class="gg-kixb" rowspan="2">2</td>
-			<td class="gg-kixb">Like / Dislike</td>
-		</tr>
-	  <tr>
-		<td class="gg-pxng">Post's Karma</td>
-	  </tr>
-	  <tr>
-		<td colspan="2">bitch 5 post</td>
-	  </tr>
-		<tr>
-			<td class="gg-kixb" rowspan="2">2</td>
-			<td class="gg-kixb">Like / Dislike</td>
-		</tr>
-	  <tr>
-		<td class="gg-pxng">Post's Karma</td>
-	  </tr>
+		<?php
+            if (isset($this->posts) AND count($this->posts) > 0 ) {
+                foreach($this->posts as $this->post) {
+                    include PATH . 'views/post/index.php';
+                }
+            } else { ?>
+                <tr>
+                    <td colspan="3">Sorry but it looks like no one posted on your wall yet..</td>
+                </tr>
+            <?php } ?>
 	</table>
 
 

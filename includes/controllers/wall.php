@@ -18,13 +18,19 @@ class Wall extends Controller
         if (isset($_GET['u'])) {
             $uid = $_GET['u'];
 
+            //SETUP AND INIT BASIC WALL
             $this->view->title = 'Wall';
             $this->wall = $this->getModel('Wall');
             $this->wall->wallUser = $this->getModel('User', $uid);
-            $this->post = $this->getModel('Post');
             $this->wall->init();
             $this->view->name = $this->wall->getName();
 
+            //GET POSTS FROM MODEL
+            foreach($this->wall->getUPosts() as $a_post) {
+                $this->view->posts[] = $this->getModel('Post',$a_post['post_id']);
+            }
+
+            //FINALLY RENDER THE PAGE HTML
             $this->view->render('wall/index');
         } else {
 

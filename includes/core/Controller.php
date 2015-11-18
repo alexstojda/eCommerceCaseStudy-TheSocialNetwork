@@ -40,7 +40,7 @@ abstract class Controller
         if (file_exists($path)) {
             require_once $modelPath . $name . '.php';
             $modelName = '_' . $name;
-            echo 'got params:' . $param;
+            //echo 'got params:' . $param;
             if (isset($param))
                 return new $modelName($param);
             else
