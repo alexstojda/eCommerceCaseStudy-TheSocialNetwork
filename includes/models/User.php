@@ -111,7 +111,7 @@ class _User extends Model
             ':username' => $_POST['inputUser'],
             ':pass' => Hash::create('sha256', $_POST['inputPassword'], HASH_PW_KEY)
         ))[0];
-        //$this->db = null;
+
         if (count($st) > 0)  // if count is not 0, user & password was right
         {
             $this->init_self($st); //initialize from statement and store user info in session as array
