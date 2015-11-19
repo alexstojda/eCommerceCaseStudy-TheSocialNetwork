@@ -50,12 +50,8 @@ class Database extends PDO
         foreach ($data as $key => $value) {
             $sth->bindValue(":$key", $value);
         }
-
-        print($sth->queryString);
         
         $sth->execute();
-
-        print_r($sth->errorInfo());
     }
     
     /**
