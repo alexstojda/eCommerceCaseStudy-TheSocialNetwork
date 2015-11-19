@@ -21,6 +21,10 @@ class Session
         echo 'session file: ', ini_get('session.save_path') . '/' . 'sess_' . session_id(), ' ';
         echo 'size: ', filesize(ini_get('session.save_path') . '/' . 'sess_' . session_id()), '</br>';
     }
+    
+    public static function clear($key) {
+        unset($_SESSION[$key]);
+    }
 
     public static function dump()
     {

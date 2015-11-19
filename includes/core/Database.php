@@ -37,6 +37,7 @@ class Database extends PDO
      * insert
      * @param string $table A name of table to insert into
      * @param Array $data An associative array
+     * @return boolean
      */
     public function insert($table, array $data)
     {
@@ -45,13 +46,13 @@ class Database extends PDO
         $fieldNames = implode(' ,  ', array_keys($data));
         $fieldValues = ':' . implode(', :', array_keys($data));
         
-        $sth = $this->prepare("INSERT INTO $table ('$fieldNames') VALUES ($fieldValues)");
+        $sth = $this->prepare("INSERT INTO $table (`$fieldNames`) VALUES ($fieldValues)");
         
         foreach ($data as $key => $value) {
             $sth->bindValue(":$key", $value);
         }
-
-        $sth->execute();
+        
+        return $sth->execute();
     }
     
     /**
