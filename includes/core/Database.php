@@ -37,6 +37,7 @@ class Database extends PDO
      * insert
      * @param string $table A name of table to insert into
      * @param Array $data An associative array
+     * @return boolean
      */
     public function insert($table, Array $data)
     {
