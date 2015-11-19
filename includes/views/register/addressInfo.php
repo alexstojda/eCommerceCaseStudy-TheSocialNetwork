@@ -14,11 +14,14 @@
                 <label for="address">Street Address: </label>
             </td>
             <td>
-                <input type="text" name="address" id="address" value=''
-                       pattern="^.{4,20}$" required title="Minimum 4 characters"/>
+                <input type="text" name="address" id="address"
+                       pattern="^.{4,20}$" required title="Minimum 4 characters"
+                    <?php if (isset($this->newUser['address'])) {
+                        echo "value='" . $this->newUser['address'] . "'";
+                    } ?>/>
             </td>
             <td>
-                <?php if(isset($this->addressError)) echo $this->addressError; ?>
+                <?php if (isset($this->addressError)) echo $this->addressError; ?>
             </td>
         </tr>
         <tr>
@@ -26,11 +29,14 @@
                 <label for="city">City: </label>
             </td>
             <td>
-                <input type="text" name="city" id="city" value=''
-                       pattern="^.{4,20}$" required title="Minimum 4 characters"/>
+                <input type="text" name="city" id="city"
+                       pattern="^.{4,20}$" required title="Minimum 4 characters"
+                    <?php if (isset($this->newUser['city'])) {
+                        echo "value='" . $this->newUser['city'] . "'";
+                    } ?>/>
             </td>
             <td>
-                <?php if(isset($this->cityError)) echo $this->cityError; ?>
+                <?php if (isset($this->cityError)) echo $this->cityError; ?>
             </td>
         </tr>
         <tr>
@@ -39,10 +45,13 @@
             </td>
             <td>
                 <input type="text" name="province" id="province" pattern="^.{4,20}$"
-                       required title="Minimum 4 characters" value=''/>
+                       required title="Minimum 4 characters"
+                    <?php if (isset($this->newUser['province'])) {
+                        echo "value='" . $this->newUser['province'] . "'";
+                    } ?>/>
             </td>
             <td>
-                <?php if(isset($this->provinceError)) echo $this->provinceError ?>
+                <?php if (isset($this->provinceError)) echo $this->provinceError ?>
             </td>
         </tr>
         <tr>
@@ -64,7 +73,7 @@
                 </select>
             </td>
             <td>
-                <?php if(isset($this->countryError)) echo $this->countryError; ?>
+                <?php if (isset($this->countryError)) echo $this->countryError; ?>
             </td>
         </tr>
         <tr>
@@ -74,11 +83,14 @@
             <td>
                 <input type=text name=code id=code
                        pattern="(^\d{5}(-\d{4})?$)|(^[ABCEGHJKLMNPRSTVXY]{1}\d{1}[A-Z]{1} *\d{1}[A-Z]{1}\d{1}$)"
-                       required value=''
-                       title="Canada: H0H 0H0 or H0H-0H0 || US: 99999 or 99999-9999"/>
+                       required
+                       title="Canada: H0H 0H0 or H0H-0H0 || US: 99999 or 99999-9999"
+                    <?php if (isset($this->newUser['code'])) {
+                        echo "value='" . $this->newUser['code'] . "'";
+                    } ?>/>
             </td>
             <td>
-                <?php if(isset($this->codeError)) echo $this->codeError; ?>
+                <?php if (isset($this->codeError)) echo $this->codeError; ?>
             </td>
         </tr>
         <tr>
