@@ -151,7 +151,7 @@ if (isset($_GET['error'])) {
         Curabitur in blandit est, vitae consectetur arcu. Nulla eu diam
         sapien.
 </div>
-<form action='<?= URL . '/register/doNewUser' ?>' method=POST
+<form action='<?= URL . 'register/addUser' ?>' method=POST
       style="width: 400px; margin-left: auto; margin-right: auto;">
     <table style="width: 300px;">
         <tr>

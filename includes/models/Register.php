@@ -65,7 +65,17 @@ class _Register extends Model
         }
     }
 
+    public function validateEmail($email) {
+        $res = $this->db->select('SELECT email FROM users WHERE email= :id',
+            array(':id' => $email));
+        if (count($res) > 0)
+            return false;
+        else {
+            return true;
+        }
+    }
+
     public function insertUser($user) {
-        $this->db->insert('users', $user);
+        return $this->db->insert('users', $user);
     }
 }
