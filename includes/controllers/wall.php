@@ -42,4 +42,24 @@ class Wall extends Controller
                 header("Location: ../home");
         }
     }
+
+    public function post()
+    {
+        if (isset($_POST['post'], $_GET['u'])) {
+            $this->model = $this->getModel('Post', $post = [
+                'from' => Session::get('my_user')['id'],
+                'to' => $_GET['u'],
+                'text' => $_POST['post'],
+                'image' => null,
+                'privacy' => 0
+            ]);
+
+            header("Location: ../wall?u=" . $_GET['u']);
+        } else {
+            if (Session::get('my_user'))
+                header("Location: ../wall?u=" . Session::get('my_user')['id']);
+            else
+                header("Location: ../home");
+        }
+    }
 }

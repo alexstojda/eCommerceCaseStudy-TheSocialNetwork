@@ -1,8 +1,6 @@
 <div>
 	<h1 align="center"><?php echo $this->name ?>'s Wall</h1>
 </div>
-
-<div>
 	<style scoped type="text/css">
 	.tg  {border-collapse:collapse;border-spacing:0;border-color:#aabcfe;border:none;}
 	.tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:0;overflow:hidden;word-break:normal;border-color:#aabcfe;color:#669;background-color:#e8edff;}
@@ -29,6 +27,29 @@
 	  <tr><td>Friends</td></tr> <tr><td>should </td></tr> <tr><td>be</td> </tr><tr><td>listed </td></tr> <tr><td>	here </td></tr>
 	</table>
 
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-offset-3 col-lg-5 col-md-6 col-md-offset-2">
+            <div class="form-group">
+                <form action="<?= URL ?>wall/post?u=<?= $_GET['u'] ?>" method="post">
+                    <textarea class="form-control" name="post" rows="2" required></textarea>
+
+                    <div class="input-group-btn" align="right">
+                        <button type="submit" class="btn btn-default" aria-haspopup="true" aria-expanded="false">Post
+                        </button>
+                        <!-- TODO-Evan: THIS NEEDS TO BE A FILE UPLOAD.... WHY DOES IT SUBMIT FORM????-->
+                        <button class="btn btn-default" aria-haspopup="true" aria-expanded="false">
+                            <!--input type="file" name="image"-->
+                            <i class="fa fa-camera" style="line-height: inherit"></i>
+                            <!--/input-->
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
 	<style type="text/css" scoped>
 	.gg  {border-collapse:collapse;border-spacing:0;border-color:#aabcfe;margin:0 auto;}
 	.gg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#aabcfe;color:#669;background-color:#e8edff;}
@@ -42,7 +63,8 @@
 	<col style="width:80%">
 	<col style="width:20%">
 	</colgroup>
-	  <tr>
+
+        <tr>
 		<th class="gg-7un6" colspan="2">Posts</th>
 	  </tr>
 		<?php

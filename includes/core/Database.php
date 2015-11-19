@@ -41,8 +41,8 @@ class Database extends PDO
     public function insert($table, array $data)
     {
         ksort($data);
-        
-        $fieldNames = implode('`, `', array_keys($data));
+
+        $fieldNames = implode(' ,  ', array_keys($data));
         $fieldValues = ':' . implode(', :', array_keys($data));
         
         $sth = $this->prepare("INSERT INTO $table ('$fieldNames') VALUES ($fieldValues)");
@@ -50,7 +50,7 @@ class Database extends PDO
         foreach ($data as $key => $value) {
             $sth->bindValue(":$key", $value);
         }
-        
+
         $sth->execute();
     }
     

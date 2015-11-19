@@ -6,16 +6,17 @@ class Post extends Controller
     public function __construct()
     {
         parent::__construct();
+        Session::checkMember();
     }
 
     public function index()
-    {
-
-        //$this->loadModel("Wall");
-        //$this->model->setID($userID);
-
-
-        $this->view->render('post/index');
+    { //TODO Implement privacy
+        if (isset($_GET['id'])) {
+            $this->view->post = $this->getModel('Post', $_GET['id']);
+            $this->view->render('post/index');
+        } else {
+            header('Location: ../home');
+        }
     }
 
 
