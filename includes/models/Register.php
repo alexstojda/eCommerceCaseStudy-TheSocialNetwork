@@ -66,15 +66,6 @@ class _Register extends Model
     }
 
     public function insertUser($user) {
-        $q = "INSERT INTO users
-                  (`username`, `password`, `email`,
-                  `first_name`, `last_name`, `gender_id`,
-                  `phone`, `address`, `city`, `province`,
-                  `country`, `postalcode`, `date_of_birth`)
-              VALUES (:username, :password, :email,
-                  :first_name, :last_name, :gender_id,
-                  :phone, :address, :city, :province,
-                  :country, :postalcode, :date_of_birth)";
-        $this->db->insert($q, $user);
+        $this->db->insert('users', $user);
     }
 }

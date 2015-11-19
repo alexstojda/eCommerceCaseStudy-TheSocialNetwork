@@ -67,6 +67,7 @@ class register extends Controller
 
     public function addUser() {
         $this->model->insertUser($this->newUser);
+        Session::clear('register');
     }
 
     public function validate(){
