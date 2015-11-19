@@ -66,8 +66,14 @@ class register extends Controller
     }
 
     public function addUser() {
-        $this->model->insertUser($this->newUser);
-        Session::clear('register');
+
+
+        if ($this->model->insertUser($this->newUser)) {
+            Session::clear('register');
+            header('Location: ' . URL . 'auth');
+        } else {
+            header('Location: ' . URL . 'register/page/4?error=1');
+        }
     }
 
     public function validate(){

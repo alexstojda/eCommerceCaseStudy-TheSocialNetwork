@@ -24,7 +24,10 @@ class Auth extends Controller
         //logout alert
         if (isset($_GET['logout'])) {
             $this->view->error = ["You've logged out.", 'success'];
-        } //error alerts
+        }
+        else if(isset($_GET['created']))
+            $this->view->error = ["Account created. Please login.", 'success'];
+        //error alerts
         else if (isset($_GET['error'])) {
             switch ($_GET['error']) {
                 case 1:

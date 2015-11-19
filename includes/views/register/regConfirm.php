@@ -6,7 +6,11 @@
  * Time: 2:31 PM
  */
 ?>
-
+<?php
+if (isset($_GET['error'])) {
+    echo '<h2 style="color: red">Your account could not be created. Your username may already exist.</h2>';
+    echo "<a href='" . URL . "register/page/1'>Click here to verify your username</a>";
+} ?>
 <h1>Your information:</h1>
 <table>
     <tr>
@@ -147,7 +151,8 @@
         Curabitur in blandit est, vitae consectetur arcu. Nulla eu diam
         sapien.
 </div>
-<form action='<?= URL . '/register/doNewUser' ?>' method=POST style="width: 400px; margin-left: auto; margin-right: auto;">
+<form action='<?= URL . '/register/doNewUser' ?>' method=POST
+      style="width: 400px; margin-left: auto; margin-right: auto;">
     <table style="width: 300px;">
         <tr>
             <th>
