@@ -10,45 +10,93 @@
 <h1>Your information:</h1>
 <table>
     <tr>
-        <th>Username: </th>
-        <td><?= $this->newUser['username'] ?></td>
+        <th>Username:</th>
+        <td>
+            <?php if (isset($this->newUser['username'])) {
+                echo $this->newUser['username'];
+            } ?>
+        </td>
     </tr>
     <tr>
-        <th>Name: </th>
-        <td><?= $this->newUser['first_name'] . ' ' . $this->newUser['last_name'] ?></td>
+        <th>Name:</th>
+        <td>
+            <?php if (isset($this->newUser['first_name']) && isset($this->newUser['last_name'])) {
+                echo $this->newUser['first_name'] . ' ' . $this->newUser['last_name'];
+            } ?>
+        </td>
     </tr>
     <tr>
-        <th>Gender: </th>
-        <td><?= $this->gender ?></td>
+        <th>Email:</th>
+        <td>
+            <?php if (isset($this->newUser['email'])) {
+                echo $this->newUser['email'];
+            } ?>
+        </td>
     </tr>
     <tr>
-        <th>Date of birth: </th>
-        <td><?= $this->newUser['date_of_birth'] ?></td>
+        <th>Gender:</th>
+        <td>
+            <?php if (isset($this->gender)) {
+                echo $this->gender;
+            } ?>
+        </td>
     </tr>
     <tr>
-        <th>Address: </th>
-        <td><?= $this->newUser['address'] ?></td>
+        <th>Date of birth:</th>
+        <td>
+            <?php if (isset($this->newUser['date_of_birth'])) {
+                echo $this->newUser['date_of_birth'];
+            } ?>
+        </td>
     </tr>
     <tr>
-        <th>City: </th>
-        <td><?= $this->newUser['city'] ?></td>
+        <th>Phone number:</th>
+        <td>
+            <?php if (isset($this->newUser['phone'])) {
+                echo $this->newUser['phone'];
+            } ?>
+        </td>
     </tr>
     <tr>
-        <th>Province: </th>
-        <td><?= $this->newUser['province'] ?></td>
+        <th>Address:</th>
+        <td>
+            <?php if (isset($this->newUser['address'])) {
+                echo $this->newUser['address'];
+            } ?>
+        </td>
     </tr>
     <tr>
-        <th>Country: </th>
-        <td><?= $this->country ?></td>
+        <th>City:</th>
+        <td>
+            <?php if (isset($this->newUser['city'])) {
+                echo $this->newUser['city'];
+            } ?>
+        </td>
+    </tr>
+    <tr>
+        <th>Province:</th>
+        <td>
+            <?php if (isset($this->newUser['province'])) {
+                echo $this->newUser['province'];
+            } ?>
+        </td>
+    </tr>
+    <tr>
+        <th>Country:</th>
+        <td>
+            <?php if (isset($this->country)) {
+                echo $this->country;
+            } ?>
+        </td>
     </tr>
 </table>
 <input type=button value="Modify Login Information"
-       onclick="location.href='<?= URL . 'register/page/1' ?>'" />
+       onclick="location.href='<?= URL . 'register/page/1' ?>'"/>
 <input type=button value="Modify Personal Information"
-       onclick="location.href='<?= URL . 'register/page/2' ?>'" />
+       onclick="location.href='<?= URL . 'register/page/2' ?>'"/>
 <input type=button value="Modify Address Information"
-       onclick="location.href='<?= URL . 'register/page/3' ?>'" />
-<hr />
+       onclick="location.href='<?= URL . 'register/page/3' ?>'"/>
+<hr/>
 <h1>Terms and Conditions</h1>
 <div>
     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
@@ -99,32 +147,32 @@
         Curabitur in blandit est, vitae consectetur arcu. Nulla eu diam
         sapien.
 </div>
-<form action='' method=POST>
-    <table>
+<form action='<?= URL . '/register/doNewUser' ?>' method=POST style="width: 400px; margin-left: auto; margin-right: auto;">
+    <table style="width: 300px;">
         <tr>
-            <td>
-                <label for=accept>I accept all of the above Terms and
+            <th>
+                <label style="font-weight: bold;" for=accept>I accept all of the above Terms and
                     Conditions</label>
-            </td>
+            </th>
             <td>
                 <input type="checkbox" name=accept id=accept required
-                       title="You must accept the terms and conditions" />
+                       title="You must accept the terms and conditions"/>
             </td>
         </tr>
         <?php
-        if ($canSubmit) {
-        ?>
-        <tr>
-            <td colspan=2>
-                <input type=submit name=submitOK value="Register" />
-            </td>
-        </tr>
-        <?php
+        if ($this->canSubmit) {
+            ?>
+            <tr>
+                <td colspan=2>
+                    <input type=submit name=submitOK value="Register"/>
+                </td>
+            </tr>
+            <?php
         } else {
         ?>
         <tr>
             <td colspan=2 style="color: red; font-weight: bold; font-size: 18px;">
-                <br /> Your information is incomplete, or invalid. Please review
+                <br/> Your information is incomplete, or invalid. Please review
                 your information, and modify your entries using the navigation
                 buttons above. Once complete, click the continue button to return to
                 this page.

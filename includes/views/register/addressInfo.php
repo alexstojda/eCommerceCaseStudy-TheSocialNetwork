@@ -11,6 +11,22 @@
     <table>
         <tr>
             <td>
+                <label for="phone">Phone Number: </label>
+            </td>
+            <td>
+                <input type="tel" id="phone" name="phone" required
+                       pattern="^([+\-().]|\d){8,}$"
+                       title="Valid phone number required"
+                    <?php if (isset($this->newUser['phone'])) {
+                        echo "value='" . $this->newUser['phone'] . "'";
+                    } ?>/>
+            </td>
+            <td>
+                <?php if (isset($this->phoneError)) echo $this->phoneError; ?>
+            </td>
+        </tr>
+        <tr>
+            <td>
                 <label for="address">Street Address: </label>
             </td>
             <td>
@@ -78,15 +94,15 @@
         </tr>
         <tr>
             <td>
-                <label for="code">Postal/Zip code:</label>
+                <label for="postalcode">Postal/Zip code:</label>
             </td>
             <td>
-                <input type=text name=code id=code
+                <input type=text name=postalcode id=postalcode
                        pattern="(^\d{5}(-\d{4})?$)|(^[ABCEGHJKLMNPRSTVXY]{1}\d{1}[A-Z]{1} *\d{1}[A-Z]{1}\d{1}$)"
                        required
                        title="Canada: H0H 0H0 or H0H-0H0 || US: 99999 or 99999-9999"
-                    <?php if (isset($this->newUser['code'])) {
-                        echo "value='" . $this->newUser['code'] . "'";
+                    <?php if (isset($this->newUser['postalcode'])) {
+                        echo "value='" . $this->newUser['postalcode'] . "'";
                     } ?>/>
             </td>
             <td>

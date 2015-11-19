@@ -47,8 +47,8 @@
                     <option value="">Select a gender...</option>
                     <?php
                     foreach ($this->genders as $gender) {
-                        if ($this->newUser['gender'] == $gender['gender_id'])
-                            echo '<option selected value="' . $gender['gender_id'] . '">' . $gender['gender_desc']
+                        if (isset($this->newUser['gender_id']) && $this->newUser['gender_id'] == $gender['gender_id'])
+                            echo '<option selected value=\'' . $gender['gender_id'] . '\'>' . $gender['gender_desc']
                                 . '</option>';
                         else
                             echo '<option value="' . $gender['gender_id'] . '">' . $gender['gender_desc']

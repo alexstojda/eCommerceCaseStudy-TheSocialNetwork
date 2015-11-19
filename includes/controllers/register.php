@@ -36,6 +36,8 @@ class register extends Controller
 
     public function page($page)
     {
+        if (!isset($page))
+            $page = 0;
         if ($page == 1) {
             $this->view->title = 'Login information';
             $this->view->render('register/authenticationInfo');
@@ -50,18 +52,29 @@ class register extends Controller
             $this->view->render('register/addressInfo');
         } elseif ($page == 4) {
             $this->view->title   = 'Confirm information';
-            $this->view->gender  = $this->model->getGender($this->newUser['gender_id']);
-            $this->view->country = $this->model->getCountry($this->newUser['country']);
+            if (isset($this->newUser['gender_id'])) {
+                $this->view->gender = $this->model->getGender($this->newUser['gender_id']);
+            }
+            if (isset($this->newUser['country'])) {
+                $this->view->country = $this->model->getCountry($this->newUser['country']);
+            }
+            $this->view->canSubmit = $this->validate();
             $this->view->render('register/regConfirm');
         } else {
             $this->view->render('register/index');
         }
     }
 
+    public function addUser() {
+        $this->model->insertUser($this->newUser);
+    }
+
     public function validate(){
         if (!isset($this->newUser['username']))
             return false;
         elseif (!isset($this->newUser['password']))
+            return false;
+        elseif (!isset($this->newUser['email']))
             return false;
         elseif (!isset($this->newUser['first_name']))
             return false;
@@ -71,6 +84,8 @@ class register extends Controller
             return false;
         elseif (!isset($this->newUser['date_of_birth']))
             return false;
+        elseif (!isset($this->newUser['phone']))
+            return false;
         elseif (!isset($this->newUser['address']))
             return false;
         elseif (!isset($this->newUser['city']))
@@ -78,6 +93,8 @@ class register extends Controller
         elseif (!isset($this->newUser['province']))
             return false;
         elseif (!isset($this->newUser['country']))
+            return false;
+        elseif (!isset($this->newUser['postalcode']))
             return false;
         else
             return true;
@@ -115,6 +132,13 @@ class register extends Controller
             $isValid = false;
         }
 
+        if (preg_match('/^\S+@\S+\.\S+$/', $_POST['email']) === 1)
+            $this->newUser['email'] = $_POST['email'];
+        else {
+            $this->view->emailError = 'The email is not valid';
+            $isValid = false;
+        }
+
         if ($isValid) {
             Session::set('register', $this->newUser);
             header('Location: ' . URL . 'register/page/2');
@@ -122,6 +146,7 @@ class register extends Controller
             $this->view->title = 'ERROR - Login information';
             $this->view->render('register/authenticationInfo');
         }
+        return true;
     }
 
     public function doUserInfo()
@@ -174,12 +199,13 @@ class register extends Controller
 
         if ($isValid) {
             Session::set('register', $this->newUser);
-            header('Location: ' . URL . 'register/page/4');
+            header('Location: ' . URL . 'register/page/3');
         } else {
             $this->view->title = 'ERROR - User information';
             $this->view->genders = $this->model->getGenders();
             $this->view->render('register/userInfo');
         }
+        return true;
     }
 
     public function doAddressInfo()
@@ -190,6 +216,14 @@ class register extends Controller
         }
 
         $isValid = true;
+
+        if(preg_match('/^([+\-().]|\d){8,}$/', $_POST['phone']) === 1)
+            $this->newUser['phone'] = $_POST['phone'];
+        else {
+            $this->view->phoneError = 'Phone number is not valid';
+            $isValid = false;
+        }
+
         //Server-Side check if address conforms
         if (preg_match('/^.{4,20}$/', $_POST['address']) === 1)
             $this->newUser['address'] = $_POST['address'];
@@ -223,8 +257,8 @@ class register extends Controller
         }
 
         if(preg_match('/(^\d{5}(-\d{4})?$)|(^[ABCEGHJKLMNPRSTVXY]{1}\d{1}[A-Z]{1} *\d{1}[A-Z]{1}\d{1}$)/',
-            $_POST['code']) === 1)
-            $this->newUser['code'] = $_POST['code'];
+            $_POST['postalcode']) === 1)
+            $this->newUser['postalcode'] = $_POST['postalcode'];
         else {
             $this->view->codeError = 'Postal/Zip code does not conform.';
             $isValid = false;
@@ -232,11 +266,12 @@ class register extends Controller
 
         if ($isValid) {
             Session::set('register', $this->newUser);
-            header('Location: ' . URL . 'register/page/3');
+            header('Location: ' . URL . 'register/page/4');
         } else {
             $this->view->title = 'ERROR - Profile information';
             $this->view->countries = $this->model->getCountries();
             $this->view->render('register/addressInfo');
         }
+        return true;
     }
 }

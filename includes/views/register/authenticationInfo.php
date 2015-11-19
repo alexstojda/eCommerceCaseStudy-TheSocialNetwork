@@ -46,15 +46,18 @@
         </tr>
         <tr>
             <td>
-                <label></label>
+                <label for="email">Email: </label>
             </td>
             <td>
-                <input required type="email" pattern="/^\S+@\S+\.\S+$/"
+                <input required type="email" pattern="^\S+@\S+\.\S+$"
                        name="email" id="email"
                     title="Email must be a valid email"
                     <?php if (isset($this->newUser['email'])) {
                         echo "value='" . $this->newUser['email'] . "'";
                     } ?>/>
+            </td>
+            <td>
+                <?php if (isset($this->emailError)) echo $this->emailError; ?>
             </td>
         </tr>
         <tr>
