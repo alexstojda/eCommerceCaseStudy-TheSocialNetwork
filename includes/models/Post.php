@@ -13,18 +13,25 @@ class _Post extends Model
     private $date;
     private $privacy;
 
-    public function __construct($tempID = 0)
+    public function __construct($temp)
     {
         parent::__construct();
-        if ($tempID === 0) {
+
+        if (is_array($temp)) {
+            $this->db->insert('post', [
+                'post_by' => $temp['from'],
+                'post_to' => $temp['to'],
+                'text' => $temp['text'],
+                'image_attachment' => $temp['image'],
+                'privacy' => $temp['privacy']
+            ]);
+        } elseif (isset($temp)) {
+            $st = $this->db->select('SELECT * FROM post WHERE post_id = :id', array(
+                ':id' => $temp));
+            if (count($st) > 0)
+                $this->setAll($st[0]);
+        } else
             header('Location: ../home'); //TODO: change to timeline
-        }
-        $st = $this->db->select('SELECT * FROM post WHERE post_id = :id', array(
-            ':id' => $tempID
-        ));
-        if(count($st) > 0) {
-            $this->setAll($st[0]);
-        }
     }
 
     public function setAll($array) {
