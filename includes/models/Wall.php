@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * @property _User wallUser
+ */
 class _Wall extends Model
 {
     private $user;

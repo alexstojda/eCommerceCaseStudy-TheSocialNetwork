@@ -3,11 +3,11 @@
 class Bootstrap
 {
 
-    private $_url;
+    private $_url = null;
     /**
      * @var Controller
      */
-    private $_controller;
+    private $_controller = null;
 
     private $_controllerPath = '../includes/controllers/'; // Always include trailing slash
     private $_modelPath = '../includes/models/'; // Always include trailing slash
@@ -30,7 +30,7 @@ class Bootstrap
             return false;
         }
 
-        if ($this->_loadExistingController() !== false)
+        if ($this->_loadExistingController() != false)
             $this->_callControllerMethod();
 
         return true;
@@ -73,7 +73,7 @@ class Bootstrap
             /** @noinspection PhpIncludeInspection */
             require_once $file;
             $this->_controller = new $this->_url[0];
-            //$this->_controller->loadModel($this->_url[0], $this->_modelPath);
+            $this->_controller->loadModel($this->_url[0], $this->_modelPath);
             return true;
         } else {
             $this->_loadDefaultController();

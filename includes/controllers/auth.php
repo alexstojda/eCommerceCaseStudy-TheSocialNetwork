@@ -23,15 +23,18 @@ class Auth extends Controller
 
         //logout alert
         if (isset($_GET['logout'])) {
-            $this->view->alerts[] = ["You've logged out.", 'success'];
-        } //error alerts
+            $this->view->error = ["You've logged out.", 'success'];
+        }
+        else if(isset($_GET['created']))
+            $this->view->error = ["Account created. Please login.", 'success'];
+        //error alerts
         else if (isset($_GET['error'])) {
             switch ($_GET['error']) {
                 case 1:
-                    $this->view->alerts[] = ["Invalid Username/Password!", 'danger'];
+                    $this->view->error = ["Invalid Username/Password!", 'danger'];
                     break;
                 case 2:
-                    $this->view->alerts[] = ["You must login first", 'warning'];
+                    $this->view->error = ["You must login first", 'warning'];
                     break;
             }
         }

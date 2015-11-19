@@ -21,7 +21,7 @@ class Database extends PDO
      * @param int $fetchMode A PDO Fetch mode
      * @return mixed
      */
-    public function select($sql, array $array, $fetchMode = PDO::FETCH_ASSOC)
+    public function select($sql, $array = array(), $fetchMode = PDO::FETCH_ASSOC)
     {
         $sth = $this->prepare($sql);
         foreach ($array as $key => $value) {
@@ -37,21 +37,22 @@ class Database extends PDO
      * insert
      * @param string $table A name of table to insert into
      * @param Array $data An associative array
+     * @return boolean
      */
-    public function insert($table, array $data)
+    public function insert($table, Array $data)
     {
         ksort($data);
 
-        $fieldNames = implode(' ,  ', array_keys($data));
+        $fieldNames = implode(', ', array_keys($data));
         $fieldValues = ':' . implode(', :', array_keys($data));
-
-        $sth = $this->prepare("INSERT INTO $table ($fieldNames) VALUES ($fieldValues)");
         
+        $sth = $this->prepare("INSERT INTO $table ($fieldNames) VALUES ($fieldValues)");
+
         foreach ($data as $key => $value) {
             $sth->bindValue(":$key", $value);
         }
 
-        $sth->execute();
+        return $sth->execute();
     }
     
     /**
@@ -60,7 +61,7 @@ class Database extends PDO
      * @param Array $data An associative array
      * @param string $where the WHERE query part
      */
-    public function update($table, array $data, $where)
+    public function update($table, Array $data, $where)
     {
         ksort($data);
         
