@@ -45,8 +45,21 @@
             </td>
         </tr>
         <tr>
+            <td>
+                <label></label>
+            </td>
+            <td>
+                <input required type="email" pattern="/^\S+@\S+\.\S+$/"
+                       name="email" id="email"
+                    title="Email must be a valid email"
+                    <?php if (isset($this->newUser['email'])) {
+                        echo "value='" . $this->newUser['email'] . "'";
+                    } ?>/>
+            </td>
+        </tr>
+        <tr>
             <td colspan=2>
-                <input type=submit name=submitAccount id=page1submit value='Continue'/>
+                <input type=submit name=submitAccount id=submitAccount value='Continue'/>
             </td>
         </tr>
     </table>

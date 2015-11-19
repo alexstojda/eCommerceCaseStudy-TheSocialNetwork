@@ -7,7 +7,7 @@
  */
 ?>
 <html>
-<form action='<?= URL . 'register/doProfileInfo' ?>' method=POST>
+<form action='<?= URL . 'register/doAddressInfo' ?>' method=POST>
     <table>
         <tr>
             <td>
@@ -64,7 +64,7 @@
                     <?php
                     foreach ($this->countries as $country) {
                         if (isset($this->newUser['country']) && $this->newUser['country'] == $country['country_ISO_ID'])
-                            echo '<option value=' . $country['country_ISO_ID'] . 'selected >'
+                            echo '<option selected="selected" value=\'' . $country['country_ISO_ID'] . '\' >'
                                 . $country['country_name'] . '</option>';
                         echo '<option value=' . $country['country_ISO_ID'] . '> '
                             . $country['country_name'] . '</option>';

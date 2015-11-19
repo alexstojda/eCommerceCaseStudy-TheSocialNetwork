@@ -49,114 +49,48 @@ class register extends Controller
             $this->view->countries = $this->model->getCountries();
             $this->view->render('register/addressInfo');
         } elseif ($page == 4) {
-            $this->view->title = 'Confirm information';
+            $this->view->title   = 'Confirm information';
+            $this->view->gender  = $this->model->getGender($this->newUser['gender_id']);
+            $this->view->country = $this->model->getCountry($this->newUser['country']);
             $this->view->render('register/regConfirm');
         } else {
             $this->view->render('register/index');
         }
     }
 
-    public function doUserInfo()
-    {
-        $isValid = true;
-        //ServerSide check if first name conforms
-        if (preg_match('/^([A-z]){2,20}$/', $_POST['first_name']))
-            $this->newUser['first_name'] = $_POST['first_name'];
-        else {
-            $this->view->firstNameError = 'Your name cannot contain numbers and must be'
-                . 'between 2 and 20 characters';
-            $isValid = false;
-        }
-
-        //ServerSide check if last name conforms
-        if (preg_match('/^([A-z]){2,20}$/', $_POST['last_name']))
-            $this->newUser['last_name'] = $_POST['last_name'];
-        else {
-            $this->view->lastNameError = 'Your name cannot contain numbers and must be'
-                . 'between 2 and 20 characters';
-            $isValid = false;
-        }
-
-        if ($this->model->validateGender($_POST['gender_id']))
-            $this->newUser['gender_id'] = $_POST['gender_id'];
-        else {
-            //By unanimous decision; this is the official error.
-            //If you see this sir, we sincerely apologize. Its 3AM and sleep is presently non-existent.
-            $this->view->genderError = 'This gender doesn\'t exist in our database. Perhaps consider going to' .
-                'straight camp';
-            $isValid = false;
-        }
-
-        //Commence ridiculous date checks
-        $date_today = date_create();
-        $date_birthDate = date_create($_POST['date_of_birth']);
-        if (preg_match('/^(19|20)\d\d[-](0[1-9]|1[012])[-](0[1-9]|[12][0-9]|3[01])$/', $_POST['date_of_birth'])
-            && (int)date_diff($date_birthDate, $date_today)->format('%r%y') >= 13
-        )
-            $this->newUser['date_of_birth'] = $_POST['date_of_birth'];
-        else {
-            $this->view->dobError = 'You must be 13 years or older to join';
-            $isValid = false;
-        }
-
-        if ($isValid) {
-            Session::set('register', $this->newUser);
-            header('Location: ' . URL . 'register/page/4');
-        } else {
-            $this->view->title = 'ERROR - User information';
-            $this->view->genders = $this->model->getGenders();
-            $this->view->render('register/userInfo');
-        }
-    }
-
-    public function doProfileInfo()
-    {
-        $isValid = true;
-        //Server-Side check if address conforms
-        if (preg_match('/^.{4,20}$/', $_POST['address']) === 1)
-            $this->newUser['address'] = $_POST['address'];
-        else {
-            $this->view->addressError = 'Address must be between 4 and 20 characters.';
-            $isValid = false;
-        }
-
-        //Server-Side check if city conforms
-        if (preg_match('/^.{4,20}$/', $_POST['city']) === 1)
-            $this->newUser['city'] = $_POST['city'];
-        else {
-            $this->view->cityError = 'City must be between 4 and 20 characters.';
-            $isValid = false;
-        }
-
-        //Server-side check if Province conforms
-        if (preg_match('/^.{4,20}$/', $_POST['province']) === 1)
-            $this->newUser['province'] = $_POST['province'];
-        else {
-            $this->view->provinceError = 'Address must be between 4 and 20 characters.';
-            $isValid = false;
-        }
-
-        if ($this->model->validateCountry($_POST['country']))
-            $this->newUser['country'] = $_POST['country'];
-        else {
-            $this->view->provinceError = 'Country value given does not exist.';
-            $isValid = false;
-        }
-
-        if ($isValid) {
-            Session::set('register', $this->newUser);
-            header('Location: ' . URL . 'register/page/3');
-        } else {
-            $this->view->title = 'ERROR - Profile information';
-            $this->view->countries = $this->model->getCountries();
-            $this->view->render('register/profileInfo');
-        }
+    public function validate(){
+        if (!isset($this->newUser['username']))
+            return false;
+        elseif (!isset($this->newUser['password']))
+            return false;
+        elseif (!isset($this->newUser['first_name']))
+            return false;
+        elseif (!isset($this->newUser['last_name']))
+            return false;
+        elseif (!isset($this->newUser['gender_id']))
+            return false;
+        elseif (!isset($this->newUser['date_of_birth']))
+            return false;
+        elseif (!isset($this->newUser['address']))
+            return false;
+        elseif (!isset($this->newUser['city']))
+            return false;
+        elseif (!isset($this->newUser['province']))
+            return false;
+        elseif (!isset($this->newUser['country']))
+            return false;
+        else
+            return true;
     }
 
     public function doAuthInfo()
     {
-        $isValid = true;
+        if(!isset($_POST['submitAccount'])) {
+            header('Location: ' . URL . 'register/page/1');
+            return true;
+        }
 
+        $isValid = true;
         if (preg_match('/^([A-z]|\d){2,16}$/', $_POST['username']) === 1) {
             if ($this->model->validateUsername($_POST['username']) === false) {
                 $this->view->usernameError = 'Username already exists. Please select another username';
@@ -187,6 +121,122 @@ class register extends Controller
         } else {
             $this->view->title = 'ERROR - Login information';
             $this->view->render('register/authenticationInfo');
+        }
+    }
+
+    public function doUserInfo()
+    {
+        if(!isset($_POST['submitInfo'])) {
+            header('Location: ' . URL . 'register/page/2');
+            return true;
+        }
+
+        $isValid = true;
+        //ServerSide check if first name conforms
+        if (preg_match('/^([A-z]){2,20}$/', $_POST['first_name']) === 1)
+            $this->newUser['first_name'] = $_POST['first_name'];
+        else {
+            $this->view->firstNameError = 'Your name cannot contain numbers and must be'
+                . 'between 2 and 20 characters';
+            $isValid = false;
+        }
+
+        //ServerSide check if last name conforms
+        if (preg_match('/^([A-z]){2,20}$/', $_POST['last_name']) === 1)
+            $this->newUser['last_name'] = $_POST['last_name'];
+        else {
+            $this->view->lastNameError = 'Your name cannot contain numbers and must be'
+                . 'between 2 and 20 characters';
+            $isValid = false;
+        }
+
+        if ($this->model->validateGender($_POST['gender_id']))
+            $this->newUser['gender_id'] = $_POST['gender_id'];
+        else {
+            //By unanimous decision; this is the official error.
+            //If you see this sir, we sincerely apologize. Its 3AM and sleep is presently non-existent.
+            $this->view->genderError = 'This gender doesn\'t exist in our database. Perhaps consider going to' .
+                'straight camp';
+            $isValid = false;
+        }
+
+        //Commence ridiculous date checks
+        $date_today = date_create();
+        $date_birthDate = date_create($_POST['date_of_birth']);
+        if (preg_match('/^(19|20)\d\d[-](0[1-9]|1[012])[-](0[1-9]|[12][0-9]|3[01])$/', $_POST['date_of_birth']) === 1
+            && (int)date_diff($date_birthDate, $date_today)->format('%r%y') >= 13
+        )
+            $this->newUser['date_of_birth'] = $_POST['date_of_birth'];
+        else {
+            $this->view->dobError = 'You must be 13 years or older to join';
+            $isValid = false;
+        }
+
+        if ($isValid) {
+            Session::set('register', $this->newUser);
+            header('Location: ' . URL . 'register/page/4');
+        } else {
+            $this->view->title = 'ERROR - User information';
+            $this->view->genders = $this->model->getGenders();
+            $this->view->render('register/userInfo');
+        }
+    }
+
+    public function doAddressInfo()
+    {
+        if(!isset($_POST['submitAddress'])) {
+            header('Location: ' . URL . 'register/page/3');
+            return true;
+        }
+
+        $isValid = true;
+        //Server-Side check if address conforms
+        if (preg_match('/^.{4,20}$/', $_POST['address']) === 1)
+            $this->newUser['address'] = $_POST['address'];
+        else {
+            $this->view->addressError = 'Address must be between 4 and 20 characters.';
+            $isValid = false;
+        }
+
+        //Server-Side check if city conforms
+        if (preg_match('/^.{4,20}$/', $_POST['city']) === 1)
+            $this->newUser['city'] = $_POST['city'];
+        else {
+            $this->view->cityError = 'City must be between 4 and 20 characters.';
+            $isValid = false;
+        }
+
+        //Server-side check if Province conforms
+        if (preg_match('/^.{4,20}$/', $_POST['province']) === 1)
+            $this->newUser['province'] = $_POST['province'];
+        else {
+            $this->view->provinceError = 'Address must be between 4 and 20 characters.';
+            $isValid = false;
+        }
+
+        //Server-side check if Country conforms
+        if ($this->model->validateCountry($_POST['country']))
+            $this->newUser['country'] = $_POST['country'];
+        else {
+            $this->view->countryError = 'Country value given does not exist.';
+            $isValid = false;
+        }
+
+        if(preg_match('/(^\d{5}(-\d{4})?$)|(^[ABCEGHJKLMNPRSTVXY]{1}\d{1}[A-Z]{1} *\d{1}[A-Z]{1}\d{1}$)/',
+            $_POST['code']) === 1)
+            $this->newUser['code'] = $_POST['code'];
+        else {
+            $this->view->codeError = 'Postal/Zip code does not conform.';
+            $isValid = false;
+        }
+
+        if ($isValid) {
+            Session::set('register', $this->newUser);
+            header('Location: ' . URL . 'register/page/3');
+        } else {
+            $this->view->title = 'ERROR - Profile information';
+            $this->view->countries = $this->model->getCountries();
+            $this->view->render('register/addressInfo');
         }
     }
 }
