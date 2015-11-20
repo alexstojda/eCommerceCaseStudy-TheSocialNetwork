@@ -7,7 +7,7 @@ define('LIBS', PATH . 'core/');
 
 
 define('DB_TYPE', 'mysql');
-define('DB_HOST', 'localhost');
+define('DB_HOST', 'teambana.com');
 define('DB_NAME', 'banacommercestudy_ecom');
 define('DB_USER', 'ecommuser');
 define('DB_PASS', 'ybu4a3agy');
