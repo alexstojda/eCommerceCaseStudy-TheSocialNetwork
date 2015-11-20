@@ -1,5 +1,5 @@
 .idea/
 .bs_less/
-/includes/config.php
+includes/config.php
 *.xml
 *.iml

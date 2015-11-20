@@ -20,7 +20,7 @@ class Wall extends Controller
 
             //SETUP AND INIT BASIC WALL
 
-            $this->loadModel('Wall');
+            //$this->loadModel('Wall');
             $this->model->init($this->getModel('User', $uid));
             $this->view->name = $this->model->getName();
 
@@ -46,13 +46,35 @@ class Wall extends Controller
     public function post()
     {
         if (isset($_POST['post'], $_GET['u'])) {
-            $this->model = $this->getModel('Post', $post = [
-                'from' => Session::get('my_user')['id'],
-                'to' => $_GET['u'],
-                'text' => $_POST['post'],
-                'image' => null,
-                'privacy' => 0
-            ]);
+
+            if (isset($_FILES['picture'])) {
+                $uploaddir = 'user_images/';
+                echo '</br>' . $uploaddir;
+                $uploadfile = $uploaddir . basename($_FILES['picture']['name']);
+
+                if (move_uploaded_file($_FILES['picture']['tmp_name'], $uploadfile)) {
+                    echo "File is valid, and was successfully uploaded.\n";
+                    $this->model = $this->getModel('Post', $post = [
+                        'from' => Session::get('my_user')['id'],
+                        'to' => $_GET['u'],
+                        'text' => $_POST['post'],
+                        'image' =>  $uploadfile,
+                        'privacy' => 0
+                    ]);
+                } else {
+                    echo "Possible file upload attack!\n";
+                }
+
+            }
+            else{
+                $this->model = $this->getModel('Post', $post = [
+                    'from' => Session::get('my_user')['id'],
+                    'to' => $_GET['u'],
+                    'text' => $_POST['post'],
+                    'image' => null,
+                    'privacy' => 0
+                ]);
+            }
 
             header("Location: ../wall?u=" . $_GET['u']);
         } else {
