@@ -18,7 +18,7 @@
     <div  class=" col-xs-6 col-sm-6 col-md-6 col-lg-6 col-sm-offset-1 col-md-offset-1 col-lg-offset-1">
 
             <div class="form-group" >
-                <form action="<?= URL ?>timeline/" method="post"  style=" display:inline;" enctype="multipart/form-data">
+                <form action="<?= URL ?>timeline/post" method="post"  style=" display:inline;" enctype="multipart/form-data">
                     <textarea value="Tell us what's up..." class="form-control" name="post" rows="2" required  style=" display:inline; background-color: white"></textarea>
 
                     <div class="input-group-btn" align="right"  aria-hidden="true">
@@ -59,7 +59,7 @@ font-size:0;">
 
 
     </div>
-    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xs-offset-1 col-sm-offset-1 col-md-offset-1 col-lg-offset-1"> col-md-offset-1
+    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xs-offset-1 col-sm-offset-1 col-md-offset-1 col-lg-offset-1">
         <ul class="list-group">
             <li class="list-group-item">
                 <span class="badge">15</span>

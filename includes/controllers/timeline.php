@@ -21,9 +21,9 @@ class timeline extends Controller
 
             //SETUP AND INIT BASIC WALL
 
-            $this->loadModel('Wall');
+           // $this->loadModel('Wall');
             $this->model->init($this->getModel('User', $uid));
-           // $this->view->name = $this->model->getName();
+
 
             //GET POSTS FROM MODEL
             if (!empty($this->model->getUPosts())) {

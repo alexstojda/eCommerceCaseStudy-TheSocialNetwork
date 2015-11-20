@@ -18,7 +18,7 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="<?php echo URL; ?>home">Home <span class="sr-only">(current)</span></a></li>
+                <li><a href="<?php echo URL . (Session::get('my_user') ? 'timeline' : 'home'); ?>">Home <span class="sr-only">(current)</span></a></li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                        aria-expanded="false">Dropdown <span class="caret"></span></a>
@@ -60,6 +60,7 @@
                         </ul>
                     </li>
                 <?php } else { ?>
+                    <li><a href="<?=URL?>register/page/1" >Sign Up</a></li>
                     <li><a href="#" data-toggle="modal" data-target="#loginModal">Login</a></li>
                 <?php } ?>
             </ul>
