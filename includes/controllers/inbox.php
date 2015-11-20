@@ -8,6 +8,10 @@
  */
 class inbox extends Controller
 {
+    /**
+     * @var _Inbox
+     */
+    protected $model;
 
     /**
      * inbox constructor.
@@ -20,6 +24,7 @@ class inbox extends Controller
     public function index()
     {
         $this->view->title = 'Inbox';
+        $this->view->receivedMessages = $this->model->getReceivedConversations($_SESSION['id']);
         $this->view->render('inbox/index');
     }
 }
