@@ -169,7 +169,7 @@ if (isset($_GET['error'])) {
             ?>
             <tr>
                 <td colspan=2>
-                    <input type=submit name=submitOK value="Register"/>
+                    <input type="submit" name="submitOK" value="Register"  id="submitOK"  class="btn btn-primary btn-lg" >
                 </td>
             </tr>
             <?php

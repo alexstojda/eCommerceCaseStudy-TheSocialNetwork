@@ -51,7 +51,8 @@
 
         <a href="<?php echo URL; ?>auth/doLogout"> logout</a>
     <?php else: ?>
-        <a href="<?php echo URL; ?>auth"> login</a>
+            <li><a href="<?= URL.'register'?>" >Register</a></li>
+            <li><a href="#" data-toggle="modal" data-target="#loginModal">Login</a></li>
     <?php endif; ?>
 </div>
 
