@@ -47,10 +47,11 @@ class Wall extends Controller
     {
         if (isset($_POST['post'], $_GET['u'])) {
 
-            if (isset($_FILES['picture'])) {
+            if ($_FILES['picture']['name'] !== "") {
+
                 $uploaddir = 'user_images/';
-                echo '</br>' . $uploaddir;
-                $uploadfile = $uploaddir . basename($_FILES['picture']['name']);
+                $path_parts = pathinfo($_FILES["picture"]["name"])['extension'];
+                $uploadfile = $uploaddir . self::randomGen(32) .'.'. $path_parts;
 
                 if (move_uploaded_file($_FILES['picture']['tmp_name'], $uploadfile)) {
                     echo "File is valid, and was successfully uploaded.\n";

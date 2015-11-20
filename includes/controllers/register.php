@@ -71,9 +71,9 @@ class register extends Controller
 
         if ($this->model->insertUser($this->newUser)) {
             Session::clear('register');
-            header('Location: ' . URL . 'auth');
+            header('Location: ' . URL . 'auth?created=1');
         } else {
-            //header('Location: ' . URL . 'register/page/4?error=1');
+            header('Location: ' . URL . 'register/page/4?error=1');
         }
     }
 
