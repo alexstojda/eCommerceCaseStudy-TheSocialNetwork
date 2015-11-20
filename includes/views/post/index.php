@@ -1,11 +1,11 @@
-<div class="panel panel-default col-lg-12 col-md-3" style="padding: 0px"  >
+<div class="panel panel-default "  >
 
-  	<div class="panel-heading">    
-	  	<a href="<?= URL . 'wall?u='. $this->post->getPostBy()?>">
-	      <img class="media-object thumbnail" src="http://www.gravatar.com/avatar/?d=mm&f=y" alt="..." style="display: inline; height: 5%; margin: 0px">
-	    </a>
-	    <a href="<?= URL . 'wall?u='. $this->post->getPostBy()?>"><?= $this->post->getPostByName(); ?></a>
-	</div>
+    <div class="panel-heading">
+        <a href="<?= URL . 'wall?u='. $this->post->getPostBy()?>">
+            <img class="media-object thumbnail" src="http://www.gravatar.com/avatar/?d=mm&f=y" alt="..." style="display: inline; height: 5%; margin: 0px">
+        </a>
+        <a href="<?= URL . 'wall?u='. $this->post->getPostBy()?>"><?= $this->post->getPostByName(); ?></a>
+    </div>
 	<div class="media" >
 		<div class="media-left">
   		</div>
@@ -18,9 +18,12 @@
 
 			?>
     		<p> <strong><i><?= $this->post->getDate() ?></strong></i></p>
+
+			<!--  TODO comments -->
   		</div>
-		<!--  TODO comments -->
+
 	</div>
+
 
 </div>
 </br>

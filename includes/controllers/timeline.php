@@ -33,7 +33,7 @@ class timeline extends Controller
             }
 
             //FINALLY RENDER THE PAGE HTML
-            $this->view->title = $this->model->getName() . '\'s Timeline';
+            $this->view->title = 'Your Timeline';
             $this->view->render('timeline/index');
 
     }
@@ -52,7 +52,7 @@ class timeline extends Controller
                     echo "File is valid, and was successfully uploaded.\n";
                     $this->model = $this->getModel('Post', $post = [
                         'from' => Session::get('my_user')['id'],
-                        'to' => $_GET['u'],
+                        'to' => Session::get('my_user')['id'],
                         'text' => $_POST['post'],
                         'image' => $uploadfile,
                         'privacy' => 0
@@ -64,7 +64,7 @@ class timeline extends Controller
             } else {
                 $this->model = $this->getModel('Post', $post = [
                     'from' => Session::get('my_user')['id'],
-                    'to' => $_GET['u'],
+                    'to' =>  Session::get('my_user')['id'],
                     'text' => $_POST['post'],
                     'image' => null,
                     'privacy' => 0

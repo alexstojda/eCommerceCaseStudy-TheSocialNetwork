@@ -13,7 +13,7 @@
 
 <div class="container-fluid">
     <div class="row">
-        <div class="col-lg-offset-3 col-lg-5 col-md-6 col-md-offset-2">
+        <div class="col-xs-10 col-sm-10 col-md-6 col-lg-6 col-md-offset-3 col-lg-offset-3 col-xs-offset-1 col-sm-offset-1">
             <div class="form-group">
 				<form action="<?= URL ?>wall/post?u=<?= $_GET['u'] ?>" method="post"  style=" display:inline;" enctype="multipart/form-data">
                     <textarea class="form-control" name="post" rows="2" required  style=" display:inline; background-color: white"></textarea>
@@ -31,7 +31,7 @@
 
 						<button type="button"  onclick="myFunction()" class="btn btn-default btn-lg" style="height: inherit">
                             <input id="demo" name="picture" type="file" accept="image/*" style="display: none; height: inherit; width: 105px; overflow: hidden; z-index: 5">
-                            <span class="glyphicon glyphicon-camera" aria-hidden="true" ></span>
+                            <i class="fa fa-camera" aria-hidden="true" ></i>
 
 						</button>
                     </div>
@@ -43,7 +43,7 @@
 
 <div class="container-fluid">
     <div class="row">
-        <div class="col-lg-offset-3 col-lg-5 col-md-6 col-md-offset-2">
+        <div class="col-xs-10 col-sm-10 col-md-6 col-lg-6 col-md-offset-3 col-lg-offset-3 col-xs-offset-1 col-sm-offset-1">
 		<?php
             if (isset($this->posts) AND count($this->posts) > 0 ) {
                 foreach($this->posts as $this->post) {

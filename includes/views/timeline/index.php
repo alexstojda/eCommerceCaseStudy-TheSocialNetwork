@@ -15,7 +15,7 @@
     }
 </script>
 <div class="row">
-    <div class="col-sm-6 col-md-6 col-md-offset-1">
+    <div  class=" col-xs-6 col-sm-6 col-md-6 col-lg-6 col-sm-offset-1 col-md-offset-1 col-lg-offset-1">
 
             <div class="form-group" >
                 <form action="<?= URL ?>timeline/" method="post"  style=" display:inline;" enctype="multipart/form-data">
@@ -34,19 +34,20 @@ font-size:0;">
 
                         <button type="button"  onclick="myFunction()" class="btn btn-default btn-lg" style="height: inherit">
                             <input id="demo" name="picture" type="file" accept="image/*" style="display: none; height: inherit; width: 105px; overflow: hidden; z-index: 5">
-                            <span class="glyphicon glyphicon-camera" aria-hidden="true" ></span>
+                            <i class="fa fa-camera" aria-hidden="true" ></i>
 
                         </button>
                     </div>
                 </form>
             </div>
 
-        <div >
+
 
             <?php
             if (isset($this->posts) AND count($this->posts) > 0 ) {
                 foreach($this->posts as $this->post) {
                     include PATH . 'views/post/index.php';
+
                 }
             } else { ?>
                 <tr>
@@ -54,10 +55,11 @@ font-size:0;">
                 </tr>
             <?php } ?>
 
-        </div>
+
+
 
     </div>
-    <div class="col-xs-6 col-md-4 col-md-offset-1">
+    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xs-offset-1 col-sm-offset-1 col-md-offset-1 col-lg-offset-1"> col-md-offset-1
         <ul class="list-group">
             <li class="list-group-item">
                 <span class="badge">15</span>
