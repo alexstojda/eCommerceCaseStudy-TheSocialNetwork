@@ -12,8 +12,7 @@
         <ul class="nav nav-tabs">
             <!-- TODO-alex make links actually do things -->
             <li role="presentation" class="active"><a href="#">Home</a></li>
-            <li role="presentation"><a href="#">Profile</a></li>
-            <li role="presentation"><a href="#">Messages</a></li>
+            <li role="presentation"><a href="#">Sent</a></li>
         </ul>
     </div>
     <div class="panel-body">

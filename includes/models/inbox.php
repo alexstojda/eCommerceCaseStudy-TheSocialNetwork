@@ -19,9 +19,21 @@ class _inbox extends model
 
     public function getMessages($IDa, $IDb)
     {
-        $query = "SELECT * FROM `messages` WHERE `to_user_id` = :ida AND `from_user_id` = :idb
-                   UNION
-                  SELECT * FROM `messages` WHERE `to_user_id` = :idb AND `from_user_id` = :ida
+        $query = "SELECT CONCAT(u1.`first_name`, ' ', u1.`last_name`) as from_user,
+                         CONCAT(u2.`first_name`, ' ', u2.`last_name`) as to_user,
+                         `messages`.`message`, `messages`.`timesent`
+                    FROM `messages`
+               LEFT JOIN `users` u1 ON u1.`user_id` = `messages`.`from_user_id`
+               LEFT JOIN `users` u2 ON u2.`user_id` = `messages`.`to_user_id`
+                   WHERE `to_user_id` = 2 AND `from_user_id` = 24
+                  UNION
+                  SELECT CONCAT(u1.`first_name`, ' ', u1.`last_name`) as from_user,
+                         CONCAT(u2.`first_name`, ' ', u2.`last_name`) as to_user,
+                         `messages`.`message`, `messages`.`timesent`
+                    FROM `messages`
+               LEFT JOIN `users` u1 ON u1.`user_id` = `messages`.`from_user_id`
+               LEFT JOIN `users` u2 ON u2.`user_id` = `messages`.`to_user_id`
+                   WHERE `to_user_id` = 24 AND `from_user_id` = 2
                    ORDER BY `timesent` DESC";
         return $this->db->select($query,
             array(':ida' => $IDa, ':idb' => $IDb));
