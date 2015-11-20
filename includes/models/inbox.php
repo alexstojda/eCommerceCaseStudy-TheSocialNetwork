@@ -53,7 +53,7 @@ class _Inbox extends model
                            WHERE `from_user_id` IN
 		                         (SELECT DISTINCT `from_user_id`
                                     FROM `messages`
-                                   WHERE `to_user_id` = 24)
+                                   WHERE `to_user_id` = :id)
     				       ORDER BY message_id DESC
     				       ) AS res
                     GROUP BY from_user_id ASC
@@ -74,5 +74,10 @@ class _Inbox extends model
                     GROUP BY to_user_id ASC
                     ORDER BY res.message_id";
         return $this->db->select($query, array(':id' => $uid));
+    }
+
+    public function getName($uid)
+    {
+        return $this->db->select("SELECT first_name, last_name FROM users WHERE user_id = :id", array(':id' => $uid));
     }
 }
