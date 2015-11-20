@@ -5,7 +5,7 @@ class Member extends Controller
 
     public function index()
     {
-        Session::checkMember();
+        self::checkMember();
         $this->view->title = 'Member';
         $this->view->render('member/index');
     }

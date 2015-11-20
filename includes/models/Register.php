@@ -76,6 +76,7 @@ class _Register extends Model
     }
 
     public function insertUser($user) {
+        $user['password'] = Hash::create('sha256', $user['password'], HASH_PW_KEY);
         return $this->db->insert('users', $user);
     }
 }
