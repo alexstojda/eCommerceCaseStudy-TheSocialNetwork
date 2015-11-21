@@ -1,72 +1,49 @@
+<script>
+	function myFunction() {
+        if(document.getElementById("demo").style.display == "inline")
+		    document.getElementById("demo").style.display = "none";
+        else
+            document.getElementById("demo").style.display = "inline";
+	}
+</script>
 <div>
 	<h1 align="center"><?php echo $this->name ?>'s Wall</h1>
 </div>
-	<style scoped type="text/css">
-	.tg  {border-collapse:collapse;border-spacing:0;border-color:#aabcfe;border:none;}
-	.tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:0;overflow:hidden;word-break:normal;border-color:#aabcfe;color:#669;background-color:#e8edff;}
-	.tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:0;overflow:hidden;word-break:normal;border-color:#aabcfe;color:#039;background-color:#b9c9fe;}
-	.tg .tg-smzr{font-family:"Times New Roman", Times, serif !important;;vertical-align:top}
-	</style>
-	<table class="tg" align="left">
-	  <tr>
-		<th class="tg-smzr">See other ppl</th>
-	  </tr>
-	  <tr><td>FRIENDS </td></tr> <tr><td>should </td></tr> <tr><td>be</td> </tr><tr><td>listed </td></tr> <tr><td>	here </td></tr>
-	</table>
 
-	<style type="text/css"  scoped>
-	.ff  {border-collapse:collapse;border-spacing:0;border-color:#aabcfe;border:none;}
-	.ff td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:0;overflow:hidden;word-break:normal;border-color:#aabcfe;color:#669;background-color:#e8edff;text-align:right}
-	.ff th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:0;overflow:hidden;word-break:normal;border-color:#aabcfe;color:#039;background-color:#b9c9fe;}
-	.ff .ff-smzr{font-family:"Times New Roman", Times, serif !important;;vertical-align:top}
-	</style>
-	<table class="ff" align="right">
-	  <tr>
-		<th class="ff-smzr">Other possible friends list</th>
-	  </tr>
-	  <tr><td>Friends</td></tr> <tr><td>should </td></tr> <tr><td>be</td> </tr><tr><td>listed </td></tr> <tr><td>	here </td></tr>
-	</table>
 
 <div class="container-fluid">
     <div class="row">
-        <div class="col-lg-offset-3 col-lg-5 col-md-6 col-md-offset-2">
+        <div class="col-xs-10 col-sm-10 col-md-6 col-lg-6 col-md-offset-3 col-lg-offset-3 col-xs-offset-1 col-sm-offset-1">
             <div class="form-group">
-                <form action="<?= URL ?>wall/post?u=<?= $_GET['u'] ?>" method="post">
-                    <textarea class="form-control" name="post" rows="2" required></textarea>
+				<form action="<?= URL ?>wall/post?u=<?= $_GET['u'] ?>" method="post"  style=" display:inline;" enctype="multipart/form-data">
+                    <textarea class="form-control" name="post" rows="2" required  style=" display:inline; background-color: white"></textarea>
 
-                    <div class="input-group-btn" align="right">
-                        <button type="submit" class="btn btn-default" aria-haspopup="true" aria-expanded="false">Post
-                        </button>
-                        <!-- TODO-Evan: THIS NEEDS TO BE A FILE UPLOAD.... WHY DOES IT SUBMIT FORM????-->
-                        <button class="btn btn-default" aria-haspopup="true" aria-expanded="false">
-                            <!--input type="file" name="image"-->
-                            <i class="fa fa-camera" style="line-height: inherit"></i>
-                            <!--/input-->
-                        </button>
+                    <div class="input-group-btn" align="right"  aria-hidden="true">
+
+						<button type="submit" class="btn btn-default" aria-haspopup="true" aria-expanded="false">Post
+						</button>
+
+							<!-- TODO-Evan: THIS NEEDS TO BE A FILE UPLOAD.... WHY DOES IT SUBMIT FORM????>
+							 	<input type="file" accept="image/*" name="file" title="Attach a Photo" style=" background: transparent;
+    border: none !important;
+    font-size:0;">
+					style="display: none"		 -->
+
+						<button type="button"  onclick="myFunction()" class="btn btn-default btn-lg" style="height: inherit">
+                            <input id="demo" name="picture" type="file" accept="image/*" style="display: none; height: inherit; width: 105px; overflow: hidden; z-index: 5">
+                            <i class="fa fa-camera" aria-hidden="true" ></i>
+
+						</button>
                     </div>
-                </form>
+				</form>
             </div>
         </div>
     </div>
 </div>
 
-	<style type="text/css" scoped>
-	.gg  {border-collapse:collapse;border-spacing:0;border-color:#aabcfe;margin:0 auto;}
-	.gg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#aabcfe;color:#669;background-color:#e8edff;}
-	.gg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#aabcfe;color:#039;background-color:#b9c9fe;}
-	.gg .gg-7un6{background-color:#ffffff;color:#000000;text-align:center;vertical-align:top}
-	.gg .gg-kixb{background-color:#ffffff;color:#000000;vertical-align:top}
-	.gg .gg-pxng{background-color:#ffffff;color:#000000;vertical-align:top}
-	</style>
-	<table class="gg" style="undefined;table-layout: fixed; width: 60%">
-	<colgroup>
-	<col style="width:80%">
-	<col style="width:20%">
-	</colgroup>
-
-        <tr>
-		<th class="gg-7un6" colspan="2">Posts</th>
-	  </tr>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-xs-10 col-sm-10 col-md-6 col-lg-6 col-md-offset-3 col-lg-offset-3 col-xs-offset-1 col-sm-offset-1">
 		<?php
             if (isset($this->posts) AND count($this->posts) > 0 ) {
                 foreach($this->posts as $this->post) {
@@ -79,6 +56,9 @@
             <?php } ?>
 	</table>
 
+      </div>
+    </div>
+</div>
 
 	</div>
 <br />

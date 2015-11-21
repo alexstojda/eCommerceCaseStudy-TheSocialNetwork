@@ -23,6 +23,17 @@ abstract class Controller
         }
     }
 
+    //Generate random string for files mainly
+    public static function randomGen($random_string_length) {
+        $characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        $string = '';
+        for ($i = 0; $i < $random_string_length; $i++) {
+            $string .= $characters[rand(0, strlen($characters) - 1)];
+        }
+        return $string;
+    }
+
+
     abstract public function index();
 
     /**

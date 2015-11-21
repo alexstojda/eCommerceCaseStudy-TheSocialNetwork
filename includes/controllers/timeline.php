@@ -1,10 +1,11 @@
 <?php
-
 /**
- * @property _Wall model
- *
+ * Created by PhpStorm.
+ * User: Evan
+ * Date: 11/20/2015
+ * Time: 1:12 PM
  */
-class Wall extends Controller
+class timeline extends Controller
 {
 
     public function __construct()
@@ -15,14 +16,14 @@ class Wall extends Controller
 
     public function index()
     {
-        if (isset($_GET['u'])) {
-            $uid = $_GET['u'];
+
+            $uid = Session::get('my_user')['id'];
 
             //SETUP AND INIT BASIC WALL
 
-            //$this->loadModel('Wall');
+           // $this->loadModel('Wall');
             $this->model->init($this->getModel('User', $uid));
-            $this->view->name = $this->model->getName();
+
 
             //GET POSTS FROM MODEL
             if (!empty($this->model->getUPosts())) {
@@ -32,57 +33,51 @@ class Wall extends Controller
             }
 
             //FINALLY RENDER THE PAGE HTML
-            $this->view->title = $this->model->getName() . '\'s Wall';
-            $this->view->render('wall/index');
-        } else {
+            $this->view->title = 'Your Timeline';
+            $this->view->render('timeline/index');
 
-            if (Session::get('my_user'))
-                header("Location: ../wall?u=" . Session::get('my_user')['id']);
-            else
-                header("Location: ../home");
-        }
     }
 
     public function post()
     {
-        if (isset($_POST['post'], $_GET['u'])) {
+        if (isset($_POST['post'])) {
 
             if ($_FILES['picture']['name'] !== "") {
 
                 $uploaddir = 'user_images/';
                 $path_parts = pathinfo($_FILES["picture"]["name"])['extension'];
-                $uploadfile = $uploaddir . self::randomGen(32) .'.'. $path_parts;
+                $uploadfile = $uploaddir . self::randomGen(32) . '.' . $path_parts;
 
                 if (move_uploaded_file($_FILES['picture']['tmp_name'], $uploadfile)) {
                     echo "File is valid, and was successfully uploaded.\n";
                     $this->model = $this->getModel('Post', $post = [
                         'from' => Session::get('my_user')['id'],
-                        'to' => $_GET['u'],
+                        'to' => Session::get('my_user')['id'],
                         'text' => $_POST['post'],
-                        'image' =>  $uploadfile,
+                        'image' => $uploadfile,
                         'privacy' => 0
                     ]);
                 } else {
                     echo "Possible file upload attack!\n";
                 }
 
-            }
-            else{
+            } else {
                 $this->model = $this->getModel('Post', $post = [
                     'from' => Session::get('my_user')['id'],
-                    'to' => $_GET['u'],
+                    'to' =>  Session::get('my_user')['id'],
                     'text' => $_POST['post'],
                     'image' => null,
                     'privacy' => 0
                 ]);
             }
 
-            header("Location: ../wall?u=" . $_GET['u']);
+            header("Location: ../timeline");
         } else {
             if (Session::get('my_user'))
-                header("Location: ../wall?u=" . Session::get('my_user')['id']);
+                header("Location: ../timeline");
             else
                 header("Location: ../home");
         }
     }
 }
+?>

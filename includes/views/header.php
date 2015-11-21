@@ -9,8 +9,9 @@
     <script type="text/javascript" src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
     <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.17/themes/sunny/jquery-ui.css"/>
 
-    <!-- Custom CSS (READ THIS PLEASE, TNX : http://verekia.com/less-css/dont-read-less-css-tutorial-highly-addictive)-->
-    <link rel="stylesheet" href="<?php echo URL; ?>/css/default.css"/>
+
+
+    <link rel="stylesheet" href="<?php echo URL; ?>css/default.css"/>
 
     <!-- Font awesome-->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
@@ -22,8 +23,11 @@
     <!-- Bootstrap Theme @http://bootswatch>
     <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.5/cerulean/bootstrap.min.css" rel="stylesheet"-->
     <link href="<?php echo URL; ?>/css/bootstrap.min.css" rel="stylesheet">
-    <script type="text/javascript" src="<?php echo URL; ?>/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="<?php echo URL; ?>/js/npm.js"></script>
+    <script type="text/javascript" src="<?php echo URL; ?>js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="<?php echo URL; ?>js/npm.js"></script>
+    <script type="text/javascript" src="<?php echo URL; ?>js/bootstrap-filestyle.min.js"> </script>
+    <link rel="stylesheet" href="<?php echo URL; ?>css/default.css"/>
+    <!-- Custom CSS (READ THIS PLEASE, TNX : http://verekia.com/less-css/dont-read-less-css-tutorial-highly-addictive)-->
 
     <?php
     if (isset($this->js)) {
@@ -47,7 +51,8 @@
 
         <a href="<?php echo URL; ?>auth/doLogout"> logout</a>
     <?php else: ?>
-        <a href="<?php echo URL; ?>auth"> login</a>
+            <li><a href="<?= URL.'register'?>" >Register</a></li>
+            <li><a href="#" data-toggle="modal" data-target="#loginModal">Login</a></li>
     <?php endif; ?>
 </div>
 

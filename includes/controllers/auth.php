@@ -52,7 +52,7 @@ class Auth extends Controller
 
         /** @var _User $user */
         if ($user->authenticate()) {
-            header('Location: ../wall?u=' . Session::get('my_user')['id']);
+            header('Location: ../timeline');
         } else {
             header('Location: ../auth?error=1');
         }
