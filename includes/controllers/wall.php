@@ -10,7 +10,7 @@ class Wall extends Controller
     public function __construct()
     {
         parent::__construct();
-        Session::checkMember();
+        self::checkMember();
     }
 
     public function index()

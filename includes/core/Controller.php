@@ -15,13 +15,22 @@ abstract class Controller
         $this->view = new View();
     }
 
+    public static function checkMember()
+    {
+        if (!Session::get('my_user')) {
+            header('Location: ../auth?error=2');
+            exit;
+        }
+    }
+
     abstract public function index();
+
     /**
      *
      * @param string $name Name of the model
      * @param string $modelPath
      */
-    public function loadModel($name, $modelPath = '../includes/models/')
+    public function loadModel($name, $param = null, $modelPath = '../includes/models/')
     {
         $path = $modelPath . $name . '.php';
 
@@ -29,7 +38,10 @@ abstract class Controller
             require_once $modelPath . $name . '.php';
 
             $modelName = '_' . $name;
-            $this->model = new $modelName();
+            if (isset($param))
+                $this->model = new $modelName($param);
+            else
+                $this->model = new $modelName();
         }
     }
 
