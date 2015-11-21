@@ -1,29 +1,33 @@
 <html>
-<form action='<?= URL . "register/doAuthInfo" ?>' method=POST>
-    <div class="input-group">
-        <span class="input-group-addon" id="basic-addon1" >Username:</span>
-        <input type="text" class="form-control" aria-describedby="basic-addon1"
-               required type="text" pattern="^([A-z]|\d){2,16}$" name=username
-               id=username title="Between 6 and 16 alphanumeric characters"
-            <?php if (isset($this->newUser['username'])) {
-                echo "value='" . $this->newUser['username'] . "'";
-            } ?> style="width:200px"/>
+<form class="form-horizontal" action='<?= URL . "register/doAuthInfo" ?>' method=POST>
+    <div class="form-group">
+        <label class="col-sm-2 col-md-2 control-label">Username:</label>
+        <div class="com-sm-10 col-md-8">
+            <input type="text" class="form-control" aria-describedby="basic-addon1"
+                   required type="text" pattern="^([A-z]|\d){2,16}$" name=username
+                   id=username title="Between 6 and 16 alphanumeric characters"
+                <?php if (isset($this->newUser['username'])) {
+                    echo "value='" . $this->newUser['username'] . "'";
+                } ?> style="width:200px"/>
+        </div>
         <p style="color: red">  <?php if (isset($this->usernameError)) echo $this->usernameError; ?></p>
     </div>
-    <div class="input-group">
-        <span class="input-group-addon" id="basic-addon1">Password: </span>
-        <input type="password" class="form-control" aria-describedby="basic-addon1"
+    <div class="form-group">
+        <label class="col-sm-2 col-md-2 control-label">Password:</label>
+        <div class="com-sm-10 col-md-8">
+            <input type="password" class="form-control" aria-describedby="basic-addon1"
                required type="password" pattern="^([A-z]|\d){6,16}$" name=password
                id=password title="Between 6 and 16 alphanumeric characters"
             <?php if (isset($this->newUser['password'])) {
                 echo "value='" . $this->newUser['password'] . "'";
             } ?> style="width:200px"/>
-        <p style="color: red">
+        </div>
+        <p class="">
             <?php if (isset($this->passwordError)) echo $this->passwordError; ?>
         </p>
     </div>
-    <div class="input-group">
-        <span class="input-group-addon" id="basic-addon1">Confirm Password: </span>
+    <div class="form-group">
+        <label class="col-sm-2 col-md-2 control-label">Confirm Password:</label>
         <input type="password" class="form-control" aria-describedby="basic-addon1"
                required type="password" pattern="^([A-z]|\d){6,16}$"
                name=confPassword id=confPassword
