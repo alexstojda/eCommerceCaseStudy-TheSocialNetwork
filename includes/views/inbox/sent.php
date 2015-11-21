@@ -8,9 +8,8 @@
 ?>
 <div class="panel panel-default" style="width: 50%; margin-right: auto; margin-left: auto; ">
     <div class="panel-heading">
-        <h3 class="panel-title">Messages</h3>
+        <h3 class="panel-title" style="font-size: 25px">Messages</h3>
         <ul class="nav nav-tabs">
-            <!-- TODO-alex make links actually do things -->
             <li role="presentation">
                 <a href="<?= URL . 'inbox' ?>">Inbox</a>
             </li>
