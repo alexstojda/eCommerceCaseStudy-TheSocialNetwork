@@ -11,8 +11,8 @@ class Session
             session_start();
         }
         //ALL THE SESSION DEBUGS...
-        self::file_info();
-        self::dump();
+        //self::file_info();
+        //self::dump();
 
     }
 

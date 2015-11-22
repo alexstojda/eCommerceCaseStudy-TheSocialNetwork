@@ -23,6 +23,7 @@ class Wall extends Controller
             //$this->loadModel('Wall');
             $this->model->init($this->getModel('User', $uid));
             $this->view->name = $this->model->getName();
+            $this->view->id  = $uid;
 
             //GET POSTS FROM MODEL
             if (!empty($this->model->getUPosts())) {
