@@ -18,7 +18,7 @@ class _Groups extends Model
     public function init($group)
     {
 
-            //GET USER INFORMATION TODO: About user tab and short info block like FB
+
         $temp = $this->db->select('SELECT * FROM groups WHERE group_id = :to', array(
             ':to' => $group
         ))[0];
@@ -27,11 +27,11 @@ class _Groups extends Model
             $this->setName($temp['name']);
             $this->setDescription($temp['description']);
             $this->setPrivacy($temp['privacy']);
-            $membersTemp = $this->db->select('SELECT CONCAT( users.first_name,  \' \', users.last_name ) AS  \'name\', users.user_id
+            $membersTemp = $this->db->select('SELECT CONCAT( users.first_name,  \' \', users.last_name ) AS  \'name\', users.user_id, user_status
                                             FROM groups
                                             INNER JOIN group_members ON groups.group_id = group_members.group_id
                                             INNER JOIN users ON users.user_id = group_members.user_id
-                                            WHERE groups.group_id = :to', array(
+                                            WHERE groups.group_id =:to', array(
                 ':to' => $group
             ));
 
