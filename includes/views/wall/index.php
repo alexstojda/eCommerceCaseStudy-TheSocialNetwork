@@ -16,7 +16,7 @@
                         <div class="fileUpload btn btn-default" style="font-size:23px; margin:0">
                             <span><i class="fa fa-camera" aria-hidden="true" ></i></span>
                             <input type="file" name="picture" class="upload" accept="image/*"/>
-                            <input type="hidden" name="origin" value="<?=ltrim($_GET['url'], 'public').'u?='.$_GET['u'];?>"/>
+                            <input type="hidden" name="origin" value="<?=ltrim($_GET['url'], 'public').'?u='.$_GET['u'];?>"/>
                         </div>
                     </div>
 				</form>
