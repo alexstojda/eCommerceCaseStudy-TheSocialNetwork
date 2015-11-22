@@ -19,19 +19,18 @@ class _Timeline extends Model
 
     public function init($new_user)
     {
-        //GET USER INFORMATION TODO: About user tab and short info block like FB
         $this->setUser($new_user);
 
-       //Add post_by =  to friends' ids and privacy = public or just friends
-        //RETRIEVE ALL POSTS
-        $st = $this->db->select('SELECT * FROM post WHERE post_to = :to ORDER BY creation_date DESC', array(
+        //Add post_by =  to friends' ids and privacy = public or just friends
+        //RETRIEVE ALL POSTS AVAILABLE TODO:REDO QUERY AFTER FRIEND SYSTEM IS DONE
+        $st = $this->db->select('SELECT * FROM post WHERE post_to = :to AND isnull(parent_id) ORDER BY creation_date DESC', array(
             ':to' => $new_user->getID()
         ));
 
         if(count($st) > 0) {
             $this->posts = $st;
-        } else { //no posts on wall ;(
-            echo 'Sucks to suck, ' . $this->getName();
+        } else { //no posts on timeline at all.... ;(
+            echo 'Sucks to suck';
         }
     }
 

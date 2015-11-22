@@ -37,25 +37,5 @@
     }
     ?>
 </head>
-<body>
-
-<div id="header">
-
-    <?php if (!Session::get('my_user')) : ?>
-        <a href="<?php echo URL; ?>index">Index</a>
-        <a href="<?php echo URL; ?>help">Help</a>
-    <?php endif; ?>
-    <?php if (Session::get('my_user')) : ?>
-        <a href="<?php echo URL; ?>timeline">Timeline</a>
-        <a href="<?php echo URL . 'wall?u=' . Session::get('my_user')['id'] ?>">My Wall</a>
-
-        <a href="<?php echo URL; ?>auth/doLogout"> logout</a>
-    <?php else: ?>
-            <li><a href="<?= URL.'register'?>" >Register</a></li>
-            <li><a href="#" data-toggle="modal" data-target="#loginModal">Login</a></li>
-    <?php endif; ?>
-</div>
-
-<div id="content">
     
     

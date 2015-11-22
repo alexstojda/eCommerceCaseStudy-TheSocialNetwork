@@ -62,7 +62,8 @@ class Auth extends Controller
     //destroy session aka logout
     public function doLogout()
     {
-        Session::destroy();
+        Session::clear('my_user');
+        //Session::destroy();
         header('Location: ../auth?logout=1');
         exit();
     }

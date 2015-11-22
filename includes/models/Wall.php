@@ -21,7 +21,7 @@ class _Wall extends Model
         $this->setName($new_user->getName());
 
         //RETRIEVE ALL POSTS
-        $st = $this->db->select('SELECT * FROM post WHERE post_to = :to ORDER BY creation_date DESC', array(
+        $st = $this->db->select('SELECT * FROM post WHERE post_to = :to AND isnull(parent_id) ORDER BY creation_date DESC', array(
             ':to' => $new_user->getID()
         ));
 

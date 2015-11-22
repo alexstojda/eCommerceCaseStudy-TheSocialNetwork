@@ -15,6 +15,7 @@ class _User extends Model
     private $province;
     private $postalcode;
     private $birth;
+    private $picture;
     private $privacy;
 
     //"Constructor makes generic if not own wall" -Evan
@@ -35,6 +36,7 @@ class _User extends Model
                 $this->province = 'nop';
                 $this->postalcode = 'nop';
                 $this->birth = 'nop';
+                $this->picture= 'http://www.gravatar.com/avatar/?d=mm&f=y';
                 $this->privacy = 'none';
                 break;
             case ($tempID === Session::get('my_user')['id']) : //load my wall.
@@ -80,6 +82,7 @@ class _User extends Model
         self::setProvince($st['province']);
         self::setPostalCode($st['postalcode']);
         self::setBirth($st['date_of_birth']);
+        self::setPicture($st['profile_picture']);
         self::setPrivacy($st['default_privacy']);
         self:: setCountry($st['country']);
     }
@@ -100,6 +103,7 @@ class _User extends Model
             'province' => $this->getProvince(),
             'postal' => $this->getPostalcode(),
             'birth' => $this->getBirth(),
+            'picture' => $this->getPicture(),
             'privacy' => $this->getPrivacy()
         ]);
     }
@@ -213,9 +217,19 @@ class _User extends Model
         return $this->birth;
     }
 
+    public function getPicture()
+    {
+        return $this->picture;
+    }
+
     public function setBirth($newThings)
     {
         $this->birth = $newThings;
+    }
+
+    public function setPicture($newThings)
+    {
+        $this->picture = $newThings;
     }
 
     public function getPrivacy()
