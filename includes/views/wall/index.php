@@ -14,7 +14,7 @@
     <div class="row">
         <div class="col-xs-8 col-sm-8 col-md-4 col-lg-4 col-md-offset-4 col-lg-offset-4 col-xs-offset-2 col-sm-offset-2">
             <div class="btn-group btn-group-justified" role="group" aria-label="UserActions">
-                <a class="btn btn-default" style="width: 33%" href="<?= URL . 'pokes/doPoke/' . $this->id ?>">Poke <br/>  <i class="fa fa-hand-o-right fa-2x"></i></a>
+                <a class="btn btn-default" style="width: 33%" href="<?= URL . 'pokes/poke/' . $this->id ?>">Poke <br/>  <i class="fa fa-hand-o-right fa-2x"></i></a>
                 <a class="btn btn-default" style="width: 33%" href="<?= URL . 'inbox/u/' . $this->id ?>">Message  <br/>  <i class="fa fa-envelope fa-2x"></i></a>
                 <!-- TODO make friends and unfriends work -->
                 <a class="btn btn-default" style="width: 33%">Friend/Unfriend <br/>   <i class="fa fa-users fa-2x"></i></a>
@@ -22,7 +22,7 @@
         </div>
     </div>
 </div>
-<div class="container-fluid" style="margin-right: 0px; margin-left: auto;">
+<div class="container-fluid" style="margin-right: 0; margin-left: auto;">
     <div class="row">
         <div
             class="col-xs-10 col-sm-10 col-md-6 col-lg-6 col-md-offset-3 col-lg-offset-3 col-xs-offset-1 col-sm-offset-1">
