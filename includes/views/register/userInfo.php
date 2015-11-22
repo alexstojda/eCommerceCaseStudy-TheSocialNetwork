@@ -1,38 +1,37 @@
-<?php
-/**
- * Created by PhpStorm.
- * User: Alex
- * Date: 2015-11-18
- * Time: 2:37 PM
- */
-?>
-<form action='<?= URL . 'register/doUserInfo' ?>' method=post>
+<div class="jumbotron container-fluid">
+<h3>Registration (2/3) : Personal Information</h3></br>
+<form class="form-horizontal" action='<?= URL . 'register/doUserInfo' ?>' method=post enctype="multipart/form-data">
 
-    <div class="input-group">
-        <span class="input-group-addon" id="basic-addon1" >First Name: </span>
+    <div class="form-group">
+        <label class="col-sm-2 col-md-2 control-label">First Name: </label>
+        <div class="col-sm-4 col-md-4">
         <input type="text" class="form-control" aria-describedby="basic-addon1"
                name=first_name id=first_name
                pattern="^([A-z]){2,20}$" title="Minimum 2 letters" required
             <?php if (isset($this->newUser['first_name'])) {
                 echo "value='" . $this->newUser['first_name'] . "'";
-            } ?> style="width:200px"/>
+            } ?> />
+        </div>
         <p style="color: red">  <?php if (isset($this->firstNameError)) echo $this->firstNameError; ?></p>
     </div>
-    <div class="input-group">
-        <span class="input-group-addon" id="basic-addon1">Last Name: </span>
+    <div class="form-group">
+        <label class="col-sm-2 col-md-2 control-label">Last Name: </label>
+        <div class="col-sm-4 col-md-4">
         <input type="text" class="form-control" aria-describedby="basic-addon1"
                name=last_name id=last_name pattern="^([A-z]){2,20}$"
                title="Minimum 2 letters" required
             <?php if (isset($this->newUser['last_name'])) {
                 echo "value='" . $this->newUser['last_name'] . "'";
-            } ?> style="width:200px"/>
+            } ?>/>
+        </div>
         <p style="color: red">
             <?php if (isset($this->lastNameError)) echo $this->lastNameError; ?>
         </p>
     </div>
-    <div class="input-group">
-        <span class="input-group-addon" id="basic-addon1">Gender:</span>
-        <select name="gender_id" id="gender_id" required>
+    <div class="form-group">
+        <label class="col-sm-2 col-md-2 control-label">Gender: </label>
+        <div class="col-sm-4 col-md-4">
+        <select name="gender_id" id="gender_id" class="form-control" required>
             <option value="">Select a gender...</option>
             <?php
             foreach ($this->genders as $gender) {
@@ -45,12 +44,14 @@
             }
             ?>
         </select>
+        </div>
         <p style="color: red">
             <?php if (isset($this->genderError)) echo $this->genderError; ?>
         </p>
     </div>
-    <div class="input-group">
-        <span class="input-group-addon" id="basic-addon1">Date of birth: </span>
+    <div class="form-group">
+        <label class="col-sm-2 col-md-2 control-label">Date of birth: </label>
+        <div class="col-sm-4 col-md-4">
         <input type="date" name=date_of_birth id="date_of_birth" class="form-control" aria-describedby="basic-addon1"
                pattern="^(19|20)\d\d[-](0[1-9]|1[012])[-](0[1-9]|[12][0-9]|3[01])$"
                title="yyyy-mm-dd"
@@ -59,12 +60,27 @@
                required
             <?php if (isset($this->newUser['date_of_birth'])) {
                 echo "value='" . $this->newUser['date_of_birth'] . "'";
-            } ?> style="width: 150px"/>
+            } ?> />
+            </div>
         <p style="color: red">
             <?php if (isset($this->dobError)) echo $this->dobError; ?>
         </p>
     </div>
-
-    <input type="submit" name="submitInfo" id="submitInfo" value="Next" class="btn btn-primary btn-lg" >
-
+    <div class="form-group">
+        <label class="col-sm-2 col-md-2 control-label">Profile Picture: </label>
+        <div class="col-sm-4 col-md-4">
+            <input type="file" name="picture" id="picture" class="form-control upload" accept="image/*"
+                   required
+                <?php if (isset($this->newUser['picture'])) {
+                    echo "value='" . $this->newUser['picture'] . "'";
+                } ?> />
+        </div>
+        <p style="color: red">
+            <?php if (isset($this->picError)) echo $this->picError; ?>
+        </p>
+    </div>
+    <div class="col-sm-1 col-md-1  col-sm-offset-6 col-md-offset-6">
+        <input type="submit" name="submitInfo" id="submitInfo" value="Next" class="btn btn-primary btn-lg" >
+    </div>
 </form>
+</div>
