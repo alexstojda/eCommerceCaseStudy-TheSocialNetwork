@@ -5,6 +5,21 @@
  * Date: 11/21/2015
  * Time: 10:08 PM
  */
+
+$owner= [];
+$admin=[];
+$normal=[];
+foreach($this->members as $this->member){
+    if( (strcmp($this->member['user_status'], "owner") === 0)  ){
+        array_push( $owner, $this->member);
+    }
+    elseif(strcmp($this->member['user_status'], "admin") === 0) {
+        array_push( $admin, $this->member);
+    }
+    else{
+        array_push( $normal, $this->member);
+    }
+}
 ?>
 <script>
 	function myFunction() {
@@ -52,9 +67,27 @@
                 <h4 class="media-heading">Group Members</h4>
                 <ul>
                     <?php
-                    foreach($this->members as $this->member){
+
+                    echo '<p class="media-heading">Group Owner</p>';
+                    foreach($owner as $this->member){
                         echo '<li><a href="'. URL .'wall?u='. $this->member['user_id'] .'">'. $this->member['name'] .'</a></li>';
                     }
+                    echo '<p class="media-heading">Group Admins</p>';
+                    if(!empty($admin)) {
+                        foreach ($admin as $this->member) {
+                            echo '<li><a href="' . URL . 'wall?u=' . $this->member['user_id'] . '">' . $this->member['name'] . '</a></li>';
+                        }
+                    }
+                    else
+                        echo '<p> No Admins </p>';
+                    echo '<p class="media-heading">Group Members</p>';
+                    if(!empty($normal)) {
+                        foreach ($normal as $this->member) {
+                            echo '<li><a href="' . URL . 'wall?u=' . $this->member['user_id'] . '">' . $this->member['name'] . '</a></li>';
+                        }
+                    }
+                    else
+                        echo '<p> No Members </p>';
                     ?>
                 </ul>
             </div>
