@@ -51,6 +51,47 @@ class groups extends Controller
 
     }
 
+
+
+
+    public function create(){
+        $uid = Session::get('my_user')['id'];
+
+        //SETUP AND INIT BASIC WALL
+        if(isset($_POST['name'])&& isset($_POST['privacy']) && isset($_POST['description'])) {
+
+            $validName = $this->model->validateName($_POST['name']);
+            if(!$validName){
+                $this->view->alerts[] = ['Group name already taken','warning'];
+                $this->view->title = 'Create Groups';
+                $this->view->render('groups/create');
+            }
+            else{
+               $this->model->createGroup($_POST['name'], $_POST['description'], $_POST['privacy'], $uid);
+                header("Location: ../groups");
+            }
+
+        }
+        else{
+            $st = $this->model->getGroups($uid);
+            //GET list of groups
+            if (!empty($st)) {
+
+                foreach ($st as $a_post) {
+                    $this->view->groups[] = $a_post;
+                }
+
+                $this->view->validName = $this->model->validateName();
+            }
+
+            //FINALLY RENDER THE PAGE HTML
+            $this->view->title = 'Create Groups';
+            $this->view->render('groups/create');
+            //}
+        }
+
+    }
+
     public function group()
     {
         if (isset($_GET['g'])) {
