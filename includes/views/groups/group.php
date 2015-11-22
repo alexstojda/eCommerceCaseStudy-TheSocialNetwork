@@ -21,16 +21,8 @@ foreach($this->members as $this->member){
     }
 }
 ?>
-<script>
-	function myFunction() {
-        if(document.getElementById("demo").style.display == "inline")
-            document.getElementById("demo").style.display = "none";
-        else
-            document.getElementById("demo").style.display = "inline";
-    }
-</script>
 <div>
-	<h1 align="center"><?php echo $this->name ?> Group Wall</h1>
+	<h1 align="center"><?=$this->name ?> Group Wall</h1>
 </div>
 
 
@@ -44,21 +36,18 @@ foreach($this->members as $this->member){
         </div>
         <div class="col-xs-10 col-sm-10 col-md-6 col-lg-6">
             <div class="form-group">
-                <form action="<?= URL ?>groups/post?g=<?= $_GET['g'] ?>" method="post"  style=" display:inline;" enctype="multipart/form-data">
-                    <textarea class="form-control" name="post" rows="2" required  style=" display:inline; background-color: white"></textarea>
-
-                    <div class="input-group-btn" align="right"  aria-hidden="true">
-
-                        <button type="submit" class="btn btn-default" aria-haspopup="true" aria-expanded="false">Post
-                        </button>
-
-
-                        <button type="button"  onclick="myFunction()" class="btn btn-default btn-lg" style="height: inherit">
-                            <input id="demo" name="picture" type="file" accept="image/*" style="display: none; height: inherit; width: 105px; overflow: hidden; z-index: 5">
-                            <i class="fa fa-camera" aria-hidden="true" ></i>
-
-                        </button>
-                    </div>
+                <form action="<?= URL ?>post/doPost?u=<?= $_GET['g'] ?>" method="post"  style=" display:inline;" enctype="multipart/form-data">
+                <textarea class="form-control" name="post" rows="2" required placeholder="<?=
+                    'Share your thoughts with '.$this->name?>?"
+                  style=" display:inline; background-color: white"></textarea>
+                        <div class="input-group-btn" align="right" aria-hidden="true">
+                            <button type="submit" class="btn btn-default" aria-haspopup="true" aria-expanded="false">Post</button>
+                            <div class="fileUpload btn btn-default" style="font-size:23px; margin:0">
+                                <span><i class="fa fa-camera" aria-hidden="true" ></i></span>
+                                <input type="file" name="picture" class="upload" accept="image/*"/>
+                                <input type="hidden" name="origin" value="<?=ltrim($_GET['url'], 'public').'?g='.$_GET['g'];?>"/>
+                            </div>
+                        </div>
                 </form>
             </div>
         </div>
@@ -101,7 +90,7 @@ foreach($this->members as $this->member){
             <?php
             if (isset($this->posts) AND count($this->posts) > 0 ) {
                 foreach($this->posts as $this->post) {
-                    include PATH . 'views/group_post/index.php';
+                    include PATH . 'views/post/index.php';
                 }
             } else { ?>
                 <tr>

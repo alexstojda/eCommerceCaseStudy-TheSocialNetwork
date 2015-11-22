@@ -8,11 +8,13 @@ class _Group_Post extends Model
     private $group_id;
     private $creation_date;
     private $post_by_name;
+    private $post_by_img;
     private $post_to_name;
     private $post_text;
     private $post_image;
+    private $comments;
 
-    public function __construct($temp )
+    public function __construct($temp = null)
     {
 
         parent::__construct();
@@ -23,6 +25,7 @@ class _Group_Post extends Model
                 'group_id' => $temp['to'],
                 'text' => $temp['text'],
                 'image_attachment' => $temp['image'],
+                'parent_id' => $temp['parent']
             ]);
         } elseif (isset($temp)) {
             $st = $this->db->select('SELECT * FROM group_post WHERE group_post_id = :id', array(
@@ -31,7 +34,7 @@ class _Group_Post extends Model
                 $this->setAll($st[0]);
         }
         else
-            header('Location: ../home'); //TODO: change to timeline
+            header('Location: ../timeline');
     }
 
     public function setAll($array) {
@@ -53,6 +56,21 @@ class _Group_Post extends Model
         $this->post_text            = $array['text'];
         $this->post_image           = $array['image_attachment'];
         $this->creation_date        = $array['creation_date'];
+        $this->setComments();
+
+        $this->post_by_img = $this->db->select('SELECT profile_picture FROM users WHERE user_id = :id', array(
+            ':id' => $array['post_by']
+        ))[0]['profile_picture'];
+    }
+
+    public function setComments() {
+        $st = $this->db->select('SELECT * FROM group_post WHERE parent_id = :id', array(
+            ':id' => $this->post_id));
+        if (count($st) > 0) {
+            foreach($st as $post) {
+                $this->comments[] = new self($post['post_id']);
+            }
+        }
     }
 
     //Getters
@@ -67,10 +85,11 @@ class _Group_Post extends Model
         return $this->post_by;
     }
 
-    public function getPostTo()
+    public function getPostByImg()
     {
-        return $this->post_to;
+        return $this->post_by_img;
     }
+
 
     public function getPostByName()
     {
@@ -102,13 +121,12 @@ class _Group_Post extends Model
         return $this->creation_date ;
     }
 
-
+    public function getComments()
+    {
+        return $this->comments;
+    }
     //SETTERS
 
-    public function getPrivacy()
-    {
-        return $this->privacy;
-    }
 
     public function setPrivacy($newThing)
     {

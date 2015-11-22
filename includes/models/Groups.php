@@ -37,7 +37,7 @@ class _Groups extends Model
 
             $this->members = $membersTemp;
             //RETRIEVE ALL POSTS
-            $st = $this->db->select('SELECT * FROM group_post WHERE group_id = :to ORDER BY creation_date DESC', array(
+            $st = $this->db->select('SELECT * FROM group_post WHERE group_id = :to AND isnull(parent_id) ORDER BY creation_date DESC', array(
                 ':to' => $group
             ));
 
@@ -79,7 +79,7 @@ class _Groups extends Model
                                     FROM groups
                               INNER JOIN group_members
                                       ON groups.group_id=group_members.group_id
-                                   WHERE user_id = :to ', array(
+                                   WHERE user_id = :to', array(
             ':to' => $uid
         ));
     }
