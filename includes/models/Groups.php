@@ -50,16 +50,39 @@ class _Groups extends Model
 
     }
 
-public function getGroups($uid){
-    return $this->db->select('SELECT name, groups.group_id
-                                FROM groups
-                          INNER JOIN group_members
-                                  ON groups.group_id=group_members.group_id
-                               WHERE user_id = :to ', array(
-        ':to' => $uid
-    ));
-   /* */
-}
+    public function validateName()
+    {
+        if(isset($_POST['name'])&& isset($_POST['privacy']) && isset($_POST['description'])) {
+            $name = $_POST['name'];
+            $res = $this->db->select('SELECT group_id FROM groups WHERE name = :name',
+                array(':name' => $name));
+            if (count($res) > 0){
+                return false;
+            }
+            else {
+               return true;
+            }
+        }
+    }
+    public function createGroup($name, $description, $privacy, $user){
+        $this->db->insert('groups', ['name'=>$name, 'privacy'=>$privacy, 'description'=>$description]);
+        $tdb = $this->db->select('SELECT group_id
+                                    FROM groups
+                                   WHERE name = :to ', array(
+            ':to' => $name
+        ))[0];
+
+        $this->db->insert('group_members', ['user_id'=>$user, 'group_id'=>$tdb['group_id'], 'user_status'=>'owner']);
+    }
+    public function getGroups($uid){
+        return $this->db->select('SELECT name, groups.group_id
+                                    FROM groups
+                              INNER JOIN group_members
+                                      ON groups.group_id=group_members.group_id
+                                   WHERE user_id = :to ', array(
+            ':to' => $uid
+        ));
+    }
 
     //Getters
     public function getGroup_id()
