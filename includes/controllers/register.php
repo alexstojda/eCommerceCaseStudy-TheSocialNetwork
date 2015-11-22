@@ -67,8 +67,6 @@ class register extends Controller
 
     public function addUser()
     {
-
-
         if ($this->model->insertUser($this->newUser)) {
             Session::clear('register');
             header('Location: ' . URL . 'auth?created=1');
@@ -92,6 +90,8 @@ class register extends Controller
         elseif (!isset($this->newUser['gender_id']))
             return false;
         elseif (!isset($this->newUser['date_of_birth']))
+            return false;
+        elseif (!isset($this->newUser['profile_picture']))
             return false;
         elseif (!isset($this->newUser['phone']))
             return false;
@@ -209,6 +209,18 @@ class register extends Controller
         else {
             $this->view->dobError = 'You must be 13 years or older to join';
             $isValid = false;
+        }
+
+        //Profile Picture Upload
+        if ($_FILES['picture']['name'] !== "") {
+            $uploaddir = 'profile_pics/';
+            $path_parts = pathinfo($_FILES["picture"]["name"])['extension'];
+            $uploadfile = $uploaddir . $this->newUser['username'] .'.'. $path_parts;
+
+            if(move_uploaded_file($_FILES['picture']['tmp_name'], $uploadfile))
+                $this->newUser['profile_picture'] = $uploadfile;
+            else
+                echo "Something wrong with file/directory!!";
         }
 
         if ($isValid) {

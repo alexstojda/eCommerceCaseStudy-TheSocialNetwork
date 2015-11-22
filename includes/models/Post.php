@@ -6,14 +6,16 @@ class _Post extends Model
     private $post_id;
     private $post_by;
     private $post_by_name;
+    private $post_by_img;
     private $post_to_name;
     private $post_to;
     private $post_text;
     private $post_image;
     private $date;
     private $privacy;
+    private $comments;
 
-    public function __construct($temp)
+    public function __construct($temp = null)
     {
         parent::__construct();
 
@@ -23,6 +25,7 @@ class _Post extends Model
                 'post_to' => $temp['to'],
                 'text' => $temp['text'],
                 'image_attachment' => $temp['image'],
+                'parent_id' => $temp['parent'],
                 'privacy' => $temp['privacy']
             ]);
         } elseif (isset($temp)) {
@@ -31,7 +34,7 @@ class _Post extends Model
             if (count($st) > 0)
                 $this->setAll($st[0]);
         } else
-            header('Location: ../home'); //TODO: change to timeline
+            header('Location: ../timeline');
     }
 
     public function setAll($array) {
@@ -54,6 +57,21 @@ class _Post extends Model
         $this->post_image  = $array['image_attachment'];
         $this->date        = $array['creation_date'];
         $this->privacy     = $array['privacy'];
+        $this->setComments();
+
+        $this->post_by_img = $this->db->select('SELECT profile_picture FROM users WHERE user_id = :id', array(
+            ':id' => $array['post_by']
+        ))[0]['profile_picture'];
+    }
+
+    public function setComments() {
+        $st = $this->db->select('SELECT * FROM post WHERE parent_id = :id', array(
+            ':id' => $this->post_id));
+        if (count($st) > 0) {
+            foreach($st as $post) {
+                $this->comments[] = new self($post['post_id']);
+            }
+        }
     }
 
     //GETTERS
@@ -82,6 +100,11 @@ class _Post extends Model
         return $this->post_to_name;
     }
 
+    public function getPostByImg()
+    {
+        return $this->post_by_img;
+    }
+
     public function getPostText()
     {
         return $this->post_text;
@@ -102,6 +125,10 @@ class _Post extends Model
         return $this->date;
     }
 
+    public function getComments()
+    {
+        return $this->comments;
+    }
 
     //SETTERS
 

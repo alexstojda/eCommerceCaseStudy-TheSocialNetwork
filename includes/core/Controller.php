@@ -28,7 +28,7 @@ abstract class Controller
         $characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
         $string = '';
         for ($i = 0; $i < $random_string_length; $i++) {
-            $string .= $characters[rand(0, strlen($characters) - 1)];
+            $string .= $characters[mt_rand(0, strlen($characters) - 1)];
         }
         return $string;
     }
@@ -37,7 +37,7 @@ abstract class Controller
     abstract public function index();
 
     /**
-     *
+     * Used to autoload models on controller creation.
      * @param string $name Name of the model
      * @param string $modelPath
      */
