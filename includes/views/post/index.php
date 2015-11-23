@@ -1,6 +1,8 @@
-<div class="panel panel-default "  >
+<div class="panel panel-default " xmlns="http://www.w3.org/1999/html">
     <div class="panel-heading">
-        <img class="media-object thumbnail" src="<?=URL.$this->post->getPostByImg()?>" alt="..." style="float: left;display: inline-block; height: 4em; margin: 0px 8px 0px 0px;">
+        <a href="#" data-toggle="modal" data-target="#lightbox">
+            <img  class="media-object thumbnail" src="<?=URL.$this->post->getPostByImg()?>" alt="..." style="float: left;display: inline-block; height: 4em; margin: 0px 8px 0px 0px;">
+        </a>
         <a href="<?= URL . 'wall?u='. $this->post->getPostBy();?>"><?= $this->post->getPostByName(); ?></a></br>
         <strong align="left"><i><?= $this->post->getDate() ?></strong></i>
     </div>
@@ -9,21 +11,25 @@
   		<div class="media-body media-right">
     		<p><?= $this->post->getPostText() ?></p>
 			<?php  $img = $this->post->getPostImage(); if( isset($img) )
-				echo '<img class="media-object thumbnail" src= '.URL.$img . ' alt="..." style="display: inline; height: 15em;">';
+				echo '<a href="#" data-toggle="modal" data-target="#lightbox">'.
+                        '<img class="media-object thumbnail" src= '.URL.$img . ' alt="..." style="display: inline; height: 15em;"></a>';
             //LOADS ALL COMMENTS
             if($this->post->getComments() !== null) {
                     foreach($this->post->getComments() as $comment) { ?>
                     <div class="panel panel-collapse"  >
                         <div class="media" style="padding: 0.4em; margin: 0;">
                             <div class="media-left">
-                                <img class="media-object thumbnail" src="<?=URL.$comment->getPostByImg()?>" alt="..." style="display: inline-block; height: 3.5em; margin: 0px">
+                                <a href="#" data-toggle="modal" data-target="#lightbox">
+                                    <img class="media-object thumbnail" src="<?=URL.$comment->getPostByImg()?>" alt="..." style="display: inline-block; height: 3.5em; margin: 0px"></a>
+                                </a>
                             </div>
                             <div class="media-body">
                                 <p>
                                 <b><a href="<?= URL . 'wall?u='.  $this->post->getPostBy();?>"><?= $comment->getPostByName(); ?></a></b>
                                 <?= $comment->getPostText() ?></p>
                                 <?php $img = $comment->getPostImage(); if( isset($img))
-                                    echo '<img class="media-object thumbnail" src= '.URL.$img . ' alt="..." style="display: inline; height: 12em;">';
+                                    echo '<a href="#" data-toggle="modal" data-target="#lightbox">'.
+                                        '<img class="media-object thumbnail" src= '.URL.$img . ' alt="..." style="display: inline; height: 12em;"></a>';
                                 ?>
                             </div>
                             <div class="media-bottom">
