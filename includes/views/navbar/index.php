@@ -46,17 +46,21 @@
             <ul class="nav navbar-nav navbar-right">
                 <!-- Change corner link to either logout or login depending on session-->
                 <?php if (Session::get('my_user')) { ?>
+                    <li><a href="<?=URL?>inbox" >My Messages</a></li>
+                    <li><a href="<?=URL?>wall" >My Wall</a></li>
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                           aria-expanded="false">Hi <?= Session::get('my_user')['first_name']?> <span class="caret"></span></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" style="padding: 13px; float: none"
+                           aria-expanded="false">Hi <?= Session::get('my_user')['first_name']?> <img class="media-object thumbnail"
+                                                                        src="<?=URL.Session::get('my_user')['picture']?>" alt="..." style="margin-bottom: auto;display: inline-block; height: 3em">
+                            <span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a href="<?php echo URL; ?>wall">Go to my Wall</a></li>
-                            <li><a href="#">Another action</a></li>
-                            <li><a href="#">Something else here</a></li>
+                            <li><a href="<?=URL?>wall">My Pokes</a></li>
+                            <li><a href="#">My Friends</a></li>
+                            <li><a href="<?=URL?>groups">My Groups</a></li>
                             <li role="separator" class="divider"></li>
-                            <li><a href="#">Separated link</a></li>
+                            <li><a href="#">Manage Account</a></li>
                             <li role="separator" class="divider"></li>
-                            <li><a href="<?php echo URL ?>auth/doLogout">Logout</a></li>
+                            <li><a href="<?=URL?>auth/doLogout">Logout</a></li>
                         </ul>
                     </li>
                 <?php } else { ?>
@@ -79,3 +83,7 @@
         </div>
     </div>
 </div>
+
+<body>
+
+<div id="content">

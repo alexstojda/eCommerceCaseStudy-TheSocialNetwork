@@ -43,40 +43,25 @@ class Wall extends Controller
                 header("Location: ../home");
         }
     }
-
+    /*TODO:OBSOLETE use /post/doPost() now*/
     public function post()
     {
         if (isset($_POST['post'], $_GET['u'])) {
 
             if ($_FILES['picture']['name'] !== "") {
-
                 $uploaddir = 'user_images/';
                 $path_parts = pathinfo($_FILES["picture"]["name"])['extension'];
                 $uploadfile = $uploaddir . self::randomGen(32) .'.'. $path_parts;
-
-                if (move_uploaded_file($_FILES['picture']['tmp_name'], $uploadfile)) {
-                    echo "File is valid, and was successfully uploaded.\n";
-                    $this->model = $this->getModel('Post', $post = [
-                        'from' => Session::get('my_user')['id'],
-                        'to' => $_GET['u'],
-                        'text' => $_POST['post'],
-                        'image' =>  $uploadfile,
-                        'privacy' => 0
-                    ]);
-                } else {
-                    echo "Possible file upload attack!\n";
-                }
-
             }
-            else{
-                $this->model = $this->getModel('Post', $post = [
-                    'from' => Session::get('my_user')['id'],
-                    'to' => $_GET['u'],
-                    'text' => $_POST['post'],
-                    'image' => null,
-                    'privacy' => 0
-                ]);
-            }
+
+            $this->model = $this->getModel('Post', $post = [
+                'from' => Session::get('my_user')['id'],
+                'to' => $_GET['u'],
+                'text' => $_POST['post'],
+                'image' =>  ((isset($uploadfile) && move_uploaded_file($_FILES['picture']['tmp_name'], $uploadfile)) ? $uploadfile : null),
+                'parent' => (isset($_GET['reply']) ? $_GET['reply'] : null),
+                'privacy' => 0
+            ]);
 
             header("Location: ../wall?u=" . $_GET['u']);
         } else {
