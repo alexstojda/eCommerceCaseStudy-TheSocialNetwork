@@ -10,4 +10,7 @@ class Model
         $this->db = Database::noParam();
     }
 
+    function getError(){
+        return $this->db->errorInfo();
+    }
 }
