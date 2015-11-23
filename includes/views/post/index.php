@@ -1,6 +1,6 @@
 <div class="panel panel-default "  >
     <div class="panel-heading">
-        <img class="media-object thumbnail" src="<?= $this->post->getPostByImg()?>" alt="..." style="float: left;display: inline-block; height: 4em; margin: 0px 8px 0px 0px;">
+        <img class="media-object thumbnail" src="<?=URL.$this->post->getPostByImg()?>" alt="..." style="float: left;display: inline-block; height: 4em; margin: 0px 8px 0px 0px;">
         <a href="<?= URL . 'wall?u='. $this->post->getPostBy();?>"><?= $this->post->getPostByName(); ?></a></br>
         <strong align="left"><i><?= $this->post->getDate() ?></strong></i>
     </div>
@@ -8,23 +8,22 @@
 
   		<div class="media-body media-right">
     		<p><?= $this->post->getPostText() ?></p>
-			<?php
-			if( $this->post->getPostImage() )
-				echo '<img class="media-object thumbnail" src= '.$this->post-> getPostImage() . ' alt="..." style="display: inline; height: 15em;">';
+			<?php  $img = $this->post->getPostImage(); if( isset($img) )
+				echo '<img class="media-object thumbnail" src= '.URL.$img . ' alt="..." style="display: inline; height: 15em;">';
             //LOADS ALL COMMENTS
             if($this->post->getComments() !== null) {
                     foreach($this->post->getComments() as $comment) { ?>
                     <div class="panel panel-collapse"  >
                         <div class="media" style="padding: 0.4em; margin: 0;">
                             <div class="media-left">
-                                <img class="media-object thumbnail" src="<?= $this->post->getPostByImg()?>" alt="..." style="display: inline-block; height: 3.5em; margin: 0px">
+                                <img class="media-object thumbnail" src="<?= $comment->getPostByImg()?>" alt="..." style="display: inline-block; height: 3.5em; margin: 0px">
                             </div>
                             <div class="media-body">
                                 <p>
                                 <b><a href="<?= URL . 'wall?u='.  $this->post->getPostBy();?>"><?= $comment->getPostByName(); ?></a></b>
                                 <?= $comment->getPostText() ?></p>
                                 <?php $img = $comment->getPostImage(); if( isset($img))
-                                    echo '<img class="media-object thumbnail" src= '.$comment->getPostImage() . ' alt="..." style="display: inline; height: 12em;">';
+                                    echo '<img class="media-object thumbnail" src= '.URL.$img . ' alt="..." style="display: inline; height: 12em;">';
                                 ?>
                             </div>
                             <div class="media-bottom">
@@ -50,8 +49,8 @@
                             <div class="fileUpload btn btn-default" style="font-size:23px; margin:0">
                                 <span><i class="fa fa-camera" aria-hidden="true" ></i></span>
                                 <input type="file" name="picture" class="upload" accept="image/*"/>
-                                <input type="hidden" name="origin" value="<?=(ltrim($_GET['url'], 'public/') == 'wall' ?
-                                    ltrim($_GET['url'], 'public').'?u='.$_GET['u'] : ltrim($_GET['url'], 'public'));?>"/>
+                                <input type="hidden" name="origin" value="<?=(isset($_GET['u']) ? 'wall?u='.$_GET['u'] : //Convoluted origin identification
+                                    (isset($_GET['g']) ? ltrim($_GET['url'], 'public').'?g='.$_GET['g'] : ltrim($_GET['url'], 'public')));?>"/>
                             </div>
                         </div>
                     </form>
