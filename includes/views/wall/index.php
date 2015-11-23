@@ -7,7 +7,7 @@
     <div class="row">
         <div class="col-xs-10 col-sm-10 col-md-6 col-lg-6 col-md-offset-3 col-lg-offset-3 col-xs-offset-1 col-sm-offset-1">
             <div class="form-group">
-				<form action="<?= URL ?>post/doPost?u=<?= $_GET['u'] ?>" method="post"  style=" display:inline;" enctype="multipart/form-data">
+				<form action="<?=URL?>post/doPost?u=<?= $_GET['u'] ?>" method="post"  style=" display:inline;" enctype="multipart/form-data">
                     <textarea class="form-control" name="post" rows="2" required placeholder="<?=
                     ($_GET['u']!==Session::get('my_user')['id']) ? 'Share your thoughts with '.$this->name : 'What\'s on your mind'?>?"
                               style=" display:inline; background-color: white"></textarea>

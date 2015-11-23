@@ -56,7 +56,7 @@
                         <ul class="dropdown-menu">
                             <li><a href="<?=URL?>wall">My Pokes</a></li>
                             <li><a href="#">My Friends</a></li>
-                            <li><a href="#">My Groups</a></li>
+                            <li><a href="<?=URL?>groups">My Groups</a></li>
                             <li role="separator" class="divider"></li>
                             <li><a href="#">Manage Account</a></li>
                             <li role="separator" class="divider"></li>

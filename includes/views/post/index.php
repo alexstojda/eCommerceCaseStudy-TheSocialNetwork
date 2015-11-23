@@ -8,22 +8,22 @@
 
   		<div class="media-body media-right">
     		<p><?= $this->post->getPostText() ?></p>
-			<?php
-			if( $this->post->getPostImage() )
-				echo '<img class="media-object thumbnail" src= '.URL.$this->post-> getPostImage() . ' alt="..." style="display: inline; height: 15em;">';
+			<?php  $img = $this->post->getPostImage(); if( isset($img) )
+				echo '<img class="media-object thumbnail" src= '.URL.$img . ' alt="..." style="display: inline; height: 15em;">';
             //LOADS ALL COMMENTS
             if($this->post->getComments() !== null) {
                     foreach($this->post->getComments() as $comment) { ?>
                     <div class="panel panel-collapse"  >
                         <div class="media" style="padding: 0.4em; margin: 0;">
                             <div class="media-left">
-                                <img class="media-object thumbnail" src="<?=URL.$comment->getPostByImg()?>" alt="..." style="display: inline-block; height: 3.5em; margin: 0px">
+                                <img class="media-object thumbnail" src="<?= $comment->getPostByImg()?>" alt="..." style="display: inline-block; height: 3.5em; margin: 0px">
                             </div>
                             <div class="media-body">
-                                <b><a href="<?= URL . 'wall?u='.  $comment->getPostBy();?>"><?= $comment->getPostByName(); ?></a></b>
-                                <?= $comment->getPostText() ?>
+                                <p>
+                                <b><a href="<?= URL . 'wall?u='.  $this->post->getPostBy();?>"><?= $comment->getPostByName(); ?></a></b>
+                                <?= $comment->getPostText() ?></p>
                                 <?php $img = $comment->getPostImage(); if( isset($img))
-                                    echo '<img class="media-object thumbnail" src= '.URL.$comment->getPostImage() . ' alt="..." style="display: inline; height: 12em;">';
+                                    echo '<img class="media-object thumbnail" src= '.URL.$img . ' alt="..." style="display: inline; height: 12em;">';
                                 ?>
                             </div>
                             <div class="media-bottom">
