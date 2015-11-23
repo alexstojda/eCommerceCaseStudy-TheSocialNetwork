@@ -49,6 +49,10 @@ class _Groups extends Model
         }
 
     }
+    public function updateGroup(){
+        $this->db->update('groups', ['privacy'=> $_POST['privacy'], 'description' => $_POST['description']], 'group_id = '.$_POST['g']);
+    }
+
     public function makeAdmin(){
             $this->db->update('group_members', ['user_status'=> 'admin'], 'user_id = '.$_POST['admin_id'] .' AND group_id = '.$_GET['g']);
     }
@@ -60,15 +64,22 @@ class _Groups extends Model
 
          $this->db->delete('group_members', 'user_id = '.  $_POST['member_id']  .  ' AND group_id = '.$_GET['g'] );
     }
+
+    public function join(){
+
+        $this->db->insert('group_members', ['user_id'=>$_POST['user_id'], 'group_id'=> $_GET['g'], 'user_status'=>'normal']);
+    }
     public function leave(){
 
-        $this->db->delete('group_members', 'user_id = '.  $_POST['leave_id']  .  ' AND group_id = '.$_GET['g'] );
+        $this->db->delete('group_members', 'user_id = '.  SESSION::get('id') .  ' AND group_id = '.$_GET['g'] );
     }
 
     public function delete(){
 
         $this->db->delete('groups', ' group_id = '.$_GET['g'] );
     }
+
+
 
     public function validateName()
     {

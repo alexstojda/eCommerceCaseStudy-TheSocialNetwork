@@ -26,38 +26,25 @@ class groups extends Controller
 
     public function update(){
         $uid = Session::get('my_user')['id'];
+        $this->model->init($_POST['g']);
+        $this->view->name = $this->model->getName();
+        $this->view->description = $this->model->getDescription();
+        $this->view->privacy = $this->model->getPrivacy();
 
         //SETUP AND INIT BASIC WALL
-        if(isset($_POST['name'])&& isset($_POST['privacy']) && isset($_POST['description'])) {
+        if(isset($_POST['privacy']) && isset($_POST['description'])) {
 
-            $validName = $this->model->validateName($_POST['name']);
-            if(!$validName){
-                $this->view->alerts[] = ['Group name already taken','warning'];
-                $this->view->title = 'Update Groups';
-                $this->view->render('groups/create');
-            }
-            else{
-                $this->model->createGroup($_POST['name'], $_POST['description'], $_POST['privacy'], $uid);
-                header("Location: ../groups");
-            }
-
+            //make update
+           $this->model->updateGroup();
+            header("Location: ../groups/group?g=".$_POST['g']);
         }
-        else{
-            $st = $this->model->getGroups($uid);
-            //GET list of groups
-            if (!empty($st)) {
+        if(isset($_POST['g']) && isset($_POST['member_id'])){
 
-                foreach ($st as $a_post) {
-                    $this->view->groups[] = $a_post;
-                }
 
-                $this->view->validName = $this->model->validateName();
-            }
 
-            //FINALLY RENDER THE PAGE HTML
             $this->view->title = 'Update Group';
-            $this->view->render('groups/create');
-            //}
+            $this->view->render('groups/update');
+
         }
 
     }
@@ -84,6 +71,16 @@ class groups extends Controller
         if(isset($_POST['leave_id']) && isset($_GET['g']) ){
             $this->model->leave();
             header("Location: ../groups");
+        }
+
+    }
+
+
+    public function join(){
+
+        if(isset($_POST['user_id']) && isset($_GET['g']) ){
+            $this->model->join();
+            header("Location: ../groups/group?g=".$_GET['g']);
         }
 
     }
