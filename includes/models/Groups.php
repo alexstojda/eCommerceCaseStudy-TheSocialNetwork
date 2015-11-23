@@ -49,6 +49,26 @@ class _Groups extends Model
         }
 
     }
+    public function makeAdmin(){
+            $this->db->update('group_members', ['user_status'=> 'admin'], 'user_id = '.$_POST['admin_id'] .' AND group_id = '.$_GET['g']);
+    }
+    public function removeAdmin(){
+        $this->db->update('group_members', ['user_status'=> 'normal'], 'user_id = '.$_POST['admin_id'] .' AND group_id = '.$_GET['g']);
+    }
+
+    public function kick(){
+
+         $this->db->delete('group_members', 'user_id = '.  $_POST['member_id']  .  ' AND group_id = '.$_GET['g'] );
+    }
+    public function leave(){
+
+        $this->db->delete('group_members', 'user_id = '.  $_POST['leave_id']  .  ' AND group_id = '.$_GET['g'] );
+    }
+
+    public function delete(){
+
+        $this->db->delete('groups', ' group_id = '.$_GET['g'] );
+    }
 
     public function validateName()
     {

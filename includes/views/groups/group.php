@@ -5,24 +5,43 @@
  * Date: 11/21/2015
  * Time: 10:08 PM
  */
-
+$sessionUser;
 $owner= [];
 $admin=[];
 $normal=[];
 foreach($this->members as $this->member){
     if( (strcmp($this->member['user_status'], "owner") === 0)  ){
         array_push( $owner, $this->member);
+        if(strcmp($this->member['user_id'], SESSION::get('id'))==0)
+            $sessionUser = 1;
     }
     elseif(strcmp($this->member['user_status'], "admin") === 0) {
         array_push( $admin, $this->member);
+        if(strcmp($this->member['user_id'], SESSION::get('id'))==0)
+            $sessionUser = 2;
     }
     else{
         array_push( $normal, $this->member);
+        if(strcmp($this->member['user_id'], SESSION::get('id'))==0)
+            $sessionUser = 3;
     }
 }
 ?>
 <div>
 	<h1 align="center"><?=$this->name ?> Group Wall</h1>
+    <?php
+    if(isset($sessionUser) && $sessionUser === 1) {
+        echo '<form action="'. URL . 'groups/delete?g=' . $_GET['g'].'" method="post">';
+
+        echo '<button type="submit" name = "delete_group" >Delete Group</button>';
+        echo '</form>';
+    }
+    elseif(isset($sessionUser)){
+        echo '<form action="'. URL . 'groups/leave?g=' . $_GET['g'].'" method="post">';
+        echo '<button type="submit"  value="' . $this->member['user_id'] . '" name = "leave_id" >Leave Group</button>';
+        echo '</form>';
+    }
+    ?>
 </div>
 
 
@@ -79,14 +98,32 @@ foreach($this->members as $this->member){
                     echo '<p class="media-heading">Group Admins</p>';
                     if(!empty($admin)) {
                         foreach ($admin as $this->member) {
-                            echo '<li><a href="' . URL . 'wall?u=' . $this->member['user_id'] . '">' . $this->member['name'] . '</a></li>';
+                            if(isset($sessionUser) && $sessionUser === 1) {
+                                echo '<form action="'. URL . 'groups/removeAdmin?g=' . $_GET['g'].'" method="post">';
+                                echo '<li><a href="' . URL . 'wall?u=' . $this->member['user_id'] . '">' . $this->member['name'] . '</a></li>';
+                                echo '<button type="submit" name="admin_id" value="' . $this->member['user_id'] . '">Remove Admin</button></form>';
+                            }
+                            else{
+                                echo '<li><a href="' . URL . 'wall?u=' . $this->member['user_id'] . '">' . $this->member['name'] . ' </a></li>';
+                            }
+
                         }
                     }
                     else echo '<p> No Admins </p>';
                     echo '<p class="media-heading">Group Members</p>';
                     if(!empty($normal)) {
                         foreach ($normal as $this->member) {
-                            echo '<li><a href="' . URL . 'wall?u=' . $this->member['user_id'] . '">' . $this->member['name'] . '</a></li>';
+                            if(isset($sessionUser)) {
+                                echo '<form action="'. URL . 'groups/makeAdmin?g=' . $_GET['g'].'" method="post">';
+                                echo '<li><a href="' . URL . 'wall?u=' . $this->member['user_id'] . '">' . $this->member['name'] . '</a></li>';
+                                echo '<button type="submit" name = "admin_id" value="' . $this->member['user_id'] . '">Make Admin</button></form>';
+                                echo'<form action="'. URL . 'groups/kick?g=' . $_GET['g'].'" method="post">';
+                                echo '<button type="submit" name = "member_id" value="' . $this->member['user_id'] . '">kick</button></form>';
+                            }
+                            else{
+                                echo '<li><a href="' . URL . 'wall?u=' . $this->member['user_id'] . '">' . $this->member['name'] . '</a></li>';
+                            }
+
                         }
                     } else
                         echo '<p> No Members </p>';
