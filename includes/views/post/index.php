@@ -16,7 +16,7 @@
                     <div class="panel panel-collapse"  >
                         <div class="media" style="padding: 0.4em; margin: 0;">
                             <div class="media-left">
-                                <img class="media-object thumbnail" src="<?= $comment->getPostByImg()?>" alt="..." style="display: inline-block; height: 3.5em; margin: 0px">
+                                <img class="media-object thumbnail" src="<?=URL.$comment->getPostByImg()?>" alt="..." style="display: inline-block; height: 3.5em; margin: 0px">
                             </div>
                             <div class="media-body">
                                 <p>
@@ -40,7 +40,9 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="form-group">
-                    <form action="<?= URL ?>post/doPost?reply=<?= $this->post->getPostID()?>" method="post"  style=" display:inline;" enctype="multipart/form-data">
+                    <form action="<?=URL?>post/doPost?u=<?=$this->post->getPostBy().'&'.(isset($_GET['g']) ? 'g='.$_GET['g'].'&' : '')
+                          ?>reply=<?= $this->post->getPostID() //(isset($_GET['u']) ? 'u='.$_GET['u'].'&' : '') ?>"
+                          method="post"  style=" display:inline;" enctype="multipart/form-data">
                         <textarea class="form-control" name="post" rows="2" required
                                   placeholder="<?= ($this->post->getComments() !== null ? 'Reply to this post?' : 'Be the first to comment on this post!'); ?>"
                                   style=" display:inline; background-color: white"></textarea>
