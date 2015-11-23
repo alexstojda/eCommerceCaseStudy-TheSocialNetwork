@@ -30,11 +30,12 @@ class Post extends Controller
             }
             //Savage fucking bullshit. Does all kinds of posts : groups, comments, normal ones
             $this->model = $this->getModel((isset($_GET['g']) ? 'Group_' : '').'Post', $post = [
-                'from' => Session::get('my_user')['id'],
-                'to' => (isset($_GET['g']) ? $_GET['g'] :(isset($_GET['u']) ? $_GET['u'] : Session::get('my_user')['id'])),
-                'text' => $_POST['post'],
-                'image' =>  ((isset($uploadfile) && move_uploaded_file($_FILES['picture']['tmp_name'], $uploadfile)) ? $uploadfile : null),
-                'parent' => (isset($_GET['reply']) ? $_GET['reply'] : null),
+                'from'    => Session::get('my_user')['id'],
+                'to'      => (isset($_GET['u']) ? $_GET['u'] : (isset($_GET['g']) ? null : Session::get('my_user')['id'])),
+                'group'   => (isset($_GET['g']) ? $_GET['g'] : header("Location: ..".$_POST['origin'].'?fucked=up')),
+                'text'    => $_POST['post'],
+                'image'   =>  ((isset($uploadfile) && move_uploaded_file($_FILES['picture']['tmp_name'], $uploadfile)) ? $uploadfile : null),
+                'parent'  => (isset($_GET['reply']) ? $_GET['reply'] : null),
                 'privacy' => 0
             ]);
             header("Location: ..".$_POST['origin']);

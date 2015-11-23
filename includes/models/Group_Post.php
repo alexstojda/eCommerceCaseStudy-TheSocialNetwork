@@ -22,7 +22,8 @@ class _Group_Post extends Model
         if (is_array($temp)) {
             $this->db->insert('group_post', [
                 'post_by' => $temp['from'],
-                'group_id' => $temp['to'],
+                'post_to' => $temp['to'],
+                'group_id' => $temp['group'],
                 'text' => $temp['text'],
                 'image_attachment' => $temp['image'],
                 'parent_id' => $temp['parent']
@@ -68,7 +69,7 @@ class _Group_Post extends Model
             ':id' => $this->post_id));
         if (count($st) > 0) {
             foreach($st as $post) {
-                $this->comments[] = new self($post['post_id']);
+                $this->comments[] = new self($post['group_post_id']);
             }
         }
     }

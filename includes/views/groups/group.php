@@ -28,15 +28,9 @@ foreach($this->members as $this->member){
 
 <div class="container-fluid">
     <div class="row">
-        <div class="col-md-3 col-lg-3 col-xs-1 col-sm-1">
-            <div class="media">
-                <h4 class="media-heading">Group Description</h4>
-                <p><?= $this->description?></p>
-            </div>
-        </div>
-        <div class="col-xs-10 col-sm-10 col-md-6 col-lg-6">
+        <div class="col-xs-10 col-sm-10 col-md-6 col-lg-6 col-md-offset-3 col-lg-offset-3 col-xs-offset-1 col-sm-offset-1">
             <div class="form-group">
-                <form action="<?= URL ?>post/doPost?u=<?= $_GET['g'] ?>" method="post"  style=" display:inline;" enctype="multipart/form-data">
+                <form action="<?= URL ?>post/doPost?g=<?= $_GET['g'] ?>" method="post"  style=" display:inline;" enctype="multipart/form-data">
                 <textarea class="form-control" name="post" rows="2" required placeholder="<?=
                     'Share your thoughts with '.$this->name?>?"
                   style=" display:inline; background-color: white"></textarea>
@@ -51,12 +45,33 @@ foreach($this->members as $this->member){
                 </form>
             </div>
         </div>
-        <div class="col-md-3 col-lg-3 col-xs-1 col-sm-1">
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class=" jumbotron col-md-3 col-lg-3 col-xs-1 col-sm-1">
+            <div class="media">
+                <h4 class="media-heading">Group Description</h4>
+                <p><?= $this->description?></p>
+            </div>
+        </div>
+        <div class="col-xs-10 col-sm-10 col-md-6 col-lg-6">
+            <?php
+            if (isset($this->posts) AND count($this->posts) > 0 ) {
+                foreach($this->posts as $this->post) {
+                    include PATH . 'views/post/index.php';
+                }
+            } else { ?>
+                <h4 class="bg-warning">
+                    Sorry but it looks like no one posted in your group yet
+                </h4>
+            <?php } ?>
+        </div>
+        <div class="jumbotron col-md-3 col-lg-3 col-xs-1 col-sm-1">
             <div class="media">
                 <h4 class="media-heading">Group Members</h4>
-                <ul>
-                    <?php
-
+                <ul><?php
                     echo '<p class="media-heading">Group Owner</p>';
                     foreach($owner as $this->member){
                         echo '<li><a href="'. URL .'wall?u='. $this->member['user_id'] .'">'. $this->member['name'] .'</a></li>';
@@ -67,38 +82,17 @@ foreach($this->members as $this->member){
                             echo '<li><a href="' . URL . 'wall?u=' . $this->member['user_id'] . '">' . $this->member['name'] . '</a></li>';
                         }
                     }
-                    else
-                        echo '<p> No Admins </p>';
+                    else echo '<p> No Admins </p>';
                     echo '<p class="media-heading">Group Members</p>';
                     if(!empty($normal)) {
                         foreach ($normal as $this->member) {
                             echo '<li><a href="' . URL . 'wall?u=' . $this->member['user_id'] . '">' . $this->member['name'] . '</a></li>';
                         }
-                    }
-                    else
+                    } else
                         echo '<p> No Members </p>';
                     ?>
                 </ul>
             </div>
-        </div>
-    </div>
-</div>
-
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-xs-10 col-sm-10 col-md-6 col-lg-6 col-md-offset-3 col-lg-offset-3 col-xs-offset-1 col-sm-offset-1">
-            <?php
-            if (isset($this->posts) AND count($this->posts) > 0 ) {
-                foreach($this->posts as $this->post) {
-                    include PATH . 'views/post/index.php';
-                }
-            } else { ?>
-                <tr>
-                    <td colspan="3">Sorry but it looks like no one posted on your wall yet..</td>
-                </tr>
-            <?php } ?>
-            </table>
-
         </div>
     </div>
 </div>

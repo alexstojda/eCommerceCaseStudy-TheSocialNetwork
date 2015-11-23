@@ -1,7 +1,5 @@
 .idea/
 .bs_less/
-includes/config.php
 *.xml
 *.iml
 /includes/config.php
-*.jpg
