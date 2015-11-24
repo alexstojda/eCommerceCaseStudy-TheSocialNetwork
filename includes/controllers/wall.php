@@ -2,6 +2,7 @@
 
 /**
  * @property _Wall model
+ * @property _Friends friendsModel
  *
  */
 class Wall extends Controller
@@ -34,6 +35,7 @@ class Wall extends Controller
 
             //FINALLY RENDER THE PAGE HTML
             $this->view->title = $this->model->getName() . '\'s Wall';
+            $this->view->areFriends = $this->checkFriendship();
             $this->view->render('wall/index');
         } else {
 
@@ -70,5 +72,13 @@ class Wall extends Controller
             else
                 header("Location: ../home");
         }
+    }
+
+    public function checkFriendship() {
+        $ida = $_GET['u'];
+        $idb = $_SESSION['id'];
+
+        $this->friendsModel = $this->getModel('Friends');
+        return $this->friendsModel->areFriends($ida, $idb);
     }
 }
