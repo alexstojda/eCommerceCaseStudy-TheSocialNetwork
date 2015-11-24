@@ -25,7 +25,7 @@
                             </div>
                             <div class="media-body">
                                 <p>
-                                <b><a href="<?= URL . 'wall?u='.  $this->post->getPostBy();?>"><?= $comment->getPostByName(); ?></a></b>
+                                <b><a href="<?= URL . 'wall?u='.  $comment->getPostBy();?>"><?= $comment->getPostByName(); ?></a></b>
                                 <?= $comment->getPostText() ?></p>
                                 <?php $img = $comment->getPostImage(); if( isset($img))
                                     echo '<a href="#" data-toggle="modal" data-target="#lightbox">'.

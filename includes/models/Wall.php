@@ -6,7 +6,7 @@
 class _Wall extends Model
 {
     private $user;
-    private $posts;
+    private $post_ids;
     private $friends;
     private $name;
 
@@ -19,17 +19,7 @@ class _Wall extends Model
         //GET USER INFORMATION TODO: About user tab and short info block like FB
         $this->setUser($new_user);
         $this->setName($new_user->getName());
-
-        //RETRIEVE ALL POSTS
-        $st = $this->db->select('SELECT * FROM post WHERE post_to = :to AND isnull(parent_id) ORDER BY creation_date DESC', array(
-            ':to' => $new_user->getID()
-        ));
-
-        if(count($st) > 0) {
-            $this->posts = $st;
-        } else { //no posts on wall ;(
-            echo 'Sucks to suck, ' . $this->getName();
-        }
+        $this->setPosts($new_user);
     }
 
     //Getters
@@ -59,7 +49,7 @@ class _Wall extends Model
 
     public function getUPosts()
     {
-        return $this->posts;
+        return $this->post_ids;
     }
 
     public function getUFriends()
@@ -76,9 +66,18 @@ class _Wall extends Model
 
     public function setPosts($user)
     {
-        /*
-        Get posts from database
-        */
+        //RETRIEVE ALL POSTS IDS
+        $st = $this->db->select('SELECT post_id FROM post WHERE post_to = :to AND isnull(parent_id) ORDER BY creation_date DESC', array(
+            ':to' => $user->getID()
+        ));
+
+        if(count($st) > 0) {
+            foreach($st as $item) {
+                $this->post_ids[] = $item['post_id'];
+            }
+        } else { //no posts on wall ;(
+            echo 'Sucks to suck, ' . $this->getName();
+        }
     }
 
 }

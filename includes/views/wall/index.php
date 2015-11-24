@@ -41,16 +41,38 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-xs-10 col-sm-10 col-md-6 col-lg-6 col-md-offset-3 col-lg-offset-3 col-xs-offset-1 col-sm-offset-1">
-		<?php
-            if (isset($this->posts) AND count($this->posts) > 0 ) {
-                foreach($this->posts as $this->post) {
-                    include PATH . 'views/post/index.php';
-                }
-            } else { ?>
-                    <h4>Sorry but it looks like no one posted on your wall yet..</h4>
-            <?php } ?>
+		    <div id="posts"></div></br><h3 class="failed text-danger"></h3>
+            <div class="panel-body" align="right">
+                <button class="btn btn-lg btn-inverse loadStories"
+                 onclick="loadMore()">More Stories</button>
+            </div>
         </div>
     </div>
 </div>
+<script type="text/javascript">
+    var post_ids = <?= json_encode($this->posts_to_load)?>;
+    var increase = 2; //CHANGE VALUE TO MODIFY NUMBER OF POSTS LOADED PER CLICK
+    var limit = increase;
+    function loadMore() {
+        for(c = limit-increase; c < limit; c++) {
+            if (c < post_ids.length) {
+                $.ajax({
+                    url: '<?=URL?>post',
+                    type: 'GET',
+                    data: {'id': post_ids[c]}, // An object with the key 'submit' and value 'true;
+                    success: function (result) {
+                        $("#posts").append(result);
+                    }
+                });
+            } else {
+                $(".failed").html("No more posts can be loaded.");
+            }
+        }
+        limit += increase;
+    }
+    $(function() { //runs method once on load cos logic.
+        loadMore();
+    });
+</script>
 
 <br/>
