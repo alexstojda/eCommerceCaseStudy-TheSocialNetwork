@@ -64,7 +64,7 @@ function time_passed($timestamp){
             <img  class="media-object thumbnail" src="<?=URL.$this->post->getPostByImg()?>" alt="..." style="float: left;display: inline-block; height: 4em; margin: 0px 8px 0px 0px;">
         </a>
         <a href="<?= URL . 'wall?u='. $this->post->getPostBy();?>"><?= $this->post->getPostByName(); ?></a></br>
-        <strong align="left" tool><i><?= time_passed($this->post->getDate()) ?></strong></i>
+        <strong align="left"><i><?= time_passed($this->post->getDate()) ?></strong></i>
     </div>
 	<div class="media" >
 
