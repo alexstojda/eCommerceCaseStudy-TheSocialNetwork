@@ -1,10 +1,70 @@
+<?php //http://www.devnetwork.net/viewtopic.php?f=50&t=113253
+function time_passed($timestamp){
+    //type cast, current time, difference in timestamps
+    $timestamp      = (int) strtotime($timestamp);
+    $current_time   = time();
+    $diff           = $current_time - $timestamp;
+
+    //intervals in seconds
+    $intervals      = array (
+        'year' => 31556926, 'month' => 2629744, 'week' => 604800, 'day' => 86400, 'hour' => 3600, 'minute'=> 60
+    );
+
+    //now we just find the difference
+    if ($diff == 0)
+    {
+        return 'just now';
+    }
+
+    if ($diff < 60)
+    {
+        return $diff == 1 ? $diff . ' second ago' : $diff . ' seconds ago';
+    }
+
+    if ($diff >= 60 && $diff < $intervals['hour'])
+    {
+        $diff = floor($diff/$intervals['minute']);
+        return $diff == 1 ? $diff . ' minute ago' : $diff . ' minutes ago';
+    }
+
+    if ($diff >= $intervals['hour'] && $diff < $intervals['day'])
+    {
+        $diff = floor($diff/$intervals['hour']);
+        return $diff == 1 ? $diff . ' hour ago' : $diff . ' hours ago';
+    }
+
+    if ($diff >= $intervals['day'] && $diff < $intervals['week'])
+    {
+        $diff = floor($diff/$intervals['day']);
+        return $diff == 1 ? $diff . ' day ago' : $diff . ' days ago';
+    }
+
+    if ($diff >= $intervals['week'] && $diff < $intervals['month'])
+    {
+        $diff = floor($diff/$intervals['week']);
+        return $diff == 1 ? $diff . ' week ago' : $diff . ' weeks ago';
+    }
+
+    if ($diff >= $intervals['month'] && $diff < $intervals['year'])
+    {
+        $diff = floor($diff/$intervals['month']);
+        return $diff == 1 ? $diff . ' month ago' : $diff . ' months ago';
+    }
+
+    if ($diff >= $intervals['year'])
+    {
+        $diff = floor($diff/$intervals['year']);
+        return $diff == 1 ? $diff . ' year ago' : $diff . ' years ago';
+    }
+}
+?>
 <div class="panel panel-default " xmlns="http://www.w3.org/1999/html">
     <div class="panel-heading">
         <a href="#" data-toggle="modal" data-target="#lightbox">
             <img  class="media-object thumbnail" src="<?=URL.$this->post->getPostByImg()?>" alt="..." style="float: left;display: inline-block; height: 4em; margin: 0px 8px 0px 0px;">
         </a>
         <a href="<?= URL . 'wall?u='. $this->post->getPostBy();?>"><?= $this->post->getPostByName(); ?></a></br>
-        <strong align="left"><i><?= $this->post->getDate() ?></strong></i>
+        <strong align="left" tool><i><?= time_passed($this->post->getDate()) ?></strong></i>
     </div>
 	<div class="media" >
 
@@ -33,7 +93,7 @@
                                 ?>
                             </div>
                             <div class="media-bottom">
-                                <strong><i><?= $comment->getDate() ?></strong></i>
+                                <strong><i><?= time_passed($comment->getDate()) ?></strong></i>
                             </div>
                         </div>
                     </div>
