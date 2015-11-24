@@ -28,18 +28,36 @@ class friends extends Controller
     }
 
     public function doNewFriend($idb) {
-        $ida = $_SESSION['id'];
-        if($this->model->addNewFriend($ida, $idb)){
-            if($_SESSION['id'] == $ida)
-                header('Location: ' . URL . 'wall?u='.$idb.'&newFriend=1');
-        } else {
+        $ida = $_SESSION['id']; //$ida ALWAYS has to be the person sending the request. This is used as part of friend validation later.
+        if($this->model->addNewFriend($ida, $idb))
+            header('Location: ' . URL . 'wall?u='.$idb.'&friendRequest=1');
+        else {
             $this->view->error = 'Seems that we weren\'t able to add that person as your friend.
-                                    Maybe you are already friends?';
+                                    Maybe you two are already friends?';
+            //TODO: Error for this
         }
 
     }
 
     public function doUnFriend($idb) {
-        //TODO: Unfriend ppl
+        $ida = $_SESSION['id'];
+        if($this->model->unFriend($ida, $idb))
+            header('Location: ' . URL . 'wall?u='.$idb.'&unFriend=1');
+        else {
+            $this->view->error = 'Uhm, it would seem you were never friends to begin with. Maybe try being friends with them first before kicking them to the curb.';
+            //TODO: Error for this
+        }
+    }
+
+    public function doConfirmFriend($ida) {
+        $idb = $_SESSION['id'];
+        if($this->model->confirmFriend($ida, $idb))
+            header('Location: ' . URL . 'wall?u='.$ida.'&newFriend=1');
+        else {
+            $this->view->error = 'Seems that we weren\'t able to add that person as your friend.
+                                    Maybe you two are already friends?';
+            echo 'derp';
+            echo $this->model->getError();
+        }
     }
 }

@@ -79,8 +79,12 @@ class Database extends PDO
         foreach ($data as $key => $value) {
             $sth->bindValue(":$key", $value);
         }
+
+        $stuff = $sth->execute();
+
+        $error = $this->errorInfo();
         
-        return $sth->execute();
+        return $stuff;
     }
     
     /**

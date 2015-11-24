@@ -40,21 +40,38 @@ class _Friends extends Model
             return false;
     }
 
+    /**
+     * @param $ida int User that requested the check
+     * @param $idb int User that's being checked against
+     * @return int 0 for not friends,
+     *             1 for pending confirmation from other person,
+     *             2 for pending confirmation from this person ($idb),
+     *             3 for are friends.
+     */
     public function areFriends($ida, $idb)
     {
         $res = $this->db->select('SELECT * FROM friends WHERE (user_id_a = :ida AND user_id_b = :idb) OR (user_id_a = :idb AND user_id_b = :ida)',
                                 array('ida' => $ida, ':idb' => $idb));
-
         if (count($res) == 0)
-            return false;
+            return 0;
+        else if ($res[0]['created_date'] == null && $res[0]['user_id_b'] == $ida )
+            return 1;
+        else if ($res[0]['created_date'] == null && $res[0]['user_id_b'] != $ida )
+            return 2;
         else
-            return true;
+            return 3;
     }
 
     public function confirmFriend($id_from, $id_to)
     {
-        return $this->db->update('friends', array('created_date' => new DateTime()),
-            "WHERE (user_id_a = $id_from AND user_id_b = $id_to)
-                OR (user_id_b = $id_from AND user_id_a = $id_to)");
+        $today = new DateTime('now');
+        $today_string = $today->format('Y-m-d H:i:s');
+        return $this->db->update('friends', array('created_date' => $today_string),
+            "(user_id_a = $id_from AND user_id_b = $id_to) OR (user_id_b = $id_from AND user_id_a = $id_to)");
+    }
+
+    public function unFriend($id_from, $id_to) {
+        return $this->db->delete('friends',
+            "(user_id_a = $id_from AND user_id_b = $id_to) OR (user_id_a = $id_to AND user_id_b = $id_from)");
     }
 }

@@ -15,6 +15,34 @@
             </div>
         </div>
     </div>
+<?php } else if (isset($_GET['unFriend'])) { ?>
+    <div class="container-fluid">
+        <div class="row">
+            <div
+                class="col-xs-8 col-sm-8 col-md-4 col-lg-4 col-md-offset-4 col-lg-offset-4 col-xs-offset-2 col-sm-offset-2">
+                <div class="alert alert-info alert-dismissible" role="alert" style="font-size: 16px">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <strong>:(</strong> You are no longer friends with <strong><?= $this->name ?></strong>! Its ok, they
+                    didn't deserve you anyway.
+                </div>
+            </div>
+        </div>
+    </div>
+<?php } else if (isset($_GET['friendRequest'])) { ?>
+    <div class="container-fluid">
+        <div class="row">
+            <div
+                class="col-xs-8 col-sm-8 col-md-4 col-lg-4 col-md-offset-4 col-lg-offset-4 col-xs-offset-2 col-sm-offset-2">
+                <div class="alert alert-info alert-dismissible" role="alert" style="font-size: 16px">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <strong>Ok!</strong> We've asked <strong><?= $this->name ?></strong> if they want to be friend's with you! Once they confirm, you'll be best friends forever and ever and ever and ever and ever.........
+                    (Unless someone decides they aren't feeling it anymore, then things will get awkward and you'll probably break up.)
+                </div>
+            </div>
+        </div>
+    </div>
 <?php } ?>
 
 <div class="container-fluid" style="padding-bottom: 30px; margin-left: auto; margin-right: auto; ">
@@ -26,13 +54,10 @@
                     <i class="fa fa-hand-o-right fa-2x"></i></a>
                 <a class="btn btn-default" style="width: 33%" href="<?= URL . 'inbox/u/' . $this->id ?>">Message <br/>
                     <i class="fa fa-envelope fa-2x"></i></a>
-                <!-- TODO make friends and unfriends work -->
-                <?php if ($this->areFriends == true) { ?>
-                    <a class="btn btn-default" style="width: 33%" href="<?= URL . 'friends/doUnFriend/' . $this->id ?>">Unfriend <br/> <i
-                            class="fa fa-users fa-2x"></i></a>
-                <?php } else { ?>
-                    <a class="btn btn-default" style="width: 33%" href="<?= URL . 'friends/doNewFriend/' . $this->id ?>">Add Friend <br/> <i
-                            class="fa fa-users fa-2x"></i></a>
+                <!-- TODO make friends and unfriend work -->
+                <?php if ($this->id != $_SESSION['id']) { ?>
+                    <a class="btn btn-default" style="width: 33%" href="<?= $this->friendButtonTarget ?>">
+                        <?= $this->friendButtonText ?><br/> <i class="fa fa-users fa-2x"></i></a>
                 <?php } ?>
 
             </div>
