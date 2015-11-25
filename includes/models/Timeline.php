@@ -1,19 +1,19 @@
 <?php
+
 /**
  * Created by PhpStorm.
  * User: Evan
  * Date: 11/20/2015
  * Time: 4:45 PM
  */
-
-
 class _Timeline extends Model
 {
     private $user;
     private $posts;
     private $friends;
 
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
     }
 
@@ -33,14 +33,16 @@ class _Timeline extends Model
     }
 
 
-    public function &getUPosts($offset = 0, $quantity = 5)
+    public function &getUPosts($offset = 0, $quantity = 100)
     {
-        //Add post_by =  to friends' ids and privacy = public or just friends
-        //RETRIEVE ALL POSTS AVAILABLE TODO:REDO QUERY AFTER FRIEND SYSTEM IS DONE
-        $st = $this->db->select('SELECT * FROM post WHERE post_to = :id AND isnull(parent_id) ORDER BY creation_date DESC LIMIT '.
-            $offset.','.$quantity, [ ':id'   => $this->user->getID() ]);
+        $st = $this->db->select('SELECT * FROM `post` WHERE `post_by` IN
+                           (SELECT `user_id_a` AS uid FROM `friends` WHERE `user_id_b` = :id AND !isnull(created_date)
+                            UNION
+                            SELECT `user_id_b` AS uid FROM `friends` WHERE `user_id_a` = :id AND !isnull(created_date))
+                                                                           AND isnull(parent_id) ORDER BY creation_date DESC LIMIT ' .
+            $offset . ',' . $quantity, [':id' => $this->user->getID()]);
 
-        if(count($st) > 0)
+        if (count($st) > 0)
             $this->posts = $st;
         return $this->posts;
     }

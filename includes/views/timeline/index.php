@@ -54,13 +54,13 @@
 </div>
 
 <!-- fixing slow page loads by limiting post loading... -->
-<script type="text/javascript">
-    var start = <?= count($this->posts);?>;
+<script type="text/javascript">/*
+    var start = <-?= count($this->posts);?>;
     function loadMore(increase) {
         $.ajax({
-            url: '<?=URL.(ltrim($_GET['url'],'public/'))?>/loadPosts',
+            url: '<-?=URL.(ltrim($_GET['url'],'public/'))?>/loadPosts',
             type: 'POST',
-            data: {'u'    : <?=(isset($_GET['u']) ? $_GET['u'] : Session::get('my_user')['id'])?>,
+            data: {'u'    : <-?=(isset($_GET['u']) ? $_GET['u'] : Session::get('my_user')['id'])?>,
                 'off'  : start,
                 'quantity' : increase
             }, // An object with the key 'submit' and value 'true;
@@ -72,9 +72,9 @@
     }
     function refresh() {
         $.ajax({
-            url: '<?=URL?>wall/loadPosts',
+            url: '<-?=URL?>wall/loadPosts',
             type: 'POST',
-            data: {'u'        : <?=(isset($_GET['u']) ? $_GET['u'] : Session::get('my_user')['id'])?>,
+            data: {'u'        : <-?=(isset($_GET['u']) ? $_GET['u'] : Session::get('my_user')['id'])?>,
                 'off'      : 0,
                 'quantity' : start
             }, // An object with the key 'submit' and value 'true;
@@ -84,5 +84,5 @@
             }
         });
     }
-    setInterval(refresh, 30*1000);
+    setInterval(refresh, 30*1000);*/
 </script>
