@@ -6,7 +6,7 @@
         <a href="<?= URL . 'wall?u='. $this->post->getPostBy();?>"><?= $this->post->getPostByName(); ?></a></br>
         <strong align="left"><i><?= $this->post->getDate() ?></strong></i>
         <?php
-        if((isset($sessionUser) && $sessionUser !== 3 ) || (strcmp(SESSION::get('id'),$this->post->getPostBy()) === 0) || (strcmp("public/timeline", $_GET['url']) === 0) ||(strcmp(SESSION::get('id'), $_GET['u']) === 0)) {
+        if((isset($sessionUser) && $sessionUser !== 3 ) || (strcmp(SESSION::get('id'),$this->post->getPostBy()) === 0) /*|| (strcmp("public/timeline", $_GET['url']) === 0)*/ ||(strcmp(SESSION::get('id'), $_GET['u']) === 0)) {
             echo '<form  action="'. URL .'Post/deletePost" method="post"><button type="submit" name="postID" value="' . $this->post->getPostID() . '">Delete post</button>';
             $temp = explode('/', $name);
             if(strcmp($temp[0],"groups") === 0) {
