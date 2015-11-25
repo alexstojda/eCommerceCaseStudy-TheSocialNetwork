@@ -2,6 +2,8 @@
 //Exists to avoid redundant code between wall & timeline TODO:add group walls to this...
 abstract class postsContainer extends Controller
 {
+    private $count;
+
     public function __construct()
     {
         parent::__construct();
@@ -34,6 +36,7 @@ abstract class postsContainer extends Controller
             $posts = $this->model->getUPosts();
 
         if (!empty($posts)) {
+            $this->count = count($posts);
             foreach ($posts as $post) {
                 if (isset($this->load) || isset($_POST['load']))
                     $this->view->posts[] = $this->getModel('Post', $post);
@@ -45,6 +48,10 @@ abstract class postsContainer extends Controller
         } else {
             self::anAlert('No more posts available');
         }
+    }
+
+    public function &getCount() {
+        echo json_encode($this->count);
     }
 }
 ?>

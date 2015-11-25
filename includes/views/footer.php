@@ -15,20 +15,34 @@
 <!-- fixing slow page loads by limiting post loading... -->
 <script type="text/javascript">
     var increase = 5; //CHANGE VALUE TO MODIFY NUMBER OF POSTS LOADED PER CLICK
-    var grab = increase;
+    var start = increase;
     function loadMore() {
         $.ajax({
             url: '<?=URL?>wall/loadPosts',
             type: 'POST',
             data: {'u'    : <?=(isset($_GET['u']) ? $_GET['u'] : Session::get('my_user')['id'])?>,
-                'off'  : grab
+                   'off'  : start
             }, // An object with the key 'submit' and value 'true;
             success: function (result) {
                 $("#posts").append(result);
+                start += increase;
             }
         });
-        grab += increase;
     }
+    function refresh() {
+        $.ajax({
+            url: '<?=URL?>wall/loadPosts',
+            type: 'POST',
+            data: {'u'        : <?=(isset($_GET['u']) ? $_GET['u'] : Session::get('my_user')['id'])?>,
+                   'quantity' : start
+            }, // An object with the key 'submit' and value 'true;
+            success: function (result) {
+                $("#posts").html(result);
+                //start = increase;
+            }
+        });
+    }
+    setInterval(refresh, 25*1000);
 </script>
 
 <!-- source: http://bootsnipp.com/snippets/featured/bootstrap-lightbox-->
