@@ -2,7 +2,7 @@
 //Exists to avoid redundant code between wall & timeline TODO:add group walls to this...
 abstract class postsContainer extends Controller
 {
-    private $count;
+    private $latest_id;
 
     public function __construct()
     {
@@ -19,7 +19,7 @@ abstract class postsContainer extends Controller
     }
 
     public function loadPosts() {
-        $offset = 0; $quantity = 5;
+        $offset = 0; $quantity = 0;
         if (isset($_POST['u']) )
             $this->model->init($this->getModel('User', $_POST['u']));
 
@@ -28,18 +28,21 @@ abstract class postsContainer extends Controller
         if(isset($_POST['quantity']))
             $quantity = (int) $_POST['quantity'];
 
-        if ($quantity !== 5 && $offset > 0)
+        if ($offset > 0 && $quantity > 0)
             $posts = $this->model->getUPosts($offset, $quantity);
         elseif ($offset > 0)
             $posts = $this->model->getUPosts($offset);
+        elseif ($quantity > 0)
+            $posts = $this->model->getUPosts(0,$quantity);
         else
             $posts = $this->model->getUPosts();
 
         if (!empty($posts)) {
-            $this->count = count($posts);
+            $this->latest_id = $posts[0]['post_id'];
             foreach ($posts as $post) {
-                if (isset($this->load) || isset($_POST['load']))
+                if (isset($this->load) || isset($_POST['load'])) {
                     $this->view->posts[] = $this->getModel('Post', $post);
+                }
                 elseif (isset( $_SERVER['HTTP_X_REQUESTED_WITH'])) {
                     $this->post = $this->getModel('Post', $post);
                     include PATH . 'views/post/index.php';
@@ -50,8 +53,8 @@ abstract class postsContainer extends Controller
         }
     }
 
-    public function &getCount() {
-        echo json_encode($this->count);
+    public function getLatestID() {
+        echo $this->latest_id;
     }
 }
 ?>

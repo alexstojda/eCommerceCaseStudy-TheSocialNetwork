@@ -53,10 +53,43 @@
             </div>
             <div class="panel-body" align="right">
                 <button class="btn btn-lg btn-inverse loadStories"
-                        onclick="loadMore()">More Stories</button>
+                        onclick="loadMore(10,1)">More Stories</button>
             </div>
         </div>
     </div>
 </div>
 
 <br/>
+
+<!-- fixing slow page loads by limiting post loading... -->
+<script type="text/javascript">
+    var start = <?= count($this->posts);?>;
+    function loadMore(increase) {
+        $.ajax({
+            url: '<?=URL.(ltrim($_GET['url'],'public/'))?>/loadPosts',
+            type: 'POST',
+            data: {'u'    : <?=(isset($_GET['u']) ? $_GET['u'] : Session::get('my_user')['id'])?>,
+                'off'  : start,
+                'quantity' : increase
+            }, // An object with the key 'submit' and value 'true;
+            success: function (result) {
+                $("#posts").append(result);
+                start += increase;
+            }
+        });
+    }
+    function refresh() {
+        $.ajax({
+            url: '<?=URL?>wall/loadPosts',
+            type: 'POST',
+            data: {'u'        : <?=(isset($_GET['u']) ? $_GET['u'] : Session::get('my_user')['id'])?>,
+                'off'      : 0,
+                'quantity' : start
+            }, // An object with the key 'submit' and value 'true;
+            success: function (result) {
+                $("#posts").html(result);
+            }
+        });
+    }
+    setInterval(refresh, 30*1000);
+</script>

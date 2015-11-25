@@ -33,7 +33,7 @@ class _Timeline extends Model
     }
 
 
-    public function getUPosts($offset = 0, $quantity = 5)
+    public function &getUPosts($offset = 0, $quantity = 5)
     {
         //Add post_by =  to friends' ids and privacy = public or just friends
         //RETRIEVE ALL POSTS AVAILABLE TODO:REDO QUERY AFTER FRIEND SYSTEM IS DONE

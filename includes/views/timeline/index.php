@@ -31,7 +31,7 @@
             </div>
             <div class="panel-body" align="right">
                 <button class="btn btn-lg btn-inverse loadStories"
-                        onclick="loadMore()">More Stories</button>
+                        onclick="loadMore(2,0)">More Stories</button>
             </div>
         </div>
         <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xs-offset-2 col-sm-offset-2 col-md-offset-2 col-lg-offset-2">
@@ -52,3 +52,37 @@
         </div>
     </div>
 </div>
+
+<!-- fixing slow page loads by limiting post loading... -->
+<script type="text/javascript">
+    var start = <?= count($this->posts);?>;
+    function loadMore(increase) {
+        $.ajax({
+            url: '<?=URL.(ltrim($_GET['url'],'public/'))?>/loadPosts',
+            type: 'POST',
+            data: {'u'    : <?=(isset($_GET['u']) ? $_GET['u'] : Session::get('my_user')['id'])?>,
+                'off'  : start,
+                'quantity' : increase
+            }, // An object with the key 'submit' and value 'true;
+            success: function (result) {
+                $("#posts").append(result);
+                start += increase;
+            }
+        });
+    }
+    function refresh() {
+        $.ajax({
+            url: '<?=URL?>wall/loadPosts',
+            type: 'POST',
+            data: {'u'        : <?=(isset($_GET['u']) ? $_GET['u'] : Session::get('my_user')['id'])?>,
+                'off'      : 0,
+                'quantity' : start
+            }, // An object with the key 'submit' and value 'true;
+            success: function (result) {
+                $("#posts").html(result);
+                // = increase;
+            }
+        });
+    }
+    setInterval(refresh, 30*1000);
+</script>
