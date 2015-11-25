@@ -37,11 +37,13 @@ abstract class postsContainer extends Controller
             foreach ($posts as $post) {
                 if (isset($this->load) || isset($_POST['load']))
                     $this->view->posts[] = $this->getModel('Post', $post);
-                else {
+                elseif (isset( $_SERVER['HTTP_X_REQUESTED_WITH'])) {
                     $this->post = $this->getModel('Post', $post);
                     include PATH . 'views/post/index.php';
                 }
             }
+        } else {
+            self::anAlert('No more posts available');
         }
     }
 }

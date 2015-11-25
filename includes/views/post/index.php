@@ -3,11 +3,16 @@
         <a href="#" data-toggle="modal" data-target="#lightbox">
             <img  class="media-object thumbnail" src="<?=URL.$this->post->getPostByImg()?>" alt="..." style="float: left;display: inline-block; height: 4em; margin: 0px 8px 0px 0px;">
         </a>
-        <a href="<?= URL . 'wall?u='. $this->post->getPostBy();?>"><?= $this->post->getPostByName(); ?></a></br>
+        <b><a href="<?= URL . 'wall?u='. $this->post->getPostBy();?>"><?= $this->post->getPostByName(); ?> </a></b>
+        <?php if (!isset($_GET['u']) && $this->post->getPostBy() !== $this->post->getPostTo()) { ?>
+        <i class="fa fa-chevron-right"></i>
+        <b><a href="<?= URL . 'wall?u='. $this->post->getPostTo();?>"><?= $this->post->getPostToName(); ?> </a></b>
+        <?php } ?>
+        </br>
         <strong align="left"><i><?= $this->post->getDate() ?></strong></i>
         <?php
         if((isset($sessionUser) && $sessionUser !== 3 ) || (strcmp(SESSION::get('id'),$this->post->getPostBy()) === 0) ||(isset($_GET['u']) && (strcmp(SESSION::get('id'), $_GET['u']) === 0))) {
-            echo '<form  action="'. URL .'post/deletePost" method="post">
+            echo '<form  action="'. URL .'post/deletePost" method="post" style="display:inline; float:right">
                     <button class="btn btn-default" type="submit" name="postID" value="' . $this->post->getPostID() . '">Delete post</button>';
             if(isset($_GET['g'])) {
                 echo '<input type="hidden" value=1 name="is_group"/>';
@@ -45,23 +50,23 @@
                                 <div class="media-body">
                                     <p>
                                         <b><a href="<?= URL . 'wall?u='.  $comment->getPostBy();?>"><?= $comment->getPostByName(); ?></a></b>
-                                        <?= $comment->getPostText() ?></p>
+                                        <?= $comment->getPostText() ?>
+                                    <?php
+                                        if((isset($sessionUser) && $sessionUser !== 3 ) || (strcmp(SESSION::get('id'),$this->post->getPostBy()) === 0) ||(isset($_GET['u']) && (strcmp(SESSION::get('id'), $_GET['u']) === 0))) {
+                                            echo '<form  action="'. URL .'post/deletePost" method="post" style="display:inline; float:right">
+                    <button class="btn btn-default" type="submit" name="postID" value="' . $this->post->getPostID() . '">Delete post</button>';
+                                            if(isset($_GET['g'])) {
+                                                echo '<input type="hidden" value=1 name="is_group"/>';
+                                            }
+                                            echo '<input type="hidden" name="origin" value="'.(isset($_GET['u']) ? 'wall?u='.$_GET['u'] : //Convoluted origin identification
+                                                    (isset($_GET['g']) ? ltrim($_GET['url'], 'public').'?g='.$_GET['g'] : ltrim($_GET['url'], 'public'))).'"/>';
+                                            echo '</form></br>';
+                                        }
+                                        ?>
+                                    </p>
                                     <?php $img = $comment->getPostImage(); if( isset($img))
                                         echo '<a href="#" data-toggle="modal" data-target="#lightbox">'.
                                             '<img class="media-object thumbnail" src= '.URL.$img . ' alt="..." style="display: inline; height: 12em;"></a>';
-                                    ?><?php
-                                    if((isset($sessionUser) && $sessionUser !== 3 ) || (strcmp(SESSION::get('id'),$this->post->getPostBy()) === 0) ||(isset($_GET['u']) && (strcmp(SESSION::get('id'), $_GET['u']) === 0))) {
-                                        echo '<form  action="'. URL .'post/deletePost" method="post">
-                    <button class="btn btn-default" type="submit" name="postID" value="' . $this->post->getPostID() . '">Delete post</button>';
-                                        $temp = explode('/', $name);
-                                        if(isset($_GET['g'])) {
-                                            echo '<input type="hidden" value=1 name="is_group"/>';
-                                        }
-
-                                        echo '<input type="hidden" name="origin" value="'.(isset($_GET['u']) ? 'wall?u='.$_GET['u'] : //Convoluted origin identification
-                                                (isset($_GET['g']) ? ltrim($_GET['url'], 'public').'?g='.$_GET['g'] : ltrim($_GET['url'], 'public'))).'"/>';
-                                        echo '</form></br>';
-                                    }
                                     ?>
                                 </div>
                                 <div class="media-bottom">

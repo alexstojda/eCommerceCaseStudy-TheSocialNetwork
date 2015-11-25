@@ -24,9 +24,7 @@ class View {
             //Rudementary alerts
             if (isset($this->alerts)) {
                 foreach ($this->alerts as $alert) {
-                    echo '<div style="margin-left: 10%; margin-right: 10%" class="alert alert-' . $alert[1] . ' alert-dismissible" role="alert">'
-                        . '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>'
-                        . $alert[0] . '</div>';
+                    Controller::anAlert($alert[0],$alert[1]);
                 }
             }
 

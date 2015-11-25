@@ -78,4 +78,11 @@ abstract class Controller
         }
         return null;
     }
+
+    public static function anAlert($msg,$type = 'warning') {
+                echo '<div style="margin-left: 10%; margin-right: 10%" class="alert alert-' . $type . ' alert-dismissible" role="alert">'
+                    . '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>'
+                    . $msg . '</div>';
+
+    }
 }
