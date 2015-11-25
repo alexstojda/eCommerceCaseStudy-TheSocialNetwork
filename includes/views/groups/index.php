@@ -30,17 +30,14 @@
     <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xs-offset-1 col-sm-offset-1 col-md-offset-1 col-lg-offset-1">
         <ul class="list-group">
             <li class="list-group-item">
-                <span class="badge">69</span>
-               <a href="http://devbana.tk/groups">Group Invites</a>
+                <span class="badge"></span>
+               <a href="<?= URL ?>groups">Groups</a>
             </li>
             <li class="list-group-item">
-                <span class="badge">69</span>
-                Leave group
+                <span class="badge"></span>
+                <a href="<?= URL ?>groups/create">Create group</a>
             </li>
-            <li class="list-group-item">
-                <span class="badge">69</span>
-                Find Group
-            </li>
+
         </ul>
     </div>
 </div>
