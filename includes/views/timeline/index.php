@@ -11,7 +11,7 @@
 
                         <button type="submit" class="btn btn-default" aria-haspopup="true" aria-expanded="false">Post
                         </button>
-                        <div class="fileUpload btn btn-default" style="font-size:23px; margin:0">
+                        <div class="fileUpload btn btn-default" style="margin:0">
                             <span><i class="fa fa-camera" aria-hidden="true" ></i></span>
                             <input type="file" name="picture" class="upload" accept="image/*"/>
                             <input type="hidden" name="origin" value="<?=ltrim($_GET['url'], 'public');?>"/>
@@ -19,16 +19,20 @@
                     </div>
                 </form>
             </div>
+            <div id="posts">
                 <?php
                 if (isset($this->posts) AND count($this->posts) > 0 ) {
                     foreach($this->posts as $this->post) {
                         include PATH . 'views/post/index.php';
                     }
                 } else { ?>
-                    <tr>
-                        <td colspan="3">Sorry but it looks like you don't have any posts available..</td>
-                    </tr>
+                    <h4>Sorry but it looks like no one posted on your wall yet..</h4>
                 <?php } ?>
+            </div>
+            <div class="panel-body" align="right">
+                <button class="btn btn-lg btn-inverse loadStories"
+                        onclick="loadMore()">More Stories</button>
+            </div>
         </div>
         <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xs-offset-2 col-sm-offset-2 col-md-offset-2 col-lg-offset-2">
             <ul class="list-group">

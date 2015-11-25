@@ -19,7 +19,9 @@ class _Post extends Model
     {
         parent::__construct();
 
-        if (is_array($temp)) {
+        if (is_array($temp) && array_key_exists('post_id', $temp)) {
+            $this->setAll($temp);
+        } elseif (is_array($temp)) {
             $this->db->insert('post', [
                 'post_by' => $temp['from'],
                 'post_to' => $temp['to'],
@@ -72,6 +74,11 @@ class _Post extends Model
                 $this->comments[] = new self($post['post_id']);
             }
         }
+    }
+
+    public function deletePost(){
+        (isset($_POST['is_group']) ? $prefix = 'group_' : $prefix = '');
+        $this->db->delete($prefix.'post', $prefix.'post_id = '.$_POST['postID'] );
     }
 
     //GETTERS

@@ -20,21 +20,7 @@ class _Timeline extends Model
     public function init($new_user)
     {
         $this->setUser($new_user);
-
-        //Add post_by =  to friends' ids and privacy = public or just friends
-        //RETRIEVE ALL POSTS AVAILABLE TODO:REDO QUERY AFTER FRIEND SYSTEM IS DONE
-        $st = $this->db->select('SELECT * FROM post WHERE post_to = :to AND isnull(parent_id) ORDER BY creation_date DESC', array(
-            ':to' => $new_user->getID()
-        ));
-
-        if(count($st) > 0) {
-            $this->posts = $st;
-        } else { //no posts on timeline at all.... ;(
-            echo 'Sucks to suck';
-        }
     }
-
-    //Getters
 
     public function getUser()
     {
@@ -46,10 +32,16 @@ class _Timeline extends Model
         $this->user = $user;
     }
 
-    //Setters
 
-    public function getUPosts()
+    public function getUPosts($offset = 0, $quantity = 5)
     {
+        //Add post_by =  to friends' ids and privacy = public or just friends
+        //RETRIEVE ALL POSTS AVAILABLE TODO:REDO QUERY AFTER FRIEND SYSTEM IS DONE
+        $st = $this->db->select('SELECT * FROM post WHERE post_to = :id AND isnull(parent_id) ORDER BY creation_date DESC LIMIT '.
+            $offset.','.$quantity, [ ':id'   => $this->user->getID() ]);
+
+        if(count($st) > 0)
+            $this->posts = $st;
         return $this->posts;
     }
 
@@ -62,13 +54,6 @@ class _Timeline extends Model
     {
         /*
         Get friends from database
-        */
-    }
-
-    public function setPosts($user)
-    {
-        /*
-        Get posts from database
         */
     }
 

@@ -3,3 +3,4 @@
 *.xml
 *.iml
 /includes/config.php
+includes/config.php

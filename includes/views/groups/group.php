@@ -29,19 +29,6 @@ foreach($this->members as $this->member){
 ?>
 <div>
 	<h1 align="center"><?=$this->name ?> Group Wall</h1>
-    <?php
-    if(isset($sessionUser) && $sessionUser === 1) {
-        echo '<form action="'. URL . 'groups/delete?g=' . $_GET['g'].'" method="post">';
-
-        echo '<button type="submit" name = "delete_group" >Delete Group</button>';
-        echo '</form>';
-    }
-    elseif(isset($sessionUser)){
-        echo '<form action="'. URL . 'groups/leave?g=' . $_GET['g'].'" method="post">';
-        echo '<button type="submit"  value="' . $this->member['user_id'] . '" name = "leave_id" >Leave Group</button>';
-        echo '</form>';
-    }
-    ?>
 </div>
 
 
@@ -55,7 +42,7 @@ foreach($this->members as $this->member){
                   style=" display:inline; background-color: white"></textarea>
                         <div class="input-group-btn" align="right" aria-hidden="true">
                             <button type="submit" class="btn btn-default" aria-haspopup="true" aria-expanded="false">Post</button>
-                            <div class="fileUpload btn btn-default" style="font-size:23px; margin:0">
+                            <div class="fileUpload btn btn-default" style=" margin:0">
                                 <span><i class="fa fa-camera" aria-hidden="true" ></i></span>
                                 <input type="file" name="picture" class="upload" accept="image/*"/>
                                 <input type="hidden" name="origin" value="<?=ltrim($_GET['url'], 'public').'?g='.$_GET['g'];?>"/>
@@ -127,6 +114,18 @@ foreach($this->members as $this->member){
                         }
                     } else
                         echo '<p> No Members </p>';
+
+                    if(isset($sessionUser) && $sessionUser === 1) {
+                        echo '<form action="'. URL . 'groups/delete?g=' . $_GET['g'].'" method="post">';
+
+                        echo '<button type="submit" name = "delete_group" >Delete Group</button>';
+                        echo '</form>';
+                    }
+                    elseif(isset($sessionUser)){
+                        echo '<form action="'. URL . 'groups/leave?g=' . $_GET['g'].'" method="post">';
+                        echo '<button class="btn btn-default btn-lg" type="submit"  value="' . $this->member['user_id'] . '" name = "leave_id" >Leave Group</button>';
+                        echo '</form>';
+                    }
                     ?>
                 </ul>
             </div>
