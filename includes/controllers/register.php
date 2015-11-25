@@ -301,4 +301,8 @@ class register extends Controller
         }
         return true;
     }
+
+    public function doUpdateUser($uid) {
+        $this->view->render('wall/edit');
+    }
 }

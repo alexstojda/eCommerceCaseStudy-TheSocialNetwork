@@ -1,5 +1,5 @@
 <div class="jumbotron container-fluid">
-    <h3>Registration (3/3) : Address Information</h3></br>
+    <h3>Registration (3/3) : Address Information</h3><br/>
 <form class="form-horizontal" action='<?= URL . 'register/doAddressInfo' ?>' method=POST>
 
     <div class="form-group">
@@ -42,7 +42,7 @@
             } ?>/>
         </div>
         <p style="color: red">
-            <?php if (isset($this->addressError)) echo $this->addressError; ?>
+            <?php if (isset($this->cityError)) echo $this->cityError; ?>
         </p>
     </div>
     <div class="form-group">
