@@ -19,6 +19,20 @@ class Post extends Controller
         }
     }
 
+    public function deletePost(){
+       if (isset($_POST['postID']) && isset($_POST['post_type']) && isset($_POST['origin'])) {
+              $this->model->deletePost();
+           $return = ltrim($_POST['origin'],"/");
+           header("Location: ../".$return);
+
+         } else {
+              if (Session::get('my_user'))
+                  header("Location: ../timeline");
+              else
+                  header("Location: ../home");
+          }
+    }
+
     public function doPost()
     {
         if (isset($_POST['post'])) {
@@ -38,7 +52,8 @@ class Post extends Controller
                 'parent'  => (isset($_GET['reply']) ? $_GET['reply'] : null),
                 'privacy' => 0
             ]);
-            header("Location: ..".$_POST['origin']);
+            $return = ltrim($_POST['origin'],"/");
+            header("Location: ../".$return);
         } else {
             if (Session::get('my_user'))
                 header("Location: ../timeline");

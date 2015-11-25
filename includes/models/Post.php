@@ -74,6 +74,18 @@ class _Post extends Model
         }
     }
 
+    public function deletePost(){
+
+        if(strcmp("group_post",$_POST['post_type']) === 0)
+            $this->db->delete('group_post', ' group_post_id = '.$_POST['postID'] );
+        elseif(strcmp("post",$_POST['post_type']) === 0)
+            $this->db->delete('post', 'post_id = '.$_POST['postID'] );
+        else
+            $temp = 'something wong here';
+
+
+    }
+
     //GETTERS
     public function getPostID()
     {

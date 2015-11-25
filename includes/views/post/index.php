@@ -5,6 +5,22 @@
         </a>
         <a href="<?= URL . 'wall?u='. $this->post->getPostBy();?>"><?= $this->post->getPostByName(); ?></a></br>
         <strong align="left"><i><?= $this->post->getDate() ?></strong></i>
+        <?php
+        if((isset($sessionUser) && $sessionUser !== 3 ) || (strcmp(SESSION::get('id'),$this->post->getPostBy()) === 0) || (strcmp("public/timeline", $_GET['url']) === 0) ||(strcmp(SESSION::get('id'), $_GET['u']) === 0)) {
+            echo '<form  action="'. URL .'Post/deletePost" method="post"><button type="submit" name="postID" value="' . $this->post->getPostID() . '">Delete post</button>';
+            $temp = explode('/', $name);
+            if(strcmp($temp[0],"groups") === 0) {
+                echo '<input type="hidden" value="group_post" name="post_type"/>';
+            }
+            else {
+                echo '<input type="hidden" value="post" name="post_type"/>';
+            }
+            echo '<input type="hidden" name="origin" value="'.(isset($_GET['u']) ? 'wall?u='.$_GET['u'] : //Convoluted origin identification
+                    (isset($_GET['g']) ? ltrim($_GET['url'], 'public').'?g='.$_GET['g'] : ltrim($_GET['url'], 'public'))).'"/>';
+            echo '</form></br>';
+        }
+        ?>
+
     </div>
 	<div class="media" >
 
@@ -25,11 +41,26 @@
                             </div>
                             <div class="media-body">
                                 <p>
-                                <b><a href="<?= URL . 'wall?u='.  $this->post->getPostBy();?>"><?= $comment->getPostByName(); ?></a></b>
+                                <b><a href="<?= URL . 'wall?u='.  $this->post->getPostBy();?>"><?= $comment->getPostByName(); ?></a></b><br>
                                 <?= $comment->getPostText() ?></p>
                                 <?php $img = $comment->getPostImage(); if( isset($img))
                                     echo '<a href="#" data-toggle="modal" data-target="#lightbox">'.
                                         '<img class="media-object thumbnail" src= '.URL.$img . ' alt="..." style="display: inline; height: 12em;"></a>';
+                                ?>
+                                <?php                                                                                                                 //i don't think this should chekc timeline
+                                if((isset($sessionUser) && $sessionUser !== 3 ) || (strcmp(SESSION::get('id'),$comment->getPostBy()) === 0)/* || (strcmp("public/timeline", $_GET['url']) === 0) */||(strcmp(SESSION::get('id'), $_GET['u']) === 0)) {
+                                    echo '<form  action="'. URL .'Post/deletePost" method="post"><button type="submit" name="postID" value="' . $comment->getPostID() . '">Delete post</button>';
+                                    $temp = explode('/', $name);
+                                    if(strcmp($temp[0],"groups") === 0) {
+                                        echo '<input type="hidden" value="group_post" name="post_type"/>';
+                                    }
+                                    else {
+                                        echo '<input type="hidden" value="post" name="post_type"/>';
+                                    }
+                                    echo '<input type="hidden" name="origin" value="'.(isset($_GET['u']) ? 'wall?u='.$_GET['u'] : //Convoluted origin identification
+                                            (isset($_GET['g']) ? ltrim($_GET['url'], 'public').'?g='.$_GET['g'] : ltrim($_GET['url'], 'public'))).'"/>';
+                                    echo '</form></br>';
+                                }
                                 ?>
                             </div>
                             <div class="media-bottom">
