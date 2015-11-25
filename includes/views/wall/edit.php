@@ -16,18 +16,19 @@
                         <div class="row">
                             <div
                                 class=" col-xs-11 col-sm-8 col-md-8 col-lg-8 col-xs-offset-0 col-sm-offset-2 col-md-offset-2 col-lg-offset-2">
+                                <?php if (isset($this->usernameError)) { ?>
+                                    <div class="alert alert-warning alert-dismissable" role="alert">
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                        <?= $this->usernameError ?>
+                                    </div>
+                                <?php } ?>
                                 <div class="input-group">
-                                    <?php if (isset($this->usernameError)) { ?>
-                                        <div class="alert alert-warning alert-dismissable">
-                                            <p><?= $this->usernameError ?></p>
-                                        </div>
-                                    <?php } ?>
                                     <span class="input-group-addon" id="uname"><strong>Username:</strong></span>
                                     <input type="text" class="form-control" aria-describedby="uname"
                                             type="text" pattern="^([A-z]|\d){2,16}$" name=username
                                            id=username title="Between 6 and 16 alphanumeric characters"
-                                        <?php if (isset($this->user['username'])) {
-                                            echo "placeholder='" . $this->user['username'] . "'";
+                                        <?php if (isset($this->user['user'])) {
+                                            echo "placeholder='" . $this->user['user'] . "'";
                                         } ?>/>
                                 </div>
                             </div>
@@ -35,19 +36,17 @@
                         <div class="row">
                             <div
                                 class=" col-xs-11 col-sm-8 col-md-8 col-lg-8 col-xs-offset-0 col-sm-offset-2 col-md-offset-2 col-lg-offset-2">
+                                <?php if (isset($this->passwordError)) { ?>
+                                    <div class="alert alert-warning alert-dismissable">
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                        <p><?= $this->passwordError ?></p>
+                                    </div>
+                                <?php } ?>
                                 <div class="input-group">
-                                    <?php if (isset($this->passwordError)) { ?>
-                                        <div class="alert alert-warning alert-dismissable">
-                                            <p><?= $this->passwordError ?></p>
-                                        </div>
-                                    <?php } ?>
                                     <span class="input-group-addon" id="pword"><strong>Password: </strong></span>
                                     <input type="password" class="form-control" aria-describedby="pword"
                                             type="password" pattern="^([A-z]|\d){6,16}$" name=password
-                                           id=password title="Between 6 and 16 alphanumeric characters"
-                                        <?php if (isset($this->user['password'])) {
-                                            echo "placeholder='" . $this->user['password'] . "'";
-                                        } ?>/>
+                                           id=password title="Between 6 and 16 alphanumeric characters"/>
                                 </div>
                             </div>
                         </div>
@@ -60,22 +59,20 @@
                                     <input type="password" class="form-control" aria-describedby="conpword"
                                             type="password" pattern="^([A-z]|\d){6,16}$"
                                            name=confPassword id=confPassword
-                                           title="Between 6 and 16 alphanumeric characters"
-                                        <?php if (isset($this->user['password'])) {
-                                            echo "placeholder='" . $this->user['password'] . "'";
-                                        } ?>/>
+                                           title="Between 6 and 16 alphanumeric characters"/>
                                 </div>
                             </div>
                         </div>
                         <div class="row">
                             <div
                                 class=" col-xs-11 col-sm-8 col-md-8 col-lg-8 col-xs-offset-0 col-sm-offset-2 col-md-offset-2 col-lg-offset-2">
+                                <?php if (isset($this->emailError)) { ?>
+                                    <div class="alert alert-warning alert-dismissable">
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                        <p><?= $this->emailError ?></p>
+                                    </div>
+                                <?php } ?>
                                 <div class="input-group">
-                                    <?php if (isset($this->emailError)) { ?>
-                                        <div class="alert alert-warning alert-dismissable">
-                                            <p><?= $this->emailError ?></p>
-                                        </div>
-                                    <?php } ?>
                                     <span class="input-group-addon" id="maile"><strong>Email: </strong></span>
                                     <input type="text" class="form-control" aria-describedby="maile"
                                             type="email" pattern="^\S+@\S+\.\S+$"
@@ -92,12 +89,13 @@
                         <div class="row">
                             <div
                                 class=" col-xs-11 col-sm-8 col-md-8 col-lg-8 col-xs-offset-0 col-sm-offset-2 col-md-offset-2 col-lg-offset-2">
+                                <?php if (isset($this->firstNameError)) { ?>
+                                    <div class="alert alert-warning alert-dismissable">
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                        <p><?= $this->firstNameError ?></p>
+                                    </div>
+                                <?php } ?>
                                 <div class="input-group">
-                                    <?php if (isset($this->firstNameError)) { ?>
-                                        <div class="alert alert-warning alert-dismissable">
-                                            <p><?= $this->firstNameError ?></p>
-                                        </div>
-                                    <?php } ?>
                                     <span class="input-group-addon" id="fname"><strong>First Name: </strong></span>
                                     <input type="text" class="form-control" aria-describedby="fname"
                                            name=first_name id=first_name
@@ -111,12 +109,13 @@
                         <div class="row">
                             <div
                                 class=" col-xs-11 col-sm-8 col-md-8 col-lg-8 col-xs-offset-0 col-sm-offset-2 col-md-offset-2 col-lg-offset-2">
+                                <?php if (isset($this->lastNameError)) { ?>
+                                    <div class="alert alert-warning alert-dismissable">
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                        <p><?= $this->lastNameError ?></p>
+                                    </div>
+                                <?php } ?>
                                 <div class="input-group">
-                                    <?php if (isset($this->lastNameError)) { ?>
-                                        <div class="alert alert-warning alert-dismissable">
-                                            <p><?= $this->lastNameError ?></p>
-                                        </div>
-                                    <?php } ?>
                                     <span class="input-group-addon" id="lname"><strong>Last Name: </strong></span>
                                     <input type="text" class="form-control" aria-describedby="lname"
                                            name=last_name id=last_name pattern="^([A-z]){2,20}$"
@@ -130,18 +129,19 @@
                         <div class="row">
                             <div
                                 class="col-xs-11 col-sm-8 col-md-8 col-lg-8 col-xs-offset-0 col-sm-offset-2 col-md-offset-2 col-lg-offset-2">
+                                <?php if (isset($this->genderError)) { ?>
+                                    <div class="alert alert-warning alert-dismissable">
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                        <p><?= $this->genderError ?></p>
+                                    </div>
+                                <?php } ?>
                                 <div class="input-group">
-                                    <?php if (isset($this->genderError)) { ?>
-                                        <div class="alert alert-warning alert-dismissable">
-                                            <p><?= $this->genderError ?></p>
-                                        </div>
-                                    <?php } ?>
                                     <span class="input-group-addon" id="gen"><strong>Gender: </strong></span>
                                     <select name="gender_id" id="gender_id" class="form-control" aria-describedby="gen" >
                                         <option value="">Select a gender...</option>
                                         <?php
                                         foreach ($this->genders as $gender) {
-                                            if (isset($this->user['gender_id']) && $this->user['gender_id'] == $gender['gender_id'])
+                                            if (isset($this->user['gender']) && $this->user['gender'] == $gender['gender_id'])
                                                 echo '<option selected value=\'' . $gender['gender_id'] . '\'>' . $gender['gender_desc']
                                                     . '</option>';
                                             else
@@ -156,12 +156,13 @@
                         <div class="row">
                             <div
                                 class=" col-xs-11 col-sm-8 col-md-8 col-lg-8 col-xs-offset-0 col-sm-offset-2 col-md-offset-2 col-lg-offset-2">
+                                <?php if (isset($this->dobError)) { ?>
+                                    <div class="alert alert-warning alert-dismissable">
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                        <p><?= $this->dobError ?></p>
+                                    </div>
+                                <?php } ?>
                                 <div class="input-group">
-                                    <?php if (isset($this->dobError)) { ?>
-                                        <div class="alert alert-warning alert-dismissable">
-                                            <p><?= $this->dobError ?></p>
-                                        </div>
-                                    <?php } ?>
                                     <span class="input-group-addon" id="lname"><strong>Date of Birth: </strong></span>
                                     <input type="date" name=date_of_birth id="date_of_birth" class="form-control"
                                            aria-describedby="basic-addon1"
@@ -170,8 +171,8 @@
                                            max="<?= date_sub(date_create(),
                                                date_interval_create_from_date_string('13 years'))->format('Y-m-d') ?>"
                                            
-                                        <?php if (isset($this->user['date_of_birth'])) {
-                                            echo "placeholder='" . $this->user['date_of_birth'] . "'";
+                                        <?php if (isset($this->user['birth'])) {
+                                            echo "value='" . $this->user['birth'] . "'";
                                         } ?> />
                                 </div>
                             </div>
@@ -180,12 +181,13 @@
                         <div class="row">
                             <div
                                 class=" col-xs-11 col-sm-8 col-md-8 col-lg-8 col-xs-offset-0 col-sm-offset-2 col-md-offset-2 col-lg-offset-2">
+                                <?php if (isset($this->phoneError)) { ?>
+                                    <div class="alert alert-warning alert-dismissable">
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                        <p><?= $this->phoneError ?></p>
+                                    </div>
+                                <?php } ?>
                                 <div class="input-group">
-                                    <?php if (isset($this->phoneError)) { ?>
-                                        <div class="alert alert-warning alert-dismissable">
-                                            <p><?= $this->phoneError ?></p>
-                                        </div>
-                                    <?php } ?>
                                     <span class="input-group-addon" id="phoneNum"><strong>Phone Number: </strong></span>
                                     <input type="phone" class="form-control" aria-describedby="phoneNum"
                                            id="phone" name="phone" 
@@ -200,12 +202,13 @@
                         <div class="row">
                             <div
                                 class=" col-xs-11 col-sm-8 col-md-8 col-lg-8 col-xs-offset-0 col-sm-offset-2 col-md-offset-2 col-lg-offset-2">
+                                <?php if (isset($this->addressError)) { ?>
+                                    <div class="alert alert-warning alert-dismissable">
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                        <p><?= $this->addressError ?></p>
+                                    </div>
+                                <?php } ?>
                                 <div class="input-group">
-                                    <?php if (isset($this->addressError)) { ?>
-                                        <div class="alert alert-warning alert-dismissable">
-                                            <p><?= $this->addressError ?></p>
-                                        </div>
-                                    <?php } ?>
                                     <span class="input-group-addon" id="addr"><strong>Street Address: </strong></span>
                                     <input class="form-control" aria-describedby="addr"
                                            type="text" name="address" id="address"
@@ -219,12 +222,13 @@
                         <div class="row">
                             <div
                                 class=" col-xs-11 col-sm-8 col-md-8 col-lg-8 col-xs-offset-0 col-sm-offset-2 col-md-offset-2 col-lg-offset-2">
+                                <?php if (isset($this->cityError)) { ?>
+                                    <div class="alert alert-warning alert-dismissable">
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                        <p><?= $this->cityError ?></p>
+                                    </div>
+                                <?php } ?>
                                 <div class="input-group">
-                                    <?php if (isset($this->cityError)) { ?>
-                                        <div class="alert alert-warning alert-dismissable">
-                                            <p><?= $this->cityError ?></p>
-                                        </div>
-                                    <?php } ?>
                                     <span class="input-group-addon" id="cty"><strong>City: </strong></span>
                                     <input class="form-control" aria-describedby="cty"
                                            type="text" name="city" id="city"
@@ -238,12 +242,13 @@
                         <div class="row">
                             <div
                                 class=" col-xs-11 col-sm-8 col-md-8 col-lg-8 col-xs-offset-0 col-sm-offset-2 col-md-offset-2 col-lg-offset-2">
+                                <?php if (isset($this->cityError)) { ?>
+                                    <div class="alert alert-warning alert-dismissable">
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                        <p><?= $this->cityError ?></p>
+                                    </div>
+                                <?php } ?>
                                 <div class="input-group">
-                                    <?php if (isset($this->cityError)) { ?>
-                                        <div class="alert alert-warning alert-dismissable">
-                                            <p><?= $this->cityError ?></p>
-                                        </div>
-                                    <?php } ?>
                                     <span class="input-group-addon" id="state"><strong>Province/State: </strong></span>
                                     <input class="form-control" aria-describedby="state"
                                            type="text" name="province" id="province" pattern="^.{4,20}$"
@@ -257,17 +262,18 @@
                         <div class="row">
                             <div
                                 class=" col-xs-11 col-sm-8 col-md-8 col-lg-8 col-xs-offset-0 col-sm-offset-2 col-md-offset-2 col-lg-offset-2">
+                                <?php if (isset($this->cityError)) { ?>
+                                    <div class="alert alert-warning alert-dismissable">
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                        <p><?= $this->cityError ?></p>
+                                    </div>
+                                <?php } ?>
                                 <div class="input-group">
-                                    <?php if (isset($this->cityError)) { ?>
-                                        <div class="alert alert-warning alert-dismissable">
-                                            <p><?= $this->cityError ?></p>
-                                        </div>
-                                    <?php } ?>
                                     <span class="input-group-addon" id="cntry"><strong>Country: </strong></span>
                                     <select class="form-control" id="country" name="country" aria-describedby="cntry" >
                                         <option>Select a country...</option>
                                         <?php foreach ($this->countries as $country) {
-                                            if (isset($this->newUser['country']) && $this->user['country'] == $country['country_ISO_ID'])
+                                            if (isset($this->user['country']) && $this->user['country'] == $country['country_ISO_ID'])
                                                 echo '<option selected="selected" value=\'' . $country['country_ISO_ID'] . '\' >'
                                                     . $country['country_name'] . '</option>';
                                             echo '<option value=' . $country['country_ISO_ID'] . '> '
@@ -280,12 +286,13 @@
                         <div class="row">
                             <div
                                 class=" col-xs-11 col-sm-8 col-md-8 col-lg-8 col-xs-offset-0 col-sm-offset-2 col-md-offset-2 col-lg-offset-2">
+                                <?php if (isset($this->cityError)) { ?>
+                                    <div class="alert alert-warning alert-dismissable">
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                        <p><?= $this->cityError ?></p>
+                                    </div>
+                                <?php } ?>
                                 <div class="input-group">
-                                    <?php if (isset($this->cityError)) { ?>
-                                        <div class="alert alert-warning alert-dismissable">
-                                            <p><?= $this->cityError ?></p>
-                                        </div>
-                                    <?php } ?>
                                     <span class="input-group-addon" id="state"><strong>Postal Code / Zip Code: </strong></span>
                                     <input class="form-control" aria-describedby="basic-addon1"
                                            type=text name=postalcode id=postalcode

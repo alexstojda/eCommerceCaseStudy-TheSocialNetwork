@@ -8,6 +8,7 @@ class _User extends Model
     private $email;
     private $fname;
     private $lname;
+    private $gender;
     private $phone;
     private $address;
     private $city;
@@ -81,10 +82,11 @@ class _User extends Model
         self::setCity($st['city']);
         self::setProvince($st['province']);
         self::setPostalCode($st['postalcode']);
+        self::setGender($st['gender_id']);
         self::setBirth($st['date_of_birth']);
         self::setPicture($st['profile_picture']);
         self::setPrivacy($st['default_privacy']);
-        self:: setCountry($st['country']);
+        self::setCountry($st['country']);
     }
 
     public function store()
@@ -96,6 +98,7 @@ class _User extends Model
             'email' => $this->getEmail(),
             'first_name' => $this->getFname(),
             'last_name' => $this->getLname(),
+            'gender' => $this->getGender(),
             'phone' => $this->getPhone(),
             'address' => $this->getAddress(),
             'city' => $this->getCity(),
@@ -277,5 +280,21 @@ class _User extends Model
     public function getName()
     {
         return $this->fname . ' ' . $this->lname;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getGender()
+    {
+        return $this->gender;
+    }
+
+    /**
+     * @param mixed $gender
+     */
+    public function setGender($gender)
+    {
+        $this->gender = $gender;
     }
 }

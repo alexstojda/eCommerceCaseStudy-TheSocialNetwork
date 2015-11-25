@@ -3,6 +3,7 @@
 /**
  * @property _Wall model
  * @property _Friends friendsModel
+ * @property _Register regModel
  *
  */
 class Wall extends Controller
@@ -100,5 +101,16 @@ class Wall extends Controller
 
         $this->friendsModel = $this->getModel('Friends');
         return $this->friendsModel->areFriends($ida, $idb);
+    }
+
+    public function edit() {
+        $user = $_SESSION['my_user'];
+        $this->regModel = $this->getModel('Register');
+
+        $this->view->countries = $this->regModel->getCountries();
+        $this->view->genders  = $this->regModel->getGenders();
+
+        $this->view->user = $user;
+        $this->view->render('wall/edit');
     }
 }
