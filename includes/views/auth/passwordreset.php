@@ -15,7 +15,7 @@
                     <strong>Forgot my password</strong>
                 </div>
                 <div class="panel-body">
-                    <form method="post" action="<?= URL . 'auth/sendRecovery' ?>">
+                    <form method="post" action="<?= URL . 'auth/execReset' ?>">
                         <div class="input-group">
                             <span class="input-group-addon" id="pwd"><strong>New Password: </strong></span>
                             <input class="form-control"
@@ -36,8 +36,10 @@
                                    id=confPassword"
                                    title="Between 6 and 16 alphanumeric characters"/>
                         </div>
+                        <input type="hidden" name="uid" value="<?= $this->uid ?>">
+                        <input type="hidden" name="key" value="<?= $this->key ?>">
                         <div class="input-group" style="padding-top: 15px; margin-left: auto; margin-right: auto;">
-                            <button type="submit" class="btn btn-primary btn-sm">Get my password back!</button>
+                            <button type="submit" class="btn btn-primary btn-sm">Reset my password!</button>
                         </div>
                     </form>
                 </div>

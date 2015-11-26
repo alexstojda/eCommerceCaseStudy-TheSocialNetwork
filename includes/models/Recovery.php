@@ -18,11 +18,10 @@ class _Recovery extends Model
 
     public function getUIDFromEmail($email)
     {
-        $sth = $this->db->select("SELECT `user_id` FROM `users` WHERE email = :email ", array(':email' => $email));
-        $res = $sth->fetchAll();
+        $res = $this->db->select("SELECT `user_id` FROM `users` WHERE email = :email ", array(':email' => $email));
 
         if (count($res) == 1)
-            return $res;
+            return $res[0]['user_id'];
         else
             return false;
     }
@@ -34,11 +33,10 @@ class _Recovery extends Model
 
     private function getUIDFromKey($key)
     {
-        $sth = $this->db->select("SELECT `user_id` FROM `password_recovery` WHERE reset_key = :key ", array(':email' => $key));
-        $res = $sth->fetchAll();
+        $res = $this->db->select("SELECT `user_id` FROM `password_recovery` WHERE `reset_key` = :key ", array(':key' => $key));
 
         if (count($res) == 1)
-            return $res;
+            return $res[0]['user_id'];
         else
             return false;
     }
@@ -99,7 +97,7 @@ class _Recovery extends Model
 
     private function makeMessage($key, $email, $name)
     {
-        $url = URL . 'auth/recovery/doReset?email=' . $email . '&key=' . $key;
+        $url = URL . 'auth/doReset?email=' . $email . '&key=' . $key;
 
         $htmlFile = file_get_contents(PATH . 'views/mail/recovery.php');
         $htmlFile = str_replace("{URL}", $url, $htmlFile);
@@ -112,14 +110,17 @@ class _Recovery extends Model
     {
         if ($uid != $this->getUIDFromKey($key)) {
             return false;
-        }
-        else
+        } else
             return $uid;
 
     }
 
-    public function resetPassword($uid, $key, $password) {
-
+    public function resetPassword($uid, $key, $password)
+    {
+        if ($this->validateRequest($uid, $key) === false)
+            return false;
+        else
+            return $this->db->update('users', array('password' => $password), "`user_id` = $uid");
     }
 
 }

@@ -101,30 +101,66 @@ class Auth extends Controller
         }
     }
 
-    public function recover($doReset = null)
+    public function recover()
     {
-        if (!isset($doReset)) {
-            $this->view->render('auth/recover');
-        } elseif ($doReset = 'doReset') {
-            $key = $_GET['key'];
-            $email = $_GET['email'];
-
-            /** @var _Recovery $model */
-            $model = $this->getModel('Recovery');
-
-            $uid = $model->validateRequest($model->getUIDFromEmail($email), $key);
-            if ($uid === false) {
-                $this->view->alerts[] = ["Your request is invalid. Please try again with a valid email and reset key",
-                    'warning'];
-                $this->view->render('auth/recover');
-            } else {
-                $this->view->render('auth/passwordreset');
-            }
-        }
+        $this->view->render('auth/recover');
     }
 
     public function doReset()
     {
+        $key = $_GET['key'];
+        $email = $_GET['email'];
 
+        /** @var _Recovery $model */
+        $model = $this->getModel('Recovery');
+
+        $uid = $model->validateRequest($model->getUIDFromEmail($email), $key);
+        if ($uid === false) {
+            $this->view->alerts[] = ["Your request is invalid. Please try again with a valid email and reset key",
+                'warning'];
+            $this->view->render('auth/recover');
+        } else {
+            $this->view->key = $key;
+            $this->view->uid = $uid;
+            $this->view->render('auth/passwordreset');
+        }
+    }
+
+    public function execReset()
+    {
+        $newPassword = null;
+        if (preg_match('/^([A-z]|\d){6,16}$/', $_POST['password']) === 1) {
+            if ($_POST['password'] == $_POST['confPassword'])
+                $newPassword = $_POST['password'];
+            else {
+                $this->view->alerts[] = ["Passwords must match",
+                    'warning'];
+                $this->view->render('auth/recover');
+            }
+        } else {
+            $this->view->alerts[] = ["Your password must be between 6 and 16 alphanumeric characters",
+                'warning'];
+            $this->view->render('auth/recover');
+        }
+
+        if (isset($newPassword)) {
+            /** @var _Recovery $model */
+            $model = $this->getModel('Recovery');
+
+            if ($model->resetPassword($_POST['uid'], $_POST['key'], $newPassword)) {
+                $this->view->alerts[] = ["Success! Your password has been reset. You will be redirected to the login form in a few seconds," .
+                    "or you can <a href='http://devbana.tk/auth'>click here</a>", 'success'];
+                $this->view->uid = '';
+                $this->view->key = '';
+                header('Refresh: 5; URL=http://devbana.tk/auth');
+                $this->view->render('auth/passwordreset');
+
+            } else {
+                $this->view->alerts[] = ["Something seems to have gone wrong. Return to your email and try the link again", 'danger'];
+                $this->view->render('auth/passwordreset');
+            }
+
+
+        }
     }
 }
