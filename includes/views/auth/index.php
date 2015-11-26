@@ -1,6 +1,6 @@
 <div style="margin: 10%">
 
-    <form class="form-signin" action="<?php echo URL ?>auth/doAuth" method="post">
+    <form class="form-signin" action="<?=URL?>auth/doAuth" method="post">
         <h2 class="form-signin-heading">Log In</h2>
 
         <div class="input-group margin-bottom-sm" id="title">
@@ -20,7 +20,7 @@
 
         <div class="checkbox">
             <label>
-                <input type="checkbox" value="remember-me"> Remember me
+                <input type="checkbox" name="remember" id="remember" value="remember-me"> Remember me
             </label>
         </div>
         <button class="btn btn-lg btn-primary btn-block" type="submit">Log In</button>

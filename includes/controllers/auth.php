@@ -15,7 +15,7 @@ class Auth extends Controller
 
     public function index()
     {
-
+        self::checkCookie();
         //If already logged in, go to member area
         if (Session::get('my_user')) {
             header('Location: ../wall');
@@ -49,14 +49,20 @@ class Auth extends Controller
     public function doAuth()
     {
         $user = $this->getModel('User');
+        if(array_key_exists('rememberBana',$_COOKIE)) {
+            parse_str($_COOKIE['rememberBana']);
+        } else {
+            $name = $_POST['inputUser'];
+            $pass = Hash::create('sha256',$_POST['inputPassword'], HASH_PW_KEY);;
+        }
 
-        /** @var _User $user */
-        if ($user->authenticate()) {
+        if ($user->authenticate($name,$pass)) {
+            if(array_key_exists('remember',$_POST))
+                setcookie('rememberBana', 'name='.$name.'&pass='.$pass, time() + (3600 * 24 * 30));
             header('Location: ../timeline');
         } else {
             header('Location: ../auth?error=1');
         }
-
     }
 
     //destroy session aka logout
@@ -64,6 +70,8 @@ class Auth extends Controller
     {
         Session::clear('my_user');
         //Session::destroy();
+        unset($_COOKIE);
+        setcookie('rememberBana', '', time()-3600);
         header('Location: ../auth?logout=1');
         exit();
     }

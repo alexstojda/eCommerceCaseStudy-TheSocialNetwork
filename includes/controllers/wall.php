@@ -57,7 +57,7 @@ class Wall extends postsContainer
     public function checkFriendship()
     {
         $ida = $_GET['u'];
-        $idb = $_SESSION['id'];
+        $idb = Session::get('my_user')['id'];
 
         $this->friendsModel = $this->getModel('Friends');
         return $this->friendsModel->areFriends($ida, $idb);

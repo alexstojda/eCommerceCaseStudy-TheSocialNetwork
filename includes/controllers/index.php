@@ -15,6 +15,7 @@ class Index extends Controller
 
     public function index()
     {
+        self::checkCookie();
         $this->view->title = 'Home';
         $this->view->render('home/index');
 

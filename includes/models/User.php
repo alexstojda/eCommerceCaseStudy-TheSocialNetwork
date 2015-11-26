@@ -245,18 +245,18 @@ class _User extends Model
         $this->privacy = $newThings;
     }
 
-    public function authenticate()
+    public function authenticate($username,$password)
     {
         //Search db for user/password and get as array
         $st = $this->db->select('SELECT * FROM users WHERE username = :username AND password = :pass', array(
-            ':username' => $_POST['inputUser'],
-            ':pass' => Hash::create('sha256', $_POST['inputPassword'], HASH_PW_KEY)
+            ':username' => $username,
+            ':pass' => $password
         ))[0];
 
         if (count($st) > 0)  // if count is not 0, user & password was right
         {
             $this->init_self($st); //initialize from statement and store user info in session as array
-            Session::set('id', $st['user_id']); //Set user's own id to session (if we want to switch from using user info array)
+            //Session::set('id', $st['user_id']); //Set user's own id to session (if we want to switch from using user info array)
             return true;
         }
         return false;

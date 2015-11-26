@@ -23,6 +23,12 @@ abstract class Controller
         }
     }
 
+    public static function checkCookie() {
+        if(Session::get('my_user') === false && array_key_exists('rememberBana',$_COOKIE)) {
+            header('Location: '.URL.'auth/doAuth');
+        }
+    }
+
     //Generate random string for files mainly
     public static function randomGen($random_string_length) {
         $characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';

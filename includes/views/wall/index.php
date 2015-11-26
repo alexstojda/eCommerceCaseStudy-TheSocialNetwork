@@ -55,7 +55,7 @@
                 <a class="btn btn-default" style="width: 33%" href="<?= URL . 'inbox/u/' . $this->id ?>">Message <br/>
                     <i class="fa fa-envelope fa-2x"></i></a>
                 <!-- TODO make friends and unfriend work -->
-                <?php if ($this->id != $_SESSION['id']) { ?>
+                <?php if ($this->id != Session::get('my_user')['id']) { ?>
                     <a class="btn btn-default" style="width: 33%" href="<?= $this->friendButtonTarget ?>">
                         <?= $this->friendButtonText ?><br/> <i class="fa fa-users fa-2x"></i></a>
                 <?php } ?>
