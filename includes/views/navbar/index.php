@@ -55,10 +55,10 @@
                             <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li><a href="<?=URL?>wall">My Pokes</a></li>
-                            <li><a href="#">My Friends</a></li>
+                            <li><a href="<?=URL?>friends">My Friends</a></li>
                             <li><a href="<?=URL?>groups">My Groups</a></li>
                             <li role="separator" class="divider"></li>
-                            <li><a href="#">Manage Account</a></li>
+                            <li><a href="<?=URL?>wall/edit">Manage Account</a></li>
                             <li role="separator" class="divider"></li>
                             <li><a href="<?=URL?>auth/doLogout">Logout</a></li>
                         </ul>

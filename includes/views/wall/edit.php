@@ -6,7 +6,7 @@
  * Time: 3:23 PM
  */
 ?>
-<form method="post" action="<?= URL . 'register/doUpdateUser/' . $_SESSION['id'] ?>" enctype="multipart/form-data">
+<form method="post" action="<?= URL . 'register/doUpdateUser/' . Session::get('my_user')['id'] ?>" enctype="multipart/form-data">
     <div class="container-fluid">
         <div class="row">
             <div

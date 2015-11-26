@@ -71,6 +71,7 @@ class Wall extends postsContainer
         $this->view->genders  = $this->regModel->getGenders();
 
         $this->view->user = $user;
+        $this->view->title = 'Edit my Account';
         $this->view->render('wall/edit');
     }
 }
