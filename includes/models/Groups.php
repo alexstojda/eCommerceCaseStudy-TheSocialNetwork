@@ -23,7 +23,7 @@ class _Groups extends Model
             ':to' => $group
         ))[0];
 
-        if(!empty($temp)) {
+        if (!empty($temp)) {
             $this->setName($temp['name']);
             $this->setDescription($temp['description']);
             $this->setPrivacy($temp['privacy']);
@@ -49,52 +49,64 @@ class _Groups extends Model
         }
 
     }
-    public function makeAdmin(){
-            $this->db->update('group_members', ['user_status'=> 'admin'], 'user_id = '.$_POST['admin_id'] .' AND group_id = '.$_GET['g']);
-    }
-    public function removeAdmin(){
-        $this->db->update('group_members', ['user_status'=> 'normal'], 'user_id = '.$_POST['admin_id'] .' AND group_id = '.$_GET['g']);
-    }
 
-    public function kick(){
-
-         $this->db->delete('group_members', 'user_id = '.  $_POST['member_id']  .  ' AND group_id = '.$_GET['g'] );
-    }
-    public function leave(){
-
-        $this->db->delete('group_members', 'user_id = '.  $_POST['leave_id']  .  ' AND group_id = '.$_GET['g'] );
+    public function makeAdmin()
+    {
+        $this->db->update('group_members', ['user_status' => 'admin'], 'user_id = ' . $_POST['admin_id'] . ' AND group_id = ' . $_GET['g']);
     }
 
-    public function delete(){
+    public function removeAdmin()
+    {
+        $this->db->update('group_members', ['user_status' => 'normal'], 'user_id = ' . $_POST['admin_id'] . ' AND group_id = ' . $_GET['g']);
+    }
 
-        $this->db->delete('groups', ' group_id = '.$_GET['g'] );
+    public function kick()
+    {
+
+        $this->db->delete('group_members', 'user_id = ' . $_POST['member_id'] . ' AND group_id = ' . $_GET['g']);
+    }
+
+    public function leave()
+    {
+
+        $this->db->delete('group_members', 'user_id = ' . $_POST['leave_id'] . ' AND group_id = ' . $_GET['g']);
+    }
+
+    public function delete()
+    {
+
+        $this->db->delete('groups', ' group_id = ' . $_GET['g']);
     }
 
     public function validateName()
     {
-        if(isset($_POST['name'])&& isset($_POST['privacy']) && isset($_POST['description'])) {
+        if (isset($_POST['name']) && isset($_POST['privacy']) && isset($_POST['description'])) {
             $name = $_POST['name'];
             $res = $this->db->select('SELECT group_id FROM groups WHERE name = :name',
                 array(':name' => $name));
-            if (count($res) > 0){
+            if (count($res) > 0) {
                 return false;
-            }
-            else {
-               return true;
+            } else {
+                return true;
             }
         }
+        return false;
     }
-    public function createGroup($name, $description, $privacy, $user){
-        $this->db->insert('groups', ['name'=>$name, 'privacy'=>$privacy, 'description'=>$description]);
+
+    public function createGroup($name, $description, $privacy, $user)
+    {
+        $this->db->insert('groups', ['name' => $name, 'privacy' => $privacy, 'description' => $description]);
         $tdb = $this->db->select('SELECT group_id
                                     FROM groups
                                    WHERE name = :to ', array(
             ':to' => $name
         ))[0];
 
-        $this->db->insert('group_members', ['user_id'=>$user, 'group_id'=>$tdb['group_id'], 'user_status'=>'owner']);
+        $this->db->insert('group_members', ['user_id' => $user, 'group_id' => $tdb['group_id'], 'user_status' => 'owner']);
     }
-    public function getGroups($uid){
+
+    public function getGroups($uid)
+    {
         return $this->db->select('SELECT name, groups.group_id
                                     FROM groups
                               INNER JOIN group_members
@@ -114,6 +126,7 @@ class _Groups extends Model
     {
         return $this->members;
     }
+
     public function getName()
     {
         return $this->name;
@@ -128,7 +141,9 @@ class _Groups extends Model
     {
         return $this->description;
     }
-    public function getPosts(){
+
+    public function getPosts()
+    {
         return $this->posts;
     }
 

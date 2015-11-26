@@ -21,4 +21,3 @@ class timeline extends postsContainer
             $this->view->render('timeline/index');
     }
 }
-?>

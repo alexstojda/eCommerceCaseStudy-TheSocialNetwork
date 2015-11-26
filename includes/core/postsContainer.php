@@ -60,4 +60,3 @@ abstract class postsContainer extends Controller
         echo $this->latest_id;
     }*/
 }
-?>
