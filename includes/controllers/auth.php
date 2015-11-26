@@ -43,7 +43,6 @@ class Auth extends Controller
         $this->view->render('auth/index');
     }
 
-
     //Attempt to authenticate user credentials
     public function doAuth()
     {
@@ -76,5 +75,13 @@ class Auth extends Controller
         setcookie('rememberBana', '', time() - 3600);
         header('Location: ../auth?logout=1');
         exit();
+    }
+
+    public function sendRecovery() {
+
+    }
+
+    public function recover(){
+        $this->view->render('auth/recover');
     }
 }
