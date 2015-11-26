@@ -12,6 +12,7 @@
         </div>
     </div>
 </div>
+
 <!-- source: http://bootsnipp.com/snippets/featured/bootstrap-lightbox-->
 <script type="text/javascript">
     $(document).ready(function() {

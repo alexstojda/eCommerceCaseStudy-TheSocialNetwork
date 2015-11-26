@@ -1,7 +1,10 @@
 <!doctype html>
 <html>
 <head>
-
+    <?php
+    Session::file_info();
+    Session::dump();
+    ?>
     <title><?= (isset($this->title)) ? $this->title : 'NO TITLE'; ?></title>
 
     <!-- Jquery-->

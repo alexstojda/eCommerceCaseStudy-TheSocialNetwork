@@ -13,10 +13,23 @@ class Post extends Controller
     { //TODO Implement privacy
         if (isset($_GET['id'])) {
             $this->view->post = $this->getModel('Post', $_GET['id']);
-            $this->view->render('post/index',true);
+            $this->view->render('post/index');
         } else {
             header('Location: ../home');
         }
+    }
+
+    public function deletePost(){
+       if (isset($_POST['postID']) && isset($_POST['is_group'])) {
+              $this->model->deletePost();
+           header("Location: ../".$_POST['origin']);
+
+         } else {
+              if (Session::get('my_user'))
+                  header("Location: ../timeline");
+              else
+                  header("Location: ../home");
+          }
     }
 
     public function doPost()
@@ -38,7 +51,7 @@ class Post extends Controller
                 'parent'  => (isset($_GET['reply']) ? $_GET['reply'] : null),
                 'privacy' => 0
             ]);
-            header("Location: ..".$_POST['origin']);
+            header("Location: ../".$_POST['origin']);
         } else {
             if (Session::get('my_user'))
                 header("Location: ../timeline");
@@ -46,17 +59,4 @@ class Post extends Controller
                 header("Location: ../home");
         }
     }
-
-
-    public function getPosts()
-    {
-
-    }
-
-    public function getFriends()
-    {
-        //As sad as this method is named. It will be used to populate the table of friends on the side of the page.
-        //may want to make this link to other pages as well
-    }
-
 }

@@ -1,40 +1,26 @@
 <?php
+
 /**
  * Created by PhpStorm.
  * User: Evan
  * Date: 11/20/2015
  * Time: 4:45 PM
  */
-
-
 class _Timeline extends Model
 {
     private $user;
     private $posts;
     private $friends;
 
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
     }
 
     public function init($new_user)
     {
         $this->setUser($new_user);
-
-        //Add post_by =  to friends' ids and privacy = public or just friends
-        //RETRIEVE ALL POSTS AVAILABLE TODO:REDO QUERY AFTER FRIEND SYSTEM IS DONE
-        $st = $this->db->select('SELECT * FROM post WHERE post_to = :to AND isnull(parent_id) ORDER BY creation_date DESC', array(
-            ':to' => $new_user->getID()
-        ));
-
-        if(count($st) > 0) {
-            $this->posts = $st;
-        } else { //no posts on timeline at all.... ;(
-            echo 'Sucks to suck';
-        }
     }
-
-    //Getters
 
     public function getUser()
     {
@@ -46,10 +32,18 @@ class _Timeline extends Model
         $this->user = $user;
     }
 
-    //Setters
 
-    public function getUPosts()
+    public function &getUPosts($offset = 0, $quantity = 100)
     {
+        $st = $this->db->select('SELECT * FROM `post` WHERE `post_by` IN
+                           (SELECT `user_id_a` AS uid FROM `friends` WHERE `user_id_b` = :id AND !isnull(created_date)
+                            UNION
+                            SELECT `user_id_b` AS uid FROM `friends` WHERE `user_id_a` = :id AND !isnull(created_date))
+                                                                           AND isnull(parent_id) ORDER BY creation_date DESC LIMIT ' .
+            $offset . ',' . $quantity, [':id' => $this->user->getID()]);
+
+        if (count($st) > 0)
+            $this->posts = $st;
         return $this->posts;
     }
 
@@ -62,13 +56,6 @@ class _Timeline extends Model
     {
         /*
         Get friends from database
-        */
-    }
-
-    public function setPosts($user)
-    {
-        /*
-        Get posts from database
         */
     }
 
