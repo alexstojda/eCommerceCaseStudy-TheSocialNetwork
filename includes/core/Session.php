@@ -8,10 +8,6 @@ class Session
         if (!isset($_SESSION)) {
             session_start();
         }
-        //ALL THE SESSION DEBUGS...
-        self::file_info();
-        self::dump();
-
     }
 
     public static function get($key)

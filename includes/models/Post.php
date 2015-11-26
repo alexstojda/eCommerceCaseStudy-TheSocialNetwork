@@ -33,8 +33,8 @@ class _Post extends Model
                 ':id' => $temp));
             if (count($st) > 0)
                 $this->setAll($st[0]);
-        } else
-            header('Location: ../timeline');
+        }
+            //header('Location: ../timeline');
     }
 
     public function setAll($array) {

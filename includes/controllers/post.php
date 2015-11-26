@@ -13,7 +13,7 @@ class Post extends Controller
     { //TODO Implement privacy
         if (isset($_GET['id'])) {
             $this->view->post = $this->getModel('Post', $_GET['id']);
-            $this->view->render('post/index');
+            $this->view->render('post/index',true);
         } else {
             header('Location: ../home');
         }
@@ -50,7 +50,7 @@ class Post extends Controller
 
     public function getPosts()
     {
-        //This is where all the posts come form...it's pretty fucking savage
+
     }
 
     public function getFriends()
