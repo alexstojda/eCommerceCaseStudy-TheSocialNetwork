@@ -4,7 +4,7 @@
             <img  class="media-object thumbnail" src="<?=URL.$this->post->getPostByImg()?>" alt="..." style="float: left;display: inline-block; height: 4em; margin: 0px 8px 0px 0px;">
         </a>
         <b><a href="<?= URL . 'wall?u='. $this->post->getPostBy();?>"><?= $this->post->getPostByName(); ?> </a></b>
-        <?php if (!isset($_GET['u']) && $this->post->getPostBy() !== $this->post->getPostTo()) { ?>
+        <?php if (!isset($_GET['u']) && !isset($_GET['g']) && $this->post->getPostBy() !== $this->post->getPostTo()) { ?>
         <i class="fa fa-chevron-right"></i>
         <b><a href="<?= URL . 'wall?u='. $this->post->getPostTo();?>"><?= $this->post->getPostToName(); ?> </a></b>
         <?php } ?>
