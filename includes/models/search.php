@@ -11,10 +11,15 @@ class _Search extends Model
     private $foundUsers;
     private $foundGroups;
 
+    public function __construct()
+    {
+        parent::__construct();
+    }
+
     public function searchUsers()
     {
         $st = $this->db->select('SELECT * FROM `users` WHERE first_name LIKE :search OR last_name LIKE :search OR phone LIKE :search OR email LIKE :search  ',
-            [':search' => "%" . $_POST['search'] . "%"]);
+            [':search' => "%" . $_GET['search'] . "%"]);
 
         if (count($st) > 0) {
             return $st;
@@ -25,7 +30,7 @@ class _Search extends Model
     public function searchGroups()
     {
         $st = $this->db->select('SELECT * FROM `groups` WHERE name LIKE :search',
-            [':search' => "%" . $_POST['search'] . "%"]);
+            [':search' => "%" . $_GET['search'] . "%"]);
 
         if (count($st) > 0) {
             return $st;

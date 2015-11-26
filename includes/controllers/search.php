@@ -10,10 +10,11 @@ class Search extends Controller
 {
     public function index()
     {
-        if (isset($_POST['search'])) {
+        if (isset($_GET['search'])) {
             //TODO-andrew: Define functions
-            $foundUsers = searchUsers();
-            $foundGroups = searchGroups();
+
+            $foundUsers =  $this->model->searchUsers();
+            $foundGroups =  $this->model->searchGroups();
 
             $this->view->foundUsers = $foundUsers;
             $this->view->foundGroups = $foundGroups;

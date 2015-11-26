@@ -37,9 +37,9 @@
 
             <!-- USER UID IN SEARCH TO NAVIGATE AND TEST WALLS-->
             <?php if (Session::get('my_user')) : ?>
-                <form class="navbar-form navbar-left" role="search" action="wall" method="get">
+                <form class="navbar-form navbar-left" role="search" action="<?= URL ?>search/index" method="get">
                     <div class="form-group">
-                        <input type="text" name="u" class="form-control" required placeholder="Search">
+                        <input type="text" name="search" class="form-control" required placeholder="Search">
                     </div>
                     <button type="submit" class="btn btn-default">Submit</button>
                 </form>
