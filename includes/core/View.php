@@ -1,7 +1,6 @@
 <?php
 
 /**
- * @property array alerts
  * @property string title
  * @property array posts
  * @property string error
@@ -47,6 +46,10 @@
  */
 class View
 {
+    /**
+     * @var array $alerts
+     */
+    public $alerts;
 
     public function __construct()
     {

@@ -166,8 +166,7 @@
                                     </div>
                                 <?php } ?>
                                 <div class="input-group">
-                                    <label for="gender_id"><span class="input-group-addon"
-                                                                 id="gen"><strong>Gender: </strong></span></label>
+                                    <span class="input-group-addon" id="gen"><label for="gender_id"><strong>Gender: </strong></label></span>
                                     <select name="gender_id" id="gender_id" class="form-control" aria-describedby="gen">
                                         <option value="">Select a gender...</option>
                                         <?php
@@ -306,8 +305,7 @@
                                     </div>
                                 <?php } ?>
                                 <div class="input-group">
-                                    <label for="country"><span class="input-group-addon"
-                                                               id="cntry"><strong>Country: </strong></span></label>
+                                    <span class="input-group-addon" id="cntry"><label for="country"><strong>Country: </strong></label></span>
                                     <select class="form-control" id="country" name="country" aria-describedby="cntry">
                                         <option>Select a country...</option>
                                         <?php foreach ($this->countries as $country) {

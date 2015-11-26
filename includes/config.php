@@ -12,6 +12,12 @@ define('DB_NAME', 'banacommercestudy_ecom');
 define('DB_USER', 'ecommuser');
 define('DB_PASS', 'ybu4a3agy');
 
+define('EMAIL_USER', 'noreply@devbana.tk');
+define('EMAIL_PASS', 'johncena69');
+define('EMAIL_HOST', '192.99.167.147');
+define('EMAIL_PORT', '25');
+
+
 // The sitewide hashkey, do not change this because its used for passwords!
 // This is for other hash keys... Not sure yet
 define('HASH_GENERAL_KEY', 'IfYouNeedOtherHashes');
