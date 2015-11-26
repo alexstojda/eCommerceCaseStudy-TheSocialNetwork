@@ -45,7 +45,7 @@ foreach($this->members as $this->member){
                         <div class="fileUpload btn btn-default" style=" margin:0">
                             <span><i class="fa fa-camera" aria-hidden="true" ></i></span>
                             <input type="file" name="picture" class="upload" accept="image/*"/>
-                            <input type="hidden" name="origin" value="<?=ltrim($_GET['url'], 'public').'?g='.$_GET['g'];?>"/>
+                            <input type="hidden" name="origin" value="<?=ltrim($_GET['url'], 'public/').'?g='.$_GET['g'];?>"/>
                         </div>
                     </div>
                 </form>
