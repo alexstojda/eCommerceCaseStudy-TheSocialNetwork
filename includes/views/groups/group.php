@@ -60,6 +60,14 @@ foreach($this->members as $this->member){
             <div class="media">
                 <h4 class="media-heading">Group Description</h4>
                 <p><?= $this->description?></p>
+                <?php
+                if(isset($sessionUser) && $sessionUser!==3) {
+
+                echo'<form action="'. URL . 'groups/update"  method="post">';
+                    echo '<button type="submit" name = "member_id" value="' . $this->member['user_id'] . '">Modify Group Information</button>
+                    <input type="hidden" name="g" value= "'. $_GET['g'] .'""></input></form>';
+                }
+                ?>
             </div>
         </div>
         <div class="col-xs-10 col-sm-10 col-md-6 col-lg-6">
@@ -100,7 +108,7 @@ foreach($this->members as $this->member){
                     echo '<p class="media-heading">Group Members</p>';
                     if(!empty($normal)) {
                         foreach ($normal as $this->member) {
-                            if(isset($sessionUser)) {
+                            if(isset($sessionUser) && $sessionUser!==3) {
                                 echo '<form action="'. URL . 'groups/makeAdmin?g=' . $_GET['g'].'" method="post">';
                                 echo '<li><a href="' . URL . 'wall?u=' . $this->member['user_id'] . '">' . $this->member['name'] . '</a></li>';
                                 echo '<button type="submit" name = "admin_id" value="' . $this->member['user_id'] . '">Make Admin</button></form>';
@@ -118,15 +126,20 @@ foreach($this->members as $this->member){
                     if(isset($sessionUser) && $sessionUser === 1) {
                         echo '<form action="'. URL . 'groups/delete?g=' . $_GET['g'].'" method="post">';
 
-                        echo '<button type="submit" name = "delete_group" >Delete Group</button>';
+                        echo '<button class"btn btn-default" type="submit" name = "delete_group" >Delete Group</button>';
                         echo '</form>';
-                    }
-                    elseif(isset($sessionUser)){
+                    } elseif(isset($sessionUser)) {
                         echo '<form action="'. URL . 'groups/leave?g=' . $_GET['g'].'" method="post">';
-                        echo '<button class="btn btn-default btn-lg" type="submit"  value="' . $this->member['user_id'] . '" name = "leave_id" >Leave Group</button>';
+                        echo '<button class"btn btn-default" type="submit"  value="' . $this->member['user_id'] . '" name = "leave_id" >Leave Group</button>';
+                        echo '</form>';
+                    } else {
+                        echo '<form action="'. URL . 'groups/join?g=' . $_GET['g'].'" method="post">';
+                        echo '<button type="submit"  value="' . SESSION::get('id'). '" name = "user_id" >Join Group</button>';
                         echo '</form>';
                     }
+
                     ?>
+
                 </ul>
             </div>
         </div>
