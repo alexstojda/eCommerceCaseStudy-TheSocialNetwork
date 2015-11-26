@@ -119,8 +119,12 @@ class _Recovery extends Model
     {
         if ($this->validateRequest($uid, $key) === false)
             return false;
-        else
-            return $this->db->update('users', array('password' => $password), "`user_id` = $uid");
+        elseif ($this->db->update('users', array('password' => $password), "`user_id` = $uid")) {
+            $this->db->delete('password_recovery', "`user_id` = $uid");
+            return true;
+        } else {
+            return false;
+        }
     }
 
 }
