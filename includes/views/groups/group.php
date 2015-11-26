@@ -5,8 +5,6 @@
  * Date: 11/21/2015
  * Time: 10:08 PM
  */
-//TODO: EVAN, WHAT THE FUCK IS THE sessionUserVariable? You never actually use the result according to code inspection.
-//Fix this.
 $sessionUser = null;
 $owner = [];
 $admin = [];

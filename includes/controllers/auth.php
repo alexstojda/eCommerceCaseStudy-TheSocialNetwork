@@ -4,6 +4,7 @@
  * Class Login
  *
  * Deals with user authentication
+ * @property _Recovery recovery
  */
 class Auth extends Controller
 {
@@ -77,11 +78,53 @@ class Auth extends Controller
         exit();
     }
 
-    public function sendRecovery() {
+    public function sendRecovery()
+    {
+        $email = $_POST['email'];
 
+        /** @var _Recovery $model */
+        $model = $this->getModel('Recovery');
+
+        $result = $model->newRequest($email);
+
+        if ($result === 0) {
+            $this->view->alerts[] = ["$email does not exist. Please enter a valid email.", 'warning'];
+            $this->view->render('auth/recover');
+        } elseif ($result === -1) {
+            $this->view->alerts[] = ["Something went wrong, please try again. If the error persists, contact the code monkeys",
+                'danger'];
+            $this->view->render('auth/recover');
+        } elseif ($result === 1) {
+            $this->view->alerts[] = ["<strong>Success!</strong> You should receive a link in your email to reset your password shortly.",
+                'success'];
+            $this->view->render('auth/recover');
+        }
     }
 
-    public function recover(){
-        $this->view->render('auth/recover');
+    public function recover($doReset = null)
+    {
+        if (!isset($doReset)) {
+            $this->view->render('auth/recover');
+        } elseif ($doReset = 'doReset') {
+            $key = $_GET['key'];
+            $email = $_GET['email'];
+
+            /** @var _Recovery $model */
+            $model = $this->getModel('Recovery');
+
+            $uid = $model->validateRequest($model->getUIDFromEmail($email), $key);
+            if ($uid === false) {
+                $this->view->alerts[] = ["Your request is invalid. Please try again with a valid email and reset key",
+                    'warning'];
+                $this->view->render('auth/recover');
+            } else {
+                $this->view->render('auth/passwordreset');
+            }
+        }
+    }
+
+    public function doReset()
+    {
+
     }
 }

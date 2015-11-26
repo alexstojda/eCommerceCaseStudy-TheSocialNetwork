@@ -5,8 +5,6 @@
  * Date: 2015-11-26
  * Time: 10:26 AM
  */
-$mail = new PHPMailer();
-
 ?>
 <div class="container-fluid">
     <div class="row">
@@ -18,22 +16,16 @@ $mail = new PHPMailer();
                 </div>
                 <div class="panel-body">
                     <form method="post" action="<?= URL . 'auth/sendRecovery' ?>">
-                        <?php if (isset($this->emailError)) { ?>
-                            <div class="alert alert-warning alert-dismissable">
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span></button>
-                                <p><?= $this->emailError ?></p>
-                            </div>
-                        <?php } ?>
                         <div class="input-group">
                             <span class="input-group-addon" id="maile"><strong>Email: </strong></span>
                             <input class="form-control" aria-describedby="maile"
                                    type="email" pattern="^\S+@\S+\.\S+$"
                                    name="email" id="email"
                                    title="Email must be a valid email"
-                                <?php if (isset($this->user['email'])) {
-                                    echo "placeholder='" . $this->user['email'] . "'";
-                                } ?>/>
+                                   placeholder="you@example.com"/>
+                        </div>
+                        <div class="input-group" style="padding-top: 15px; margin-left: auto; margin-right: auto;">
+                            <button type="submit" class="btn btn-primary btn-sm">Get my password back!</button>
                         </div>
                     </form>
                 </div>
