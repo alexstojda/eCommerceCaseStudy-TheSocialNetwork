@@ -35,10 +35,10 @@ class _Timeline extends Model
 
     public function &getUPosts($offset = 0, $quantity = 100)
     {
-        $st = $this->db->select('SELECT * FROM `post` WHERE `post_by` IN
+        $st = $this->db->select('SELECT * FROM `post` WHERE (`post_by` IN
                            (SELECT `user_id_a` AS uid FROM `friends` WHERE `user_id_b` = :id AND !isnull(created_date)
                             UNION
-                            SELECT `user_id_b` AS uid FROM `friends` WHERE `user_id_a` = :id AND !isnull(created_date))
+                            SELECT `user_id_b` AS uid FROM `friends` WHERE `user_id_a` = :id AND !isnull(created_date)) OR `post_by` = :id)
                                                                            AND isnull(parent_id) ORDER BY creation_date DESC LIMIT ' .
             $offset . ',' . $quantity, [':id' => $this->user->getID()]);
 
