@@ -20,10 +20,9 @@ class Post extends Controller
     }
 
     public function deletePost(){
-       if (isset($_POST['postID']) && isset($_POST['is_group'])) {
+       if (isset($_POST['postID'])) {
               $this->model->deletePost();
            header("Location: ../".$_POST['origin']);
-
          } else {
               if (Session::get('my_user'))
                   header("Location: ../timeline");
