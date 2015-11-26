@@ -6,7 +6,7 @@
  * Time: 3:23 PM
  */
 ?>
-<form method="post" action="<?= URL . 'register/doUpdateUser/' . $_SESSION['id'] ?>">
+<form method="post" action="<?= URL . 'register/doUpdateUser/' . $_SESSION['id'] ?>" enctype="multipart/form-data">
     <div class="container-fluid">
         <div class="row">
             <div
@@ -15,6 +15,21 @@
                     <div class="panel-body">
                         <div class="panel-heading" style="font-size: 24px; font-weight: bold;">Edit my account</div>
                         <hr />
+                        <div class="row">
+                            <div class=" col-xs-11 col-sm-8 col-md-8 col-lg-8 col-xs-offset-0 col-sm-offset-2 col-md-offset-2 col-lg-offset-2">
+                                <div class="input-group">
+                                    <span class="input-group-addon" id="uname"><strong>Profile Picture:</strong></span>
+                                    <a href="#" data-toggle="modal" data-target="#lightbox">
+                                        <img class="media-object thumbnail" src="<?= URL.$this->user['profile_picture']?>" alt="..." style="display: inline-block; height: 3.5em; margin: 0px"></a>
+                                    <div class="fileUpload btn btn-default" style="margin:0">
+                                        <span><i class="fa fa-camera" aria-hidden="true" ></i>Change Profile</span>
+                                        <input type="file" name="picture" class="upload" accept="image/*"/>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr/>
                         <div class="row">
                             <div
                                 class=" col-xs-11 col-sm-8 col-md-8 col-lg-8 col-xs-offset-0 col-sm-offset-2 col-md-offset-2 col-lg-offset-2">
