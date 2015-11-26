@@ -93,21 +93,21 @@ class _User extends Model
     {
         Session::set('my_user', [
             'id' => $this->getUserID(),
-            'user' => $this->getUsername(),
+            'username' => $this->getUsername(),
             //'pass'      => $this->getPassword(),
             'email' => $this->getEmail(),
             'first_name' => $this->getFname(),
             'last_name' => $this->getLname(),
-            'gender' => $this->getGender(),
+            'gender_id' => $this->getGender(),
             'phone' => $this->getPhone(),
             'address' => $this->getAddress(),
             'city' => $this->getCity(),
             'country' => $this->getCountry(),
             'province' => $this->getProvince(),
-            'postal' => $this->getPostalcode(),
-            'birth' => $this->getBirth(),
-            'picture' => $this->getPicture(),
-            'privacy' => $this->getPrivacy()
+            'postalcode' => $this->getPostalcode(),
+            'date_of_birth' => $this->getBirth(),
+            'profile_picture' => $this->getPicture(),
+            'default_privacy' => $this->getPrivacy()
         ]);
     }
 

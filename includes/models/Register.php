@@ -79,4 +79,10 @@ class _Register extends Model
         $user['password'] = Hash::create('sha256', $user['password'], HASH_PW_KEY);
         return $this->db->insert('users', $user);
     }
+
+    public function updateUser ($user, $uid) {
+        $user['password'] = Hash::create('sha256', $user['password'], HASH_PW_KEY);
+        unset($user['id']);
+        return $this->db->update('users', $user, "user_id = $uid");
+    }
 }

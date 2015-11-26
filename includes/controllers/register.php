@@ -314,6 +314,8 @@ class register extends Controller
 
         $this->newUser = $_SESSION['my_user'];
 
+
+
         $isValid = true;
         if (!self::isEmpty($_POST['username'])) {
             if (preg_match('/^([A-z]|\d){2,16}$/', $_POST['username']) === 1) {
@@ -463,16 +465,20 @@ class register extends Controller
             }
         }
 
-        if ($isValid) {
-            $this->addUser();
-
+        $uid = Session::get('id');
+        $res = $this->model->updateUser($this->newUser, $uid);
+        echo print_r($this->newUser);
+        if ($isValid && $res) {
+            $_SESSION['my_user'] = $this->newUser;
             header('Location: ' . URL . 'wall');
         } else {
+
             $this->view->title = 'ERROR - Login information';
             $this->view->user = $_SESSION['my_user'];
             $this->view->countries = $this->model->getCountries();
             $this->view->genders = $this->model->getGenders();
             $this->view->render('wall/edit');
+            echo print_r($this->model->getError());
         }
     }
 }
