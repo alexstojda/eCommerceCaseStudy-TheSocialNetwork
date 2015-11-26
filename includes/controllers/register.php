@@ -331,6 +331,15 @@ class register extends Controller
             }
         }
 
+//changes the profile picture
+        if ($_FILES['picture']['name'] !== "") {
+            $uploaddir = 'user_images/';
+            $path_parts = pathinfo($_FILES["picture"]["name"])['extension'];
+            $uploadfile = $uploaddir . $this->newUser['username'] .'.'. $path_parts;
+            $this->newUser['profile_picture']   =  ((isset($uploadfile) && move_uploaded_file($_FILES['picture']['tmp_name'], $uploadfile)) ? $uploadfile : null);
+        }
+
+
         if (!self::isEmpty($_POST['password'])) {
             if (preg_match('/^([A-z]|\d){6,16}$/', $_POST['password']) === 1) {
                 if ($_POST['password'] == $_POST['confPassword'])
