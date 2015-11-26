@@ -31,7 +31,7 @@ foreach($this->members as $this->member){
 	<h1 align="center"><?=$this->name ?> Group Wall</h1>
 </div>
 
-
+<?php if (isset($sessionUser)) { ?>
 <div class="container-fluid">
     <div class="row">
         <div class="col-xs-10 col-sm-10 col-md-6 col-lg-6 col-md-offset-3 col-lg-offset-3 col-xs-offset-1 col-sm-offset-1">
@@ -40,19 +40,20 @@ foreach($this->members as $this->member){
                 <textarea class="form-control" name="post" rows="2" required placeholder="<?=
                     'Share your thoughts with '.$this->name?>?"
                   style=" display:inline; background-color: white"></textarea>
-                        <div class="input-group-btn" align="right" aria-hidden="true">
-                            <button type="submit" class="btn btn-default" aria-haspopup="true" aria-expanded="false">Post</button>
-                            <div class="fileUpload btn btn-default" style=" margin:0">
-                                <span><i class="fa fa-camera" aria-hidden="true" ></i></span>
-                                <input type="file" name="picture" class="upload" accept="image/*"/>
-                                <input type="hidden" name="origin" value="<?=ltrim($_GET['url'], 'public').'?g='.$_GET['g'];?>"/>
-                            </div>
+                    <div class="input-group-btn" align="right" aria-hidden="true">
+                        <button type="submit" class="btn btn-default" aria-haspopup="true" aria-expanded="false">Post</button>
+                        <div class="fileUpload btn btn-default" style=" margin:0">
+                            <span><i class="fa fa-camera" aria-hidden="true" ></i></span>
+                            <input type="file" name="picture" class="upload" accept="image/*"/>
+                            <input type="hidden" name="origin" value="<?=ltrim($_GET['url'], 'public').'?g='.$_GET['g'];?>"/>
                         </div>
+                    </div>
                 </form>
             </div>
         </div>
     </div>
 </div>
+<?php } else {Controller::anAlert('You\'re not a member of this group, therefore you can\'t post. Maybe join '.$this->name.' group?','warning');}?>
 
 <div class="container-fluid">
     <div class="row">
@@ -111,9 +112,9 @@ foreach($this->members as $this->member){
                             if(isset($sessionUser) && $sessionUser!==3) {
                                 echo '<form action="'. URL . 'groups/makeAdmin?g=' . $_GET['g'].'" method="post">';
                                 echo '<li><a href="' . URL . 'wall?u=' . $this->member['user_id'] . '">' . $this->member['name'] . '</a></li>';
-                                echo '<button type="submit" name = "admin_id" value="' . $this->member['user_id'] . '">Make Admin</button></form>';
+                                echo '<button class="btn btn-default" type="submit" name = "admin_id" value="' . $this->member['user_id'] . '">Make Admin</button></form>';
                                 echo'<form action="'. URL . 'groups/kick?g=' . $_GET['g'].'" method="post">';
-                                echo '<button type="submit" name = "member_id" value="' . $this->member['user_id'] . '">kick</button></form>';
+                                echo '<button class="btn btn-default" type="submit" name = "member_id" value="' . $this->member['user_id'] . '">kick</button></form>';
                             }
                             else{
                                 echo '<li><a href="' . URL . 'wall?u=' . $this->member['user_id'] . '">' . $this->member['name'] . '</a></li>';
@@ -126,25 +127,20 @@ foreach($this->members as $this->member){
                     if(isset($sessionUser) && $sessionUser === 1) {
                         echo '<form action="'. URL . 'groups/delete?g=' . $_GET['g'].'" method="post">';
 
-                        echo '<button class"btn btn-default" type="submit" name = "delete_group" >Delete Group</button>';
+                        echo '<button class="btn btn-default" type="submit" name = "delete_group" >Delete Group</button>';
                         echo '</form>';
                     } elseif(isset($sessionUser)) {
                         echo '<form action="'. URL . 'groups/leave?g=' . $_GET['g'].'" method="post">';
-                        echo '<button class"btn btn-default" type="submit"  value="' . $this->member['user_id'] . '" name = "leave_id" >Leave Group</button>';
+                        echo '<button class="btn btn-default" type="submit"  value="' . $this->member['user_id'] . '" name = "leave_id" >Leave Group</button>';
                         echo '</form>';
                     } else {
                         echo '<form action="'. URL . 'groups/join?g=' . $_GET['g'].'" method="post">';
-                        echo '<button type="submit"  value="' . SESSION::get('id'). '" name = "user_id" >Join Group</button>';
+                        echo '<button class="btn btn-default" type="submit"  value="' . SESSION::get('id'). '" name = "user_id" >Join Group</button>';
                         echo '</form>';
-                    }
-
-                    ?>
-
+                    } ?>
                 </ul>
             </div>
         </div>
     </div>
-</div>
-
 </div>
 <br />
