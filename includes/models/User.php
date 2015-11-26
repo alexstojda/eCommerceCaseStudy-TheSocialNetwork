@@ -37,14 +37,14 @@ class _User extends Model
                 $this->province = 'nop';
                 $this->postalcode = 'nop';
                 $this->birth = 'nop';
-                $this->picture= 'http://www.gravatar.com/avatar/?d=mm&f=y';
+                $this->picture = 'http://www.gravatar.com/avatar/?d=mm&f=y';
                 $this->privacy = 'none';
                 break;
             case ($tempID === Session::get('my_user')['id']) : //load my wall.
                 $st = $this->db->select('SELECT * FROM users WHERE user_id = :uid', array(
                     ':uid' => $tempID,
                 ));
-                if(count($st) > 0)
+                if (count($st) > 0)
                     $this->init_self($st[0]);
                 else //that user doesn't exist, give error and redirect to self
                     header('Location: ../wall?u=' . Session::get('my_user')['id']);
@@ -245,7 +245,7 @@ class _User extends Model
         $this->privacy = $newThings;
     }
 
-    public function authenticate($username,$password)
+    public function authenticate($username, $password)
     {
         //Search db for user/password and get as array
         $st = $this->db->select('SELECT * FROM users WHERE username = :username AND password = :pass', array(

@@ -31,7 +31,7 @@
         <div class="list-group">
             <?php
             foreach ($this->messages as $message) {
-                if ($message['from_user_id'] == Session::get('id')) { ?>
+                if ($message['from_user_id'] == Session::get('my_user')['id']) { ?>
                     <a class="list-group-item" style="text-align: right; background-color: rgba(0, 83, 255, 0.16)">
                         <h4 class="list-group-item-heading" style="font-size: 16px;"><?= $message['message'] ?></h4>
 

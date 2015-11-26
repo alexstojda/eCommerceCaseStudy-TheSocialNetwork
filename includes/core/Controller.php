@@ -3,8 +3,8 @@
 /**
  * Class Controller
  *
- * @property model
  * @property view
+ * @property Model model
  */
 abstract class Controller
 {
@@ -23,14 +23,16 @@ abstract class Controller
         }
     }
 
-    public static function checkCookie() {
-        if(Session::get('my_user') === false && array_key_exists('rememberBana',$_COOKIE)) {
-            header('Location: '.URL.'auth/doAuth');
+    public static function checkCookie()
+    {
+        if (Session::get('my_user') === false && array_key_exists('rememberBana', $_COOKIE)) {
+            header('Location: ' . URL . 'auth/doAuth');
         }
     }
 
     //Generate random string for files mainly
-    public static function randomGen($random_string_length) {
+    public static function randomGen($random_string_length)
+    {
         $characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
         $string = '';
         for ($i = 0; $i < $random_string_length; $i++) {
@@ -45,6 +47,7 @@ abstract class Controller
     /**
      * Used to autoload models on controller creation.
      * @param string $name Name of the model
+     * @param null $param
      * @param string $modelPath
      */
     public function loadModel($name, $param = null, $modelPath = '../includes/models/')
@@ -52,6 +55,8 @@ abstract class Controller
         $path = $modelPath . $name . '.php';
 
         if (file_exists($path)) {
+            /** @noinspection PhpIncludeInspection */
+            /** @noinspection PhpIncludeInspection */
             require_once $modelPath . $name . '.php';
 
             $modelName = '_' . $name;
@@ -66,6 +71,7 @@ abstract class Controller
      * Loads a specified model and returns it.
      *
      * @param string $name Name of the model
+     * @param null $param
      * @param string $modelPath
      * @return null
      */
@@ -74,6 +80,8 @@ abstract class Controller
         $path = $modelPath . $name . '.php';
 
         if (file_exists($path)) {
+            /** @noinspection PhpIncludeInspection */
+            /** @noinspection PhpIncludeInspection */
             require_once $modelPath . $name . '.php';
             $modelName = '_' . $name;
             //echo 'got params:' . $param;
@@ -85,10 +93,11 @@ abstract class Controller
         return null;
     }
 
-    public static function anAlert($msg,$type = 'warning') {
-                echo '<div style="margin-left: 10%; margin-right: 10%" class="alert alert-' . $type . ' alert-dismissible" role="alert">'
-                    . '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>'
-                    . $msg . '</div>';
+    public static function anAlert($msg, $type = 'warning')
+    {
+        echo '<div style="margin-left: 10%; margin-right: 10%" class="alert alert-' . $type . ' alert-dismissible" role="alert">'
+            . '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>'
+            . $msg . '</div>';
 
     }
 }

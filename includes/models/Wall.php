@@ -5,12 +5,16 @@
  */
 class _Wall extends Model
 {
+    /**
+     * @var _User user
+     */
     private $user;
     private $posts;
     private $friends;
     private $name;
 
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
     }
 
@@ -62,9 +66,9 @@ class _Wall extends Model
     public function &getUPosts($offset = 0, $quantity = 100)
     {
         //RETRIEVE ALL POSTS IDS
-        $st = $this->db->select('SELECT * FROM post WHERE post_to = :id AND isnull(parent_id) ORDER BY creation_date DESC LIMIT '.
-                                 $offset.','.$quantity, [ ':id'   => $this->user->getID() ]);
-        if(count($st) > 0)
+        $st = $this->db->select('SELECT * FROM post WHERE post_to = :id AND isnull(parent_id) ORDER BY creation_date DESC LIMIT ' .
+            $offset . ',' . $quantity, [':id' => $this->user->getID()]);
+        if (count($st) > 0)
             $this->posts = $st;
         return $this->posts;
     }

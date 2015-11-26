@@ -1,6 +1,2 @@
 .idea/
-.bs_less/
-*.xml
-*.iml
 /includes/config.php
-includes/config.php

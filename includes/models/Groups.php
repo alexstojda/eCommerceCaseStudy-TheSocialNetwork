@@ -47,43 +47,52 @@ class _Groups extends Model
         }
 
     }
-    public function updateGroup(){
-        $this->db->update('groups', ['privacy'=> $_POST['privacy'], 'description' => $_POST['description']], 'group_id = '.$_POST['g']);
+
+    public function updateGroup()
+    {
+        $this->db->update('groups', ['privacy' => $_POST['privacy'], 'description' => $_POST['description']], 'group_id = ' . $_POST['g']);
     }
 
-    public function makeAdmin(){
-            $this->db->update('group_members', ['user_status'=> 'admin'], 'user_id = '.$_POST['admin_id'] .' AND group_id = '.$_GET['g']);
+    public function makeAdmin()
+    {
+        $this->db->update('group_members', ['user_status' => 'admin'], 'user_id = ' . $_POST['admin_id'] . ' AND group_id = ' . $_GET['g']);
     }
 
-    public function removeAdmin(){
-        $this->db->update('group_members', ['user_status'=> 'normal'], 'user_id = '.$_POST['admin_id'] .' AND group_id = '.$_GET['g']);
+    public function removeAdmin()
+    {
+        $this->db->update('group_members', ['user_status' => 'normal'], 'user_id = ' . $_POST['admin_id'] . ' AND group_id = ' . $_GET['g']);
     }
 
-    public function kick() {
-         $this->db->delete('group_members', 'user_id = '.  $_POST['member_id']  .  ' AND group_id = '.$_GET['g'] );
+    public function kick()
+    {
+        $this->db->delete('group_members', 'user_id = ' . $_POST['member_id'] . ' AND group_id = ' . $_GET['g']);
     }
 
-    public function join(){
+    public function join()
+    {
 
-        $this->db->insert('group_members', ['user_id'=>$_POST['user_id'], 'group_id'=> $_GET['g'], 'user_status'=>'normal']);
-    }
-    public function leave(){
-
-        $this->db->delete('group_members', 'user_id = '.  SESSION::get('id') .  ' AND group_id = '.$_GET['g'] );
+        $this->db->insert('group_members', ['user_id' => $_POST['user_id'], 'group_id' => $_GET['g'], 'user_status' => 'normal']);
     }
 
-    public function delete(){
+    public function leave()
+    {
 
-        $this->db->delete('groups', ' group_id = '.$_GET['g'] );
+        $this->db->delete('group_members', 'user_id = ' . Session::get('my_user')['id'] . ' AND group_id = ' . $_GET['g']);
+    }
+
+    public function delete()
+    {
+
+        $this->db->delete('groups', ' group_id = ' . $_GET['g']);
     }
 
     public function validateName()
     {
-        if(isset($_POST['name'])&& isset($_POST['privacy']) && isset($_POST['description'])) {
+        if (isset($_POST['name']) && isset($_POST['privacy']) && isset($_POST['description'])) {
             $name = $_POST['name'];
             $res = $this->db->select('SELECT group_id FROM groups WHERE name = :name',
                 array(':name' => $name));
-            if (count($res) === 0){
+            if (count($res) === 0) {
                 return true;
             }
         }
@@ -99,7 +108,7 @@ class _Groups extends Model
             ':to' => $name
         ))[0];
 
-        $this->db->insert('group_members', ['user_id'=>$user, 'group_id'=>$tdb['group_id'], 'user_status'=>'owner']);
+        $this->db->insert('group_members', ['user_id' => $user, 'group_id' => $tdb['group_id'], 'user_status' => 'owner']);
     }
 
     public function getGroups($uid)
@@ -123,6 +132,7 @@ class _Groups extends Model
     {
         return $this->members;
     }
+
     public function getName()
     {
         return $this->name;
@@ -137,7 +147,9 @@ class _Groups extends Model
     {
         return $this->description;
     }
-    public function getPosts(){
+
+    public function getPosts()
+    {
         return $this->posts;
     }
 

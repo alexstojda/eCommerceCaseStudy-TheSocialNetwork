@@ -6,9 +6,11 @@
  * Time: 9:55 PM
  */
 ?>
-<?php if(isset($this->noUserError)) { ?>
-    <div class="alert alert-danger alert-dismissible" role="alert" style="width: 50%; margin-right: auto; margin-left: auto; ">
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+<?php if (isset($this->noUserError)) { ?>
+    <div class="alert alert-danger alert-dismissible" role="alert"
+         style="width: 50%; margin-right: auto; margin-left: auto; ">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                aria-hidden="true">&times;</span></button>
         <strong>Error</strong> <?= $this->noUserError ?>
     </div>
 <?php } ?>

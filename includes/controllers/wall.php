@@ -23,7 +23,7 @@ class Wall extends postsContainer
 
             $this->init($uid);
             $this->view->name = $this->model->getName();
-            $this->view->id  = $uid;
+            $this->view->id = $uid;
             $this->view->title = $this->model->getName() . '\'s Wall';
             $friendshipStatus = $this->checkFriendship();
             switch ($friendshipStatus) {
@@ -63,12 +63,13 @@ class Wall extends postsContainer
         return $this->friendsModel->areFriends($ida, $idb);
     }
 
-    public function edit() {
+    public function edit()
+    {
         $user = $_SESSION['my_user'];
         $this->regModel = $this->getModel('Register');
 
         $this->view->countries = $this->regModel->getCountries();
-        $this->view->genders  = $this->regModel->getGenders();
+        $this->view->genders = $this->regModel->getGenders();
 
         $this->view->user = $user;
         $this->view->title = 'Edit my Account';

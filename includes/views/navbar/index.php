@@ -18,7 +18,8 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-                <li><a href="<?php echo URL . (Session::get('my_user') ? 'timeline' : 'home'); ?>">Home <span class="sr-only">(current)</span></a></li>
+                <li><a href="<?php echo URL . (Session::get('my_user') ? 'timeline' : 'home'); ?>">Home <span
+                            class="sr-only">(current)</span></a></li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                        aria-expanded="false">Dropdown <span class="caret"></span></a>
@@ -35,36 +36,39 @@
             </ul>
 
             <!-- USER UID IN SEARCH TO NAVIGATE AND TEST WALLS-->
-        <?php if (Session::get('my_user')) : ?>
-            <form class="navbar-form navbar-left" role="search" action="wall" method="get">
-                <div class="form-group">
-                    <input type="text" name="u" class="form-control" required placeholder="Search">
-                </div>
-                <button type="submit" class="btn btn-default">Submit</button>
-            </form>
-        <?php endif; ?>
+            <?php if (Session::get('my_user')) : ?>
+                <form class="navbar-form navbar-left" role="search" action="wall" method="get">
+                    <div class="form-group">
+                        <input type="text" name="u" class="form-control" required placeholder="Search">
+                    </div>
+                    <button type="submit" class="btn btn-default">Submit</button>
+                </form>
+            <?php endif; ?>
             <ul class="nav navbar-nav navbar-right">
                 <!-- Change corner link to either logout or login depending on session-->
                 <?php if (Session::get('my_user')) { ?>
-                    <li><a href="<?=URL?>inbox" >My Messages</a></li>
-                    <li><a href="<?=URL?>wall" >My Wall</a></li>
+                    <li><a href="<?= URL ?>inbox">My Messages</a></li>
+                    <li><a href="<?= URL ?>wall">My Wall</a></li>
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" style="padding: 13px; float: none"
-                           aria-expanded="false">Hi <?= Session::get('my_user')['first_name']?> <img class="media-object thumbnail"
-                                                                        src="<?=URL.Session::get('my_user')['profile_picture']?>" alt="..." style="margin-bottom: auto;display: inline-block; height: 3em">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                           style="padding: 13px; float: none"
+                           aria-expanded="false">Hi <?= Session::get('my_user')['first_name'] ?> <img
+                                class="media-object thumbnail"
+                                src="<?= URL . Session::get('my_user')['profile_picture'] ?>" alt="..."
+                                style="margin-bottom: auto;display: inline-block; height: 3em">
                             <span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a href="<?=URL?>wall">My Pokes</a></li>
-                            <li><a href="<?=URL?>friends">My Friends</a></li>
-                            <li><a href="<?=URL?>groups">My Groups</a></li>
+                            <li><a href="<?= URL ?>wall">My Pokes</a></li>
+                            <li><a href="<?= URL ?>friends">My Friends</a></li>
+                            <li><a href="<?= URL ?>groups">My Groups</a></li>
                             <li role="separator" class="divider"></li>
-                            <li><a href="<?=URL?>wall/edit">Manage Account</a></li>
+                            <li><a href="<?= URL ?>wall/edit">Manage Account</a></li>
                             <li role="separator" class="divider"></li>
-                            <li><a href="<?=URL?>auth/doLogout">Logout</a></li>
+                            <li><a href="<?= URL ?>auth/doLogout">Logout</a></li>
                         </ul>
                     </li>
                 <?php } else { ?>
-                    <li><a href="<?=URL?>register/page/1" >Sign Up</a></li>
+                    <li><a href="<?= URL ?>register/page/1">Sign Up</a></li>
                     <li><a href="#" data-toggle="modal" data-target="#loginModal">Login</a></li>
                 <?php } ?>
             </ul>
@@ -79,7 +83,9 @@
 <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModal">
     <div class="modal-dialog modal-sm">
         <div class="modal-content">
-            <?php require_once PATH . 'views/auth/index.php' ?>
+            <?php
+            require_once PATH . 'views/auth/index.php'
+            ?>
         </div>
     </div>
 </div>

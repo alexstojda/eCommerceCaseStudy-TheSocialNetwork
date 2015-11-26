@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Created by PhpStorm.
  * User: Evan
@@ -16,8 +17,8 @@ class timeline extends postsContainer
 
     public function index()
     {
-            $this->init(Session::get('my_user')['id']);
-            $this->view->title = 'Your Timeline';
-            $this->view->render('timeline/index');
+        $this->init(Session::get('my_user')['id']);
+        $this->view->title = 'Your Timeline';
+        $this->view->render('timeline/index');
     }
 }

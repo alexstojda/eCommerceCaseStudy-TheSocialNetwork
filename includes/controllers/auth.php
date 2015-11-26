@@ -24,8 +24,7 @@ class Auth extends Controller
         //logout alert
         if (isset($_GET['logout'])) {
             $this->view->alerts[] = ["You've logged out.", 'success'];
-        }
-        else if(isset($_GET['created']))
+        } else if (isset($_GET['created']))
             $this->view->alerts[] = ["Account created. Please login.", 'success'];
         //error alerts
         else if (isset($_GET['error'])) {
@@ -48,17 +47,20 @@ class Auth extends Controller
     //Attempt to authenticate user credentials
     public function doAuth()
     {
+        $name = '';
+        $pass = '';
+        /** @var _User $user */
         $user = $this->getModel('User');
-        if(array_key_exists('rememberBana',$_COOKIE)) {
+        if (array_key_exists('rememberBana', $_COOKIE)) {
             parse_str($_COOKIE['rememberBana']);
         } else {
             $name = $_POST['inputUser'];
-            $pass = Hash::create('sha256',$_POST['inputPassword'], HASH_PW_KEY);;
+            $pass = Hash::create('sha256', $_POST['inputPassword'], HASH_PW_KEY);;
         }
 
-        if ($user->authenticate($name,$pass)) {
-            if(array_key_exists('remember',$_POST))
-                setcookie('rememberBana', 'name='.$name.'&pass='.$pass, time() + (3600 * 24 * 30));
+        if ($user->authenticate($name, $pass)) {
+            if (array_key_exists('remember', $_POST))
+                setcookie('rememberBana', 'name=' . $name . '&pass=' . $pass, time() + (3600 * 24 * 30));
             header('Location: ../timeline');
         } else {
             header('Location: ../auth?error=1');
@@ -71,7 +73,7 @@ class Auth extends Controller
         Session::clear('my_user');
         //Session::destroy();
         unset($_COOKIE);
-        setcookie('rememberBana', '', time()-3600);
+        setcookie('rememberBana', '', time() - 3600);
         header('Location: ../auth?logout=1');
         exit();
     }

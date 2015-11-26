@@ -8,6 +8,7 @@ function __autoload($class)
 {
     $file = LIBS . $class . ".php";
     if (file_exists($file)) {
+        /** @noinspection PhpIncludeInspection */
         require_once $file;
     }
 }

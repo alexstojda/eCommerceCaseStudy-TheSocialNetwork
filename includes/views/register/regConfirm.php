@@ -12,107 +12,109 @@ if (isset($_GET['error'])) {
     echo "<a href='" . URL . "register/page/1'>Click here to verify your username</a>";
 } ?>
 <div class="container-fluid">
-<div class="row-fluid">
-<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
-    <h1>Your information:</h1>
-    <table class="table table-striped">
-        <tr>
-            <th>Username:</th>
-            <td>
-                <?php if (isset($this->newUser['username'])) {
-                    echo $this->newUser['username'];
-                } ?>
-            </td>
-        </tr>
-        <tr>
-            <th>Name:</th>
-            <td>
-                <?php if (isset($this->newUser['first_name']) && isset($this->newUser['last_name'])) {
-                    echo $this->newUser['first_name'] . ' ' . $this->newUser['last_name'];
-                } ?>
-            </td>
-        </tr>
-        <tr>
-            <th>Email:</th>
-            <td>
-                <?php if (isset($this->newUser['email'])) {
-                    echo $this->newUser['email'];
-                } ?>
-            </td>
-        </tr>
-        <tr>
-            <th>Gender:</th>
-            <td>
-                <?php if (isset($this->gender)) {
-                    echo $this->gender;
-                } ?>
-            </td>
-        </tr>
-        <tr>
-            <th>Date of birth:</th>
-            <td>
-                <?php if (isset($this->newUser['date_of_birth'])) {
-                    echo $this->newUser['date_of_birth'];
-                } ?>
-            </td>
-        </tr>
-        <tr>
-            <th>Phone number:</th>
-            <td>
-                <?php if (isset($this->newUser['phone'])) {
-                    echo $this->newUser['phone'];
-                } ?>
-            </td>
-        </tr>
-        <tr>
-            <th>Address:</th>
-            <td>
-                <?php if (isset($this->newUser['address'])) {
-                    echo $this->newUser['address'];
-                } ?>
-            </td>
-        </tr>
-        <tr>
-            <th>City:</th>
-            <td>
-                <?php if (isset($this->newUser['city'])) {
-                    echo $this->newUser['city'];
-                } ?>
-            </td>
-        </tr>
-        <tr>
-            <th>Province:</th>
-            <td>
-                <?php if (isset($this->newUser['province'])) {
-                    echo $this->newUser['province'];
-                } ?>
-            </td>
-        </tr>
-        <tr>
-            <th>Country:</th>
-            <td>
-                <?php if (isset($this->country)) {
-                    echo $this->country;
-                } ?>
-            </td>
-        </tr>
-    </table>
+    <div class="row-fluid">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
+            <h1>Your information:</h1>
+            <table class="table table-striped">
+                <tr>
+                    <th>Username:</th>
+                    <td>
+                        <?php if (isset($this->newUser['username'])) {
+                            echo $this->newUser['username'];
+                        } ?>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Name:</th>
+                    <td>
+                        <?php if (isset($this->newUser['first_name']) && isset($this->newUser['last_name'])) {
+                            echo $this->newUser['first_name'] . ' ' . $this->newUser['last_name'];
+                        } ?>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Email:</th>
+                    <td>
+                        <?php if (isset($this->newUser['email'])) {
+                            echo $this->newUser['email'];
+                        } ?>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Gender:</th>
+                    <td>
+                        <?php if (isset($this->gender)) {
+                            echo $this->gender;
+                        } ?>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Date of birth:</th>
+                    <td>
+                        <?php if (isset($this->newUser['date_of_birth'])) {
+                            echo $this->newUser['date_of_birth'];
+                        } ?>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Phone number:</th>
+                    <td>
+                        <?php if (isset($this->newUser['phone'])) {
+                            echo $this->newUser['phone'];
+                        } ?>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Address:</th>
+                    <td>
+                        <?php if (isset($this->newUser['address'])) {
+                            echo $this->newUser['address'];
+                        } ?>
+                    </td>
+                </tr>
+                <tr>
+                    <th>City:</th>
+                    <td>
+                        <?php if (isset($this->newUser['city'])) {
+                            echo $this->newUser['city'];
+                        } ?>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Province:</th>
+                    <td>
+                        <?php if (isset($this->newUser['province'])) {
+                            echo $this->newUser['province'];
+                        } ?>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Country:</th>
+                    <td>
+                        <?php if (isset($this->country)) {
+                            echo $this->country;
+                        } ?>
+                    </td>
+                </tr>
+            </table>
 
-    </br>
-    <div class="btn-group  col-xs-offset-1 col-sm-offset-2 col-md-offset-3 col-lg-offset-4" >
-    <input class="btn btn-primary" type=button value="Modify Login Information"
-           onclick="location.href='<?= URL . 'register/page/1' ?>'" />
-    <input class="btn btn-primary" type=button value="Modify Personal Information"
-           onclick="location.href='<?= URL . 'register/page/2' ?>'"/>
-    <input class="btn btn-primary" type=button value="Modify Address Information"
-           onclick="location.href='<?= URL . 'register/page/3' ?>'"/>
+            <br/>
+
+            <div class="btn-group  col-xs-offset-1 col-sm-offset-2 col-md-offset-3 col-lg-offset-4">
+                <input class="btn btn-primary" type=button value="Modify Login Information"
+                       onclick="location.href='<?= URL . 'register/page/1' ?>'"/>
+                <input class="btn btn-primary" type=button value="Modify Personal Information"
+                       onclick="location.href='<?= URL . 'register/page/2' ?>'"/>
+                <input class="btn btn-primary" type=button value="Modify Address Information"
+                       onclick="location.href='<?= URL . 'register/page/3' ?>'"/>
+            </div>
+        </div>
     </div>
-</div>
-</div>
 </div>
 <hr/>
 <div class="jumbotron" style="padding: 2em; text-align: justify">
-<h1>Terms and Conditions</h1>
+    <h1>Terms and Conditions</h1>
+
     <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
         malesuada condimentum libero nec pellentesque. Maecenas iaculis felis
         libero, ut tincidunt eros iaculis ut. Integer eget nulla non justo
@@ -125,7 +127,7 @@ if (isset($_GET['error'])) {
         Etiam ut commodo tortor, at efficitur lacus. Praesent facilisis
         lacinia lacus eget imperdiet.</p>
 
-    <p style='font-family: "Segoe UI"'><!--sum good latin-->
+    <p style='font-family: "Segoe UI",serif'><!--sum good latin-->
         Si user est magister aut professor, Sciendum, quod accipiendo harum
         appellationum, usoris intelligit quod recte obligari ad providere alumni
         et creatores hoc exertus apud omnes notas et bonus C marcas et nulla
@@ -175,23 +177,23 @@ if (isset($_GET['error'])) {
 <form class="form-inline" action='<?= URL . 'register/addUser' ?>' method=POST
       style="width: 400px; margin-left: auto; margin-right: auto;">
 
-                <label style="font-weight: bold;" for=accept>
-                    I have read and accept all of the above Terms and Conditions
-                </label>
-                <input type="checkbox" name=accept id=accept required
-                       title="You must accept the terms and conditions"/>
+    <label style="font-weight: bold;" for=accept>
+        I have read and accept all of the above Terms and Conditions
+    </label>
+    <input type="checkbox" name=accept id=accept required
+           title="You must accept the terms and conditions"/>
 
-        <?php if ($this->canSubmit) {?>
-            <input type="submit" name="submitOK" value="Register"  id="submitOK"
-                   class="btn btn-primary btn-lg col-xs-offset-3 col-sm-offset-3 col-md-offset-3 col-lg-offset-3" >
-        <?php } else { ?>
-            <div class="bs-callout bs-callout-danger bg-danger">
-                Your information is incomplete, or invalid. Please review
-                your information, and modify your entries using the navigation
-                buttons above. Once complete, click the continue button to return to
-                this page.
-            </div>
-        <?php }?>
+    <?php if ($this->canSubmit) { ?>
+        <input type="submit" name="submitOK" value="Register" id="submitOK"
+               class="btn btn-primary btn-lg col-xs-offset-3 col-sm-offset-3 col-md-offset-3 col-lg-offset-3">
+    <?php } else { ?>
+        <div class="bs-callout bs-callout-danger bg-danger">
+            Your information is incomplete, or invalid. Please review
+            your information, and modify your entries using the navigation
+            buttons above. Once complete, click the continue button to return to
+            this page.
+        </div>
+    <?php } ?>
 
 </form>
 

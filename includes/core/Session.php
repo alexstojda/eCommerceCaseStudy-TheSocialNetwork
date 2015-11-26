@@ -23,7 +23,8 @@ class Session
         $_SESSION[$key] = $value;
     }
 
-    public static function clear($key) {
+    public static function clear($key)
+    {
         unset($_SESSION[$key]);
     }
 
@@ -38,6 +39,7 @@ class Session
     {
         session_write_close();
     }
+
     //DEBUG
     public static function file_info()
     {

@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * @property string privacy
+ */
 class _Group_Post extends Model
 {
 
@@ -33,17 +36,17 @@ class _Group_Post extends Model
                 ':id' => $temp));
             if (count($st) > 0)
                 $this->setAll($st[0]);
-        }
-        else
+        } else
             header('Location: ../timeline');
     }
 
-    public function setAll($array) {
-        $this->post_id     = $array['group_post_id'];
+    public function setAll($array)
+    {
+        $this->post_id = $array['group_post_id'];
 
         //WILL BE USED FOR WALL LINKS
-        $this->post_by     = $array['post_by'];
-        $this->group_id     = $array['group_id'];
+        $this->post_by = $array['post_by'];
+        $this->group_id = $array['group_id'];
 
         //GRABS ACTUAL NAMES FROM DB
         $this->post_by_name = $this->db->select('SELECT CONCAT(first_name,\' \', last_name) AS \'name\' FROM users WHERE user_id = :id', array(
@@ -54,9 +57,9 @@ class _Group_Post extends Model
             ':id' => $array['group_id']
         ))[0]['name'];
         //FINISH SETTING THE REST
-        $this->post_text            = $array['text'];
-        $this->post_image           = $array['image_attachment'];
-        $this->creation_date        = $array['creation_date'];
+        $this->post_text = $array['text'];
+        $this->post_image = $array['image_attachment'];
+        $this->creation_date = $array['creation_date'];
         $this->setComments();
 
         $this->post_by_img = $this->db->select('SELECT profile_picture FROM users WHERE user_id = :id', array(
@@ -64,11 +67,12 @@ class _Group_Post extends Model
         ))[0]['profile_picture'];
     }
 
-    public function setComments() {
+    public function setComments()
+    {
         $st = $this->db->select('SELECT * FROM group_post WHERE parent_id = :id', array(
             ':id' => $this->post_id));
         if (count($st) > 0) {
-            foreach($st as $post) {
+            foreach ($st as $post) {
                 $this->comments[] = new self($post['group_post_id']);
             }
         }
@@ -119,13 +123,14 @@ class _Group_Post extends Model
 
     public function getDate()
     {
-        return $this->creation_date ;
+        return $this->creation_date;
     }
 
     public function getComments()
     {
         return $this->comments;
     }
+
     //SETTERS
 
 

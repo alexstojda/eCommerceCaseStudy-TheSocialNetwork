@@ -28,7 +28,8 @@ class pokes extends Controller
         //TODO: Send data to view
     }
 
-    public function poke($uid) {
+    public function poke($uid)
+    {
         echo $this->model->poke($uid);
         echo 'yay';
     }

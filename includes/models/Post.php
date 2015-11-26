@@ -36,15 +36,16 @@ class _Post extends Model
             if (count($st) > 0)
                 $this->setAll($st[0]);
         }
-            //header('Location: ../timeline');
+        //header('Location: ../timeline');
     }
 
-    public function setAll($array) {
-        $this->post_id     = $array['post_id'];
+    public function setAll($array)
+    {
+        $this->post_id = $array['post_id'];
 
         //WILL BE USED FOR WALL LINKS
-        $this->post_by     = $array['post_by'];
-        $this->post_to     = $array['post_to'];
+        $this->post_by = $array['post_by'];
+        $this->post_to = $array['post_to'];
 
         //GRABS ACTUAL NAMES FROM DB
         $this->post_by_name = $this->db->select('SELECT CONCAT(first_name,\' \', last_name) AS \'name\' FROM users WHERE user_id = :id', array(
@@ -55,10 +56,10 @@ class _Post extends Model
             ':id' => $array['post_to']
         ))[0]['name'];
         //FINISH SETTING THE REST
-        $this->post_text   = $array['text'];
-        $this->post_image  = $array['image_attachment'];
-        $this->date        = $array['creation_date'];
-        $this->privacy     = $array['privacy'];
+        $this->post_text = $array['text'];
+        $this->post_image = $array['image_attachment'];
+        $this->date = $array['creation_date'];
+        $this->privacy = $array['privacy'];
         $this->setComments();
 
         $this->post_by_img = $this->db->select('SELECT profile_picture FROM users WHERE user_id = :id', array(
@@ -66,19 +67,21 @@ class _Post extends Model
         ))[0]['profile_picture'];
     }
 
-    public function setComments() {
+    public function setComments()
+    {
         $st = $this->db->select('SELECT * FROM post WHERE parent_id = :id', array(
             ':id' => $this->post_id));
         if (count($st) > 0) {
-            foreach($st as $post) {
+            foreach ($st as $post) {
                 $this->comments[] = new self($post['post_id']);
             }
         }
     }
 
-    public function deletePost(){
+    public function deletePost()
+    {
         (isset($_POST['is_group']) ? $prefix = 'group_' : $prefix = '');
-        $this->db->delete($prefix.'post', $prefix.'post_id = '.$_POST['postID'] );
+        $this->db->delete($prefix . 'post', $prefix . 'post_id = ' . $_POST['postID']);
     }
 
     //GETTERS

@@ -73,7 +73,7 @@ class Bootstrap
             /** @noinspection PhpIncludeInspection */
             require_once $file;
             $this->_controller = new $this->_url[0];
-            $this->_controller->loadModel($this->_url[0], null ,$this->_modelPath);
+            $this->_controller->loadModel($this->_url[0], null, $this->_modelPath);
             return true;
         } else {
             $this->_loadDefaultController();

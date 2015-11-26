@@ -24,14 +24,14 @@ class inbox extends Controller
     public function index()
     {
         $this->view->title = 'Inbox';
-        $this->view->receivedMessages = $this->model->getReceivedConversations(Session::get('id'));
+        $this->view->receivedMessages = $this->model->getReceivedConversations(Session::get('my_user')['id']);
         $this->view->render('inbox/index');
     }
 
     public function sent()
     {
         $this->view->title = 'Inbox - Sent';
-        $this->view->sentMessages = $this->model->getSentConversations(Session::get('id'));
+        $this->view->sentMessages = $this->model->getSentConversations(Session::get('my_user')['id']);
         $this->view->render('inbox/sent');
     }
 
@@ -42,9 +42,9 @@ class inbox extends Controller
             $name = $name[0];
             $this->view->name = $name;
             $this->view->title = $name['first_name'] . ' ' . $name['last_name'] . ' - Messages';
-            $this->view->messages = $this->model->getMessages(Session::get('id'), $uid);
-            $this->view->fromid = Session::get('id');
-            $this->view->toid   = $uid;
+            $this->view->messages = $this->model->getMessages(Session::get('my_user')['id'], $uid);
+            $this->view->fromid = Session::get('my_user')['id'];
+            $this->view->toid = $uid;
             $this->view->render('inbox/conversation');
         } else {
             $this->view->noUserError = 'User with ID ' . $uid . ' does not exist.';
@@ -53,9 +53,10 @@ class inbox extends Controller
 
     }
 
-    public function doMessage() {
-           $from = $_POST['from_id'];
-             $to = $_POST['to_id'];
+    public function doMessage()
+    {
+        $from = $_POST['from_id'];
+        $to = $_POST['to_id'];
         $message = $_POST['message'];
 
         if ($this->model->newMessage($from, $to, $message))

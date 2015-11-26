@@ -1,9 +1,11 @@
 <?php
 //Exists to avoid redundant code between wall & timeline TODO:add group walls to this...
+/**
+ * @property Model model
+ * @property string load
+ */
 abstract class postsContainer extends Controller
 {
-    private $latest_id;
-
     public function __construct()
     {
         parent::__construct();
@@ -11,6 +13,7 @@ abstract class postsContainer extends Controller
 
     public function init($uid)
     {
+        //TODO: @Andrew where does this init come from? Inspector can't find it
         $this->model->init($this->getModel('User', $uid));
 
         //GET POSTS FROM MODEL
@@ -18,9 +21,11 @@ abstract class postsContainer extends Controller
         $this->loadPosts();
     }
 
-    public function loadPosts() {
-        $offset = 0; $quantity = 0;
-        if(isset($_SERVER['HTTP_X_REQUESTED_WITH'])) {//if ajax
+    public function loadPosts()
+    {
+        $offset = 0;
+        $quantity = 0;
+        if (isset($_SERVER['HTTP_X_REQUESTED_WITH'])) {//if ajax
             if (isset($_POST['u']))
                 $this->model->init($this->getModel('User', $_POST['u']));
 
@@ -34,9 +39,8 @@ abstract class postsContainer extends Controller
             elseif ($offset > 0)
                 $posts = $this->model->getUPosts($offset);
             elseif ($quantity > 0)
-                $posts = $this->model->getUPosts(0,$quantity);
-        }
-        else {
+                $posts = $this->model->getUPosts(0, $quantity);
+        } else {
             $posts = $this->model->getUPosts();
         }
 
@@ -44,7 +48,7 @@ abstract class postsContainer extends Controller
             //$this->latest_id = $posts[0]['post_id'];
             foreach ($posts as $post) {
                 //if (isset($this->load) || isset($_POST['load'])) {
-                    $this->view->posts[] = $this->getModel('Post', $post);
+                $this->view->posts[] = $this->getModel('Post', $post);
                 //}
                 /*elseif (isset( $_SERVER['HTTP_X_REQUESTED_WITH'])) {
                     $this->post = $this->getModel('Post', $post);
@@ -55,8 +59,4 @@ abstract class postsContainer extends Controller
             //self::anAlert('No more posts available');
         }
     }
-    /*
-    public function getLatestID() {
-        echo $this->latest_id;
-    }*/
 }

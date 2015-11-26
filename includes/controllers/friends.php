@@ -27,10 +27,11 @@ class friends extends Controller
         // TODO: Implement index() method.
     }
 
-    public function doNewFriend($idb) {
+    public function doNewFriend($idb)
+    {
         $ida = $_SESSION['id']; //$ida ALWAYS has to be the person sending the request. This is used as part of friend validation later.
-        if($this->model->addNewFriend($ida, $idb))
-            header('Location: ' . URL . 'wall?u='.$idb.'&friendRequest=1');
+        if ($this->model->addNewFriend($ida, $idb))
+            header('Location: ' . URL . 'wall?u=' . $idb . '&friendRequest=1');
         else {
             $this->view->error = 'Seems that we weren\'t able to add that person as your friend.
                                     Maybe you two are already friends?';
@@ -39,20 +40,22 @@ class friends extends Controller
 
     }
 
-    public function doUnFriend($idb) {
+    public function doUnFriend($idb)
+    {
         $ida = $_SESSION['id'];
-        if($this->model->unFriend($ida, $idb))
-            header('Location: ' . URL . 'wall?u='.$idb.'&unFriend=1');
+        if ($this->model->unFriend($ida, $idb))
+            header('Location: ' . URL . 'wall?u=' . $idb . '&unFriend=1');
         else {
             $this->view->error = 'Uhm, it would seem you were never friends to begin with. Maybe try being friends with them first before kicking them to the curb.';
             //TODO: Error for this
         }
     }
 
-    public function doConfirmFriend($ida) {
+    public function doConfirmFriend($ida)
+    {
         $idb = $_SESSION['id'];
-        if($this->model->confirmFriend($ida, $idb))
-            header('Location: ' . URL . 'wall?u='.$ida.'&newFriend=1');
+        if ($this->model->confirmFriend($ida, $idb))
+            header('Location: ' . URL . 'wall?u=' . $ida . '&newFriend=1');
         else {
             $this->view->error = 'Seems that we weren\'t able to add that person as your friend.
                                     Maybe you two are already friends?';

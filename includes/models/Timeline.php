@@ -8,6 +8,9 @@
  */
 class _Timeline extends Model
 {
+    /**
+     * @var _User user
+     */
     private $user;
     private $posts;
     private $friends;

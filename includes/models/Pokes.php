@@ -29,6 +29,6 @@ class _Pokes extends Model
 
     public function poke($uid)
     {
-        return $this->db->insert('pokes', array('poked_by' => Session::get('id'), 'poked' => $uid));
+        return $this->db->insert('pokes', array('poked_by' => Session::get('my_user')['id'], 'poked' => $uid));
     }
 }

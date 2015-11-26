@@ -6,7 +6,8 @@
  * Time: 3:23 PM
  */
 ?>
-<form method="post" action="<?= URL . 'register/doUpdateUser/' . Session::get('my_user')['id'] ?>" enctype="multipart/form-data">
+<form method="post" action="<?= URL . 'register/doUpdateUser/' . Session::get('my_user')['id'] ?>"
+      enctype="multipart/form-data">
     <div class="container-fluid">
         <div class="row">
             <div
@@ -14,15 +15,19 @@
                 <div class="panel panel-default">
                     <div class="panel-body">
                         <div class="panel-heading" style="font-size: 24px; font-weight: bold;">Edit my account</div>
-                        <hr />
+                        <hr/>
                         <div class="row">
-                            <div class=" col-xs-11 col-sm-8 col-md-8 col-lg-8 col-xs-offset-0 col-sm-offset-2 col-md-offset-2 col-lg-offset-2">
+                            <div
+                                class=" col-xs-11 col-sm-8 col-md-8 col-lg-8 col-xs-offset-0 col-sm-offset-2 col-md-offset-2 col-lg-offset-2">
                                 <div class="input-group">
                                     <span class="input-group-addon" id="uname"><strong>Profile Picture:</strong></span>
                                     <a href="#" data-toggle="modal" data-target="#lightbox">
-                                        <img class="media-object thumbnail" src="<?= URL.$this->user['profile_picture']?>" alt="..." style="display: inline-block; height: 3.5em; margin: 0px"></a>
+                                        <img class="media-object thumbnail"
+                                             src="<?= URL . $this->user['profile_picture'] ?>" alt="..."
+                                             style="display: inline-block; height: 3.5em; margin: 0"></a>
+
                                     <div class="fileUpload btn btn-default" style="margin:0">
-                                        <span><i class="fa fa-camera" aria-hidden="true" ></i>Change Profile</span>
+                                        <span><i class="fa fa-camera" aria-hidden="true"></i>Change Profile</span>
                                         <input type="file" name="picture" class="upload" accept="image/*"/>
 
                                     </div>
@@ -161,7 +166,8 @@
                                     </div>
                                 <?php } ?>
                                 <div class="input-group">
-                                    <span class="input-group-addon" id="gen"><strong>Gender: </strong></span>
+                                    <label for="gender_id"><span class="input-group-addon"
+                                                                 id="gen"><strong>Gender: </strong></span></label>
                                     <select name="gender_id" id="gender_id" class="form-control" aria-describedby="gen">
                                         <option value="">Select a gender...</option>
                                         <?php
@@ -300,7 +306,8 @@
                                     </div>
                                 <?php } ?>
                                 <div class="input-group">
-                                    <span class="input-group-addon" id="cntry"><strong>Country: </strong></span>
+                                    <label for="country"><span class="input-group-addon"
+                                                               id="cntry"><strong>Country: </strong></span></label>
                                     <select class="form-control" id="country" name="country" aria-describedby="cntry">
                                         <option>Select a country...</option>
                                         <?php foreach ($this->countries as $country) {

@@ -37,8 +37,11 @@
                 <div class="alert alert-info alert-dismissible" role="alert" style="font-size: 16px">
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
                             aria-hidden="true">&times;</span></button>
-                    <strong>Ok!</strong> We've asked <strong><?= $this->name ?></strong> if they want to be friend's with you! Once they confirm, you'll be best friends forever and ever and ever and ever and ever.........
-                    (Unless someone decides they aren't feeling it anymore, then things will get awkward and you'll probably break up.)
+                    <strong>Ok!</strong> We've asked <strong><?= $this->name ?></strong> if they want to be friend's
+                    with you! Once they confirm, you'll be best friends forever and ever and ever and ever and
+                    ever.........
+                    (Unless someone decides they aren't feeling it anymore, then things will get awkward and you'll
+                    probably break up.)
                 </div>
             </div>
         </div>
@@ -76,9 +79,10 @@
                               style=" display:inline; background-color: white"></textarea>
 
                     <div class="input-group-btn" align="right" aria-hidden="true">
-						<button type="submit" class="btn btn-default" aria-haspopup="true" aria-expanded="false">Post</button>
+                        <button type="submit" class="btn btn-default" aria-haspopup="true" aria-expanded="false">Post
+                        </button>
                         <div class="fileUpload btn btn-default" style="margin:0">
-                            <span><i class="fa fa-camera" aria-hidden="true" ></i></span>
+                            <span><i class="fa fa-camera" aria-hidden="true"></i></span>
                             <input type="file" name="picture" class="upload" accept="image/*"/>
                             <input type="hidden" name="origin"
                                    value="<?= ltrim($_GET['url'], 'public') . '?u=' . $_GET['u']; ?>"/>
@@ -93,16 +97,19 @@
 <!-- GO GET ALL WALL POSTS ROW-->
 <div class="container-fluid">
     <div class="row">
-        <div class="col-xs-10 col-sm-10 col-md-6 col-lg-6 col-md-offset-3 col-lg-offset-3 col-xs-offset-1 col-sm-offset-1">
-		    <div id="posts">
-		<?php
-            if (isset($this->posts) AND count($this->posts) > 0 ) {
-                foreach($this->posts as $this->post) {
-                    include PATH . 'views/post/index.php';
-                }
-            } else { ?>
+        <div
+            class="col-xs-10 col-sm-10 col-md-6 col-lg-6 col-md-offset-3 col-lg-offset-3 col-xs-offset-1 col-sm-offset-1">
+            <div id="posts">
+                <?php
+                if (isset($this->posts) AND count($this->posts) > 0) {
+                    foreach ($this->posts as $this->post) {
+                        /** @noinspection PhpIncludeInspection */
+                        /** @noinspection PhpIncludeInspection */
+                        include PATH . 'views/post/index.php';
+                    }
+                } else { ?>
                     <h4>Sorry but it looks like no one posted on your wall yet..</h4>
-            <?php } ?>
+                <?php } ?>
             </div>
         </div>
     </div>

@@ -1,6 +1,6 @@
 <div style="margin: 10%">
 
-    <form class="form-signin" action="<?=URL?>auth/doAuth" method="post">
+    <form class="form-signin" action="<?= URL ?>auth/doAuth" method="post">
         <h2 class="form-signin-heading">Log In</h2>
 
         <div class="input-group margin-bottom-sm" id="title">

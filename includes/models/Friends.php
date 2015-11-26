@@ -51,12 +51,12 @@ class _Friends extends Model
     public function areFriends($ida, $idb)
     {
         $res = $this->db->select('SELECT * FROM friends WHERE (user_id_a = :ida AND user_id_b = :idb) OR (user_id_a = :idb AND user_id_b = :ida)',
-                                array('ida' => $ida, ':idb' => $idb));
+            array('ida' => $ida, ':idb' => $idb));
         if (count($res) == 0)
             return 0;
-        else if ($res[0]['created_date'] == null && $res[0]['user_id_b'] == $ida )
+        else if ($res[0]['created_date'] == null && $res[0]['user_id_b'] == $ida)
             return 1;
-        else if ($res[0]['created_date'] == null && $res[0]['user_id_b'] != $ida )
+        else if ($res[0]['created_date'] == null && $res[0]['user_id_b'] != $ida)
             return 2;
         else
             return 3;
@@ -70,7 +70,8 @@ class _Friends extends Model
             "(user_id_a = $id_from AND user_id_b = $id_to) OR (user_id_b = $id_from AND user_id_a = $id_to)");
     }
 
-    public function unFriend($id_from, $id_to) {
+    public function unFriend($id_from, $id_to)
+    {
         return $this->db->delete('friends',
             "(user_id_a = $id_from AND user_id_b = $id_to) OR (user_id_a = $id_to AND user_id_b = $id_from)");
     }

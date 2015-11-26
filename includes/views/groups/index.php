@@ -8,30 +8,32 @@
 ?>
 
 <div class="row">
-    <div  class="jumbotron col-xs-6 col-sm-6 col-md-6 col-lg-6 col-sm-offset-1 col-md-offset-1 col-lg-offset-1">
+    <div class="jumbotron col-xs-6 col-sm-6 col-md-6 col-lg-6 col-sm-offset-1 col-md-offset-1 col-lg-offset-1">
         <ul class="nav nav-pills nav-stacked">
-            <li role="presentation" class="active" ><a>Your Groups</a></li>
+            <li role="presentation" class="active"><a>Your Groups</a></li>
             <?php
-            if (isset($this->groups) AND count($this->groups) > 0 ) {
+            if (isset($this->groups) AND count($this->groups) > 0) {
 
-                foreach($this->groups as $group) {
-                  ?>  <li role="presentation"><a href=<?= URL . "groups/group?g=".$group['group_id'] .">".  $group['name'] ?></a></li>
-                    <?php
-                }
+            foreach ($this->groups as $group) {
                 ?>
-                </ul>
+                <li role="presentation"><a
+                        href=<?= URL . "groups/group?g=" . $group['group_id'] . ">" . $group['name'] ?></a></li>
+                <?php
+            }
+            ?>
+        </ul>
         <?php
-            } else { ?>
-                <tr>
-                    <td colspan="3">Looks like you aren't in any groups</td>
-                </tr>
-            <?php } ?>
+        } else { ?>
+            <tr>
+                <td colspan="3">Looks like you aren't in any groups</td>
+            </tr>
+        <?php } ?>
     </div>
     <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xs-offset-1 col-sm-offset-1 col-md-offset-1 col-lg-offset-1">
         <ul class="list-group">
             <li class="list-group-item">
                 <span class="badge"></span>
-               <a href="<?= URL ?>groups">Groups</a>
+                <a href="<?= URL ?>groups">Groups</a>
             </li>
             <li class="list-group-item">
                 <span class="badge"></span>

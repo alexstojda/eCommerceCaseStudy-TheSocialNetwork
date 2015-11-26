@@ -163,6 +163,9 @@ class register extends Controller
         return true;
     }
 
+    /**
+     * @return bool
+     */
     public function doUserInfo()
     {
         if (!isset($_POST['submitInfo'])) {
@@ -234,6 +237,9 @@ class register extends Controller
         return true;
     }
 
+    /**
+     * @return bool
+     */
     public function doAddressInfo()
     {
         if (!isset($_POST['submitAddress'])) {
@@ -302,7 +308,8 @@ class register extends Controller
         return true;
     }
 
-    public static function isEmpty($string) {
+    public static function isEmpty($string)
+    {
         return strcmp('', $string) == 0;
     }
 
@@ -313,7 +320,6 @@ class register extends Controller
         echo print_r($_POST);
 
         $this->newUser = $_SESSION['my_user'];
-
 
 
         $isValid = true;
@@ -335,8 +341,8 @@ class register extends Controller
         if ($_FILES['picture']['name'] !== "") {
             $uploaddir = 'user_images/';
             $path_parts = pathinfo($_FILES["picture"]["name"])['extension'];
-            $uploadfile = $uploaddir . $this->newUser['username'] .'.'. $path_parts;
-            $this->newUser['profile_picture']   =  ((isset($uploadfile) && move_uploaded_file($_FILES['picture']['tmp_name'], $uploadfile)) ? $uploadfile : null);
+            $uploadfile = $uploaddir . $this->newUser['username'] . '.' . $path_parts;
+            $this->newUser['profile_picture'] = ((isset($uploadfile) && move_uploaded_file($_FILES['picture']['tmp_name'], $uploadfile)) ? $uploadfile : null);
         }
 
 
@@ -474,7 +480,7 @@ class register extends Controller
             }
         }
 
-        $uid = Session::get('id');
+        $uid = Session::get('my_user')['id'];
         $res = $this->model->updateUser($this->newUser, $uid);
         echo print_r($this->newUser);
         if ($isValid && $res) {

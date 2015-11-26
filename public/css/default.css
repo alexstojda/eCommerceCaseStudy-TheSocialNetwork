@@ -21,7 +21,6 @@ body {
     filter: alpha(opacity=0);
 }
 
-
 #lightbox .modal-content {
     display: inline-block;
     text-align: center;
@@ -38,5 +37,5 @@ body {
     top: -15px;
     right: -55px;
 
-    z-index:1032;
+    z-index: 1032;
 }
