@@ -77,7 +77,7 @@
 
                             <div class="input-group-btn" aria-hidden="true" style="float: right; display: inline-table;">
                                 <button type="submit" class="btn btn-default" aria-haspopup="true" aria-expanded="false"
-                                        onclick="getR('like',<?=$comment->getPostID()?>))">
+                                        onclick="getR('like',<?=$comment->getPostID()?>)">
                                     <i id="like<?= $comment->getPostID() ?>"
                                        class="fa fa-thumbs-up <?=$comment->isILike('like')?'rep':''?>"> <?= $comment->getCount('like') ?></i>
                                 </button>
