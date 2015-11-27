@@ -70,14 +70,14 @@ class _Recovery extends Model
         $mail = new PHPMailer();
 
         $mail->isSMTP();
-        //$mail->SMTPDebug =3;
+        $mail->SMTPDebug =3;
         $mail->Host = EMAIL_HOST;
         $mail->SMTPAuth = true;
         $mail->Username = EMAIL_USER;
         $mail->Password = EMAIL_PASS;
-        $mail->Port = EMAIL_PORT;
+        $mail->Port = 25;
 
-        $mail->setFrom(EMAIL_USER, 'Bana Account Recovery');
+        $mail->setFrom(EMAIL_USER, 'BanaBook Account Recovery');
         $mail->addAddress($email, $fname . ' ' . $lname);
 
         $mail->isHTML(true);
@@ -86,8 +86,8 @@ class _Recovery extends Model
         $mail->Body = $this->makeMessage($key, $email, $fname . ' ' . $lname);
 
         if (!$mail->send()) {
-//            echo 'Message could not be sent.';
-//            echo 'Mailer Error: ' . $mail->ErrorInfo;
+            echo 'Message could not be sent.';
+            echo 'Mailer Error: ' . $mail->ErrorInfo;
             return false;
         } else {
             return true;

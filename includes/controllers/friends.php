@@ -24,7 +24,31 @@ class friends extends Controller
 
     public function index()
     {
-        // TODO: Implement index() method.
+        /*
+        if (isset($_GET['g'])) {
+            $gid = $_GET['g'];*/
+        $uid = Session::get('my_user')['id'];
+
+        //SETUP AND INIT BASIC WALL
+
+        // $this->loadModel('Wall');
+        //$this->model->init($uid);
+
+        $st = $this->model->getFriends($uid);
+        //GET list of groups
+        if (!empty($st)) {
+
+            foreach ($st as $a_post) {
+                $this->view->friends[] = $a_post;
+            }
+
+        }
+
+        //FINALLY RENDER THE PAGE HTML
+        $this->view->title = 'Your Friends';
+        $this->view->render('friends/index');
+        //}
+
     }
 
     public function doNewFriend($idb)
