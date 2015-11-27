@@ -80,7 +80,7 @@
                     <div class="input-group-btn" align="right" aria-hidden="true">
                         <button type="submit" class="btn btn-default" aria-haspopup="true" aria-expanded="false">Post
                         </button>
-                        <div class="fileUpload btn btn-default" style="margin:0">
+                        <div class="fileUpload btn btn-default" style="margin:0;">
                             <span><i class="fa fa-camera" aria-hidden="true"></i></span>
                             <input type="file" name="picture" class="upload" accept="image/*"/>
                             <input type="hidden" name="origin"

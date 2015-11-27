@@ -1,6 +1,6 @@
 //source: http://bootsnipp.com/snippets/featured/bootstrap-lightbox
 $(document).ready(function () {
-    var $lightbox = $('#lightbox');
+    var lbox = $('#lightbox');
 
     //noinspection JSUnusedLocalSymbols
     $('[data-target="#lightbox"]').on('click', function (event) {
@@ -11,17 +11,17 @@ $(document).ready(function () {
                 'maxWidth': $(window).width() - 100,
                 'maxHeight': $(window).height() - 100
             };
-        $lightbox.find('.close').addClass('hidden');
-        $lightbox.find('img').attr('src', src);
-        $lightbox.find('img').attr('alt', alt);
-        $lightbox.find('img').css(css);
+        lbox.find('.close').addClass('hidden');
+        lbox.find('img').attr('src', src);
+        lbox.find('img').attr('alt', alt);
+        lbox.find('img').css(css);
     });
 
     //noinspection JSUnusedLocalSymbols
-    $lightbox.on('shown.bs.modal', function (e) {
-        var $img = $lightbox.find('img');
+    lbox.on('shown.bs.modal', function (e) {
+        var $img = lbox.find('img');
 
-        $lightbox.find('.modal-dialog').css({'width': $img.width()});
-        $lightbox.find('.close').removeClass('hidden');
+        lbox.find('.modal-dialog').css({'width': $img.width()});
+        lbox.find('.close').removeClass('hidden');
     });
 });

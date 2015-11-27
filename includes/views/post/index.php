@@ -77,12 +77,12 @@
 
                             <div class="input-group-btn" aria-hidden="true" style="float: right; display: inline-table;">
                                 <button type="submit" class="btn btn-default" aria-haspopup="true" aria-expanded="false"
-                                        onclick="respond('like',<?=$comment->getPostID()?>))">
+                                        onclick="getR('like',<?=$comment->getPostID()?>))">
                                     <i id="like<?= $comment->getPostID() ?>"
                                        class="fa fa-thumbs-up    "> <?= $comment->getCount('like') ?></i>
                                 </button>
                                 <button type="submit" class="btn btn-default" aria-haspopup="true" aria-expanded="false"
-                                        onclick="respond('dislike',<?=$comment->getPostID()?>)">
+                                        onclick="getR('dislike',<?=$comment->getPostID()?>)">
                                     <i id="dislike<?= $comment->getPostID() ?>"
                                        class="fa fa-thumbs-down "> <?= $comment->getCount('dislike') ?></i>
                                 </button>
@@ -101,7 +101,7 @@
                         method="post" style=" display:inline;" enctype="multipart/form-data">
                         <textarea class="form-control" name="post" rows="2" required
                               placeholder="<?= ($this->post->getComments() !== null ? 'Reply to this post?' : 'Be the first to comment on this post!'); ?>"
-                              style=" display:inline; background-color: white"></textarea>
+                              style=" background-color: white"></textarea>
 
 
                         <div class="input-group-btn" aria-hidden="true"
@@ -110,7 +110,7 @@
                                     aria-expanded="false">
                                 Reply
                             </button>
-                            <div class="fileUpload btn btn-default" style="margin:0">
+                            <div class="fileUpload btn btn-default" style="margin:0;">
                                 <span><i class="fa fa-camera" aria-hidden="true"></i></span>
                                 <input type="file" name="picture" class="upload" accept="image/*"/>
                                 <input type="hidden" name="origin"
@@ -121,12 +121,12 @@
                     </form>
                     <div class="input-group-btn" align="left" aria-hidden="true">
                         <button type="submit" class="btn btn-default" aria-haspopup="true" aria-expanded="false"
-                                onclick="respond('like',<?=$this->post->getPostID()?>)">
+                                onclick="getR('like',<?=$this->post->getPostID()?>)">
                             <i id="like<?=$this->post->getPostID()?>"
                                class="fa fa-thumbs-up    "> <?=$this->post->getCount('like')?></i>
                         </button>
                         <button type="submit" class="btn btn-default" aria-haspopup="true" aria-expanded="false"
-                                onclick="respond('dislike',<?=$this->post->getPostID()?>)">
+                                onclick="getR('dislike',<?=$this->post->getPostID()?>)">
                             <i id="dislike<?=$this->post->getPostID()?>"
                                class="fa fa-thumbs-down "> <?=$this->post->getCount('dislike')?></i>
                         </button>
@@ -140,7 +140,3 @@
     </div>
 </div>
 <br/>
-
-<script type="text/javascript">
-
-</script>

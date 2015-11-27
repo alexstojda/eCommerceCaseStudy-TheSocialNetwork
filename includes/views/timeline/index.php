@@ -13,7 +13,7 @@
 
                         <button type="submit" class="btn btn-default" aria-haspopup="true" aria-expanded="false">Post
                         </button>
-                        <div class="fileUpload btn btn-default" style="margin:0">
+                        <div class="fileUpload btn btn-default" style="margin:0;">
                             <span><i class="fa fa-camera" aria-hidden="true"></i></span>
                             <input type="file" name="picture" class="upload" accept="image/*"/>
                             <input type="hidden" name="origin" value="<?= ltrim($_GET['url'], 'public/'); ?>"/>
@@ -56,7 +56,6 @@
 
 <!-- fixing slow page loads by limiting post loading... -->
 <script type="text/javascript">
- $(document).ready(function($) {
      var start = <?= count($this->posts)?>;
      $(window).scroll(function(){
         if  ($(window).scrollTop() == $(document).height() - $(window).height()) {
@@ -78,5 +77,4 @@
              }
         });
      }
- });
 </script>

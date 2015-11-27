@@ -107,7 +107,6 @@ class _Post extends Model
                 $this->responses[] = new _Response($response);
             }
         }
-        var_dump($this->responses);
     }
 
     public function deletePost()
