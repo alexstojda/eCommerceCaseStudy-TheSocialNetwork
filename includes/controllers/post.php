@@ -77,8 +77,7 @@ class Post extends Controller
             elseif ($_POST['set'] == 0)
                 $this->model->delete();
 
-            $this->loadModel('Post',$_POST['post_id']);
-            echo $this->model->getCount($_POST['rep']);
+            $this->getResponse();
         } else {
             if (Session::get('my_user'))
                 header("Location: ../timeline");
@@ -87,17 +86,10 @@ class Post extends Controller
         }
     }
 
-    /*return responses that are relevant..
     public function getResponse() {
-        $rep = [];
-        if(isset($_POST['rep'])) {
-            foreach ($this->model->getResponses() as $response) {
-                if (strcmp($response->getType(), $_POST['rep']))
-                    $rep[] = $response;
-            }
-            echo count($rep);
-            return $rep;
+        if(isset($_POST['post_id'],$_POST['rep'])) {
+            $this->loadModel('Post',$_POST['post_id']);
+            echo $this->model->getCount($_POST['rep']);
         }
-        return false;
-    }*/
+    }
 }

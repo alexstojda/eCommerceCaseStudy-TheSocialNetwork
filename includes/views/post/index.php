@@ -1,6 +1,7 @@
 <div class="panel panel-default " xmlns="http://www.w3.org/1999/html">
     <div class="panel-heading">
-        <?php if ((isset($sessionUser) && $sessionUser !== 3) || (strcmp(Session::get('my_user')['id'], $this->post->getPostBy()) === 0) || (isset($_GET['u']) && (strcmp(Session::get('my_user')['id'], $_GET['u']) === 0))) {
+        <?php   /** @var _Post post */
+        if ((isset($sessionUser) && $sessionUser !== 3) || (strcmp(Session::get('my_user')['id'], $this->post->getPostBy()) === 0) || (isset($_GET['u']) && (strcmp(Session::get('my_user')['id'], $_GET['u']) === 0))) {
             echo '<form  action="' . URL . 'post/deletePost" method="post" style="display:inline; float:right">
                                                     <button class="close" type="submit" name="postID" value="' . $this->post->getPostID() . '"
                                                     aria-label="Close"><span aria-hidden="true">&times;</span></button>';
@@ -39,8 +40,7 @@
         <div class="container-fluid">
             <div class="row">
                 <?php //LOADS ALL COMMENTS
-                if ($this->post->getComments() !== null) {
-                /** @var _Post $comment */
+                if ($this->post->getComments() !== null) { /** @var _Post $comment */
                 foreach ($this->post->getComments() as $comment) { ?>
                 <div class="panel panel-collapse">
                     <div class="media" style="padding: 0.4em; margin: 0;">
@@ -79,12 +79,12 @@
                                 <button type="submit" class="btn btn-default" aria-haspopup="true" aria-expanded="false"
                                         onclick="getR('like',<?=$comment->getPostID()?>))">
                                     <i id="like<?= $comment->getPostID() ?>"
-                                       class="fa fa-thumbs-up    "> <?= $comment->getCount('like') ?></i>
+                                       class="fa fa-thumbs-up <?=$comment->isILike('like')?'rep':''?>"> <?= $comment->getCount('like') ?></i>
                                 </button>
                                 <button type="submit" class="btn btn-default" aria-haspopup="true" aria-expanded="false"
                                         onclick="getR('dislike',<?=$comment->getPostID()?>)">
                                     <i id="dislike<?= $comment->getPostID() ?>"
-                                       class="fa fa-thumbs-down "> <?= $comment->getCount('dislike') ?></i>
+                                       class="fa fa-thumbs-down <?=$comment->isILike('dislike')?'rep':''?>"> <?= $comment->getCount('dislike') ?></i>
                                 </button>
                                 <input type="hidden" name="origin"
                                        value="<?= (isset($_GET['u']) ? 'wall?u=' . $_GET['u'] : //Convoluted origin identification
@@ -123,12 +123,12 @@
                         <button type="submit" class="btn btn-default" aria-haspopup="true" aria-expanded="false"
                                 onclick="getR('like',<?=$this->post->getPostID()?>)">
                             <i id="like<?=$this->post->getPostID()?>"
-                               class="fa fa-thumbs-up    "> <?=$this->post->getCount('like')?></i>
+                               class="fa fa-thumbs-up <?=$this->post->isILike('like')?'rep':''?>"> <?=$this->post->getCount('like')?></i>
                         </button>
                         <button type="submit" class="btn btn-default" aria-haspopup="true" aria-expanded="false"
                                 onclick="getR('dislike',<?=$this->post->getPostID()?>)">
                             <i id="dislike<?=$this->post->getPostID()?>"
-                               class="fa fa-thumbs-down "> <?=$this->post->getCount('dislike')?></i>
+                               class="fa fa-thumbs-down <?=$this->post->isILike('dislike')?'rep':''?>"> <?=$this->post->getCount('dislike')?></i>
                         </button>
                         <input type="hidden" name="origin"
                                value="<?= (isset($_GET['u']) ? 'wall?u=' . $_GET['u'] : //Convoluted origin identification

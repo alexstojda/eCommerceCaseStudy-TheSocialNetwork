@@ -177,8 +177,17 @@ class _Post extends Model
         return $this->responses;
     }
 
+    /**
+     * Get a count for a particular response
+     *
+     * @param $type string response type
+     * @return int counter
+     */
     public function getCount($type)
     {
+        /**
+         * @var _Response $response
+         */
         $count = 0;
         if(is_array($this->responses))
             foreach ($this->responses as $response) {
@@ -189,9 +198,25 @@ class _Post extends Model
         return $count;
     }
 
+    /**
+     * @return bool did I already respond to this post or nah
+     * @param $type string response type
+     */
+    public function isILike($type)
+    {
+        /**
+         * @var _Response $response
+         */
+        if(is_array($this->responses))
+            foreach ($this->responses as $response) {
+                if (strcmp($response->getUid(), Session::get('my_user')['id']) === 0 &&
+                    strcmp($response->getType(), $type) === 0)     {   return true;   }
+            }
+        return false;
+    }
+
     public function setImage($newThing)
     {
         $this->post_image = $newThing;
     }
-
 }
