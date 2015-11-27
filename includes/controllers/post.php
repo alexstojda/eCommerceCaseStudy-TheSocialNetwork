@@ -67,7 +67,11 @@ class Post extends Controller
     //Trying to make things expandable here god damn it.....
     public function newResponse() {
         if(isset($_POST['post_id'],$_POST['rep'])) {
-            $this->loadModel('Response',[Session::get('my_user')['id'],$_POST['post_id'],$_POST['rep']]);
+            $this->loadModel('Response',[
+                'user_id'  => Session::get('my_user')['id'],
+                'post_id'  => $_POST['post_id'],
+                'response' => $_POST['rep']
+            ]);
             if ($_POST['set'] == 1)
                 $this->model->add();
             elseif ($_POST['set'] == 0)
@@ -83,7 +87,7 @@ class Post extends Controller
         }
     }
 
-    //return responses that are relevant..
+    /*return responses that are relevant..
     public function getResponse() {
         $rep = [];
         if(isset($_POST['rep'])) {
@@ -95,5 +99,5 @@ class Post extends Controller
             return $rep;
         }
         return false;
-    }
+    }*/
 }

@@ -33,7 +33,7 @@ class _Response extends Model
         $this->db->insert($this->g_.'post_likes', [
                       'user_id'  => $this->user_id,
             $this->g_.'post_id'  => $this->post_id,
-                      'response' => $response_id
+                      'response' => $response_id['response_id']
         ]);
     }
 
