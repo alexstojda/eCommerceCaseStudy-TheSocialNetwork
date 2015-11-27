@@ -6,7 +6,7 @@
  * @property _Register regModel
  *
  */
-class Wall extends postsContainer
+class wall extends postsContainer
 {
 
     public function __construct()

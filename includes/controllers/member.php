@@ -1,6 +1,11 @@
 <?php
 
-class Member extends Controller
+/**
+ * Class member
+ * Authentication test
+ *
+ */
+class member extends Controller
 {
 
     public function index()

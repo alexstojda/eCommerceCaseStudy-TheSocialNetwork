@@ -3,7 +3,7 @@
 /**
  * @property _Post model
  */
-class Post extends Controller
+class post extends Controller
 {
 
     public function __construct()

@@ -6,7 +6,7 @@
  * Date: 11/25/2015
  * Time: 10:48 PM
  */
-class Search extends Controller
+class search extends Controller
 {
     public function index()
     {

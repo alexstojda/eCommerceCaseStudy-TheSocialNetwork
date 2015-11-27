@@ -6,7 +6,7 @@
  *
  * Basic home class to test mvc
  */
-class Index extends Controller
+class index extends Controller
 {
     public function __construct()
     {
