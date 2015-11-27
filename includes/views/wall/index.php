@@ -115,3 +115,30 @@
 </div>
 
 <br/>
+
+<!-- fixing slow page loads by limiting post loading... -->
+<script type="text/javascript">
+    $(document).ready(function($) {
+        var start = <?= count($this->posts)?>;
+        $(window).scroll(function(){
+            if  ($(window).scrollTop() == $(document).height() - $(window).height()) {
+                loadMore(start);
+            }
+        });
+
+        function loadMore(increase) {
+            $.ajax({
+                url: '<?=URL.(ltrim($_GET['url'],'public/'))?>/loadPosts',
+                type: 'POST',
+                data: {'u'    : <?=(isset($_GET['u']) ? $_GET['u'] : Session::get('my_user')['id'])?>,
+                    'off'  : start,
+                    'quantity' : increase
+                }, // An object with the key 'submit' and value 'true;
+                success: function (result) {
+                    $("#posts").append(result);
+                    start += increase;
+                }
+            });
+        }
+    });
+</script>

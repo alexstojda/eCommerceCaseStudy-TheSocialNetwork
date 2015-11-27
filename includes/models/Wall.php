@@ -20,7 +20,7 @@ class _Wall extends Model
 
     public function init($new_user)
     {
-        //GET USER INFORMATION TODO: About user tab and short info block like FB
+        //GET USER INFORMATION TODO@FuckThis About user tab and short info block like FB
         $this->setUser($new_user);
         $this->setName($this->user->getName());
     }
@@ -63,7 +63,7 @@ class _Wall extends Model
         */
     }
 
-    public function getUPosts($offset = 0, $quantity = 100)
+    public function getPosts($offset = 0, $quantity = 4)
     {
         //RETRIEVE ALL POSTS IDS
         $st = $this->db->select('SELECT * FROM post WHERE post_to = :id AND isnull(parent_id) ORDER BY creation_date DESC LIMIT ' .
@@ -72,5 +72,4 @@ class _Wall extends Model
             $this->posts = $st;
         return $this->posts;
     }
-
 }

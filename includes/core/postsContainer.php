@@ -1,5 +1,5 @@
 <?php
-//Exists to avoid redundant code between wall & timeline TODO:add group walls to this...
+//Exists to avoid redundant code between wall & timeline TODO@Alex Too different.. only useful thing would be the loadPosts If I have time on weekend ;add group walls to this...;
 /**
  * @property Model model
  * @property string load
@@ -13,13 +13,14 @@ abstract class postsContainer extends Controller
 
     public function init($uid)
     {
-        //TODO: @Andrew where does this init come from? Inspector can't find it
+        //TODO@Alex Timeline/Wall Models. Can't really specify cos it has to be able to call it for both. Since it's loaded dynamically inspector no happy.
         $this->model->init($this->getModel('User', $uid));
 
         //GET POSTS FROM MODEL
         $this->load = 'all';
         $this->loadPosts();
     }
+
 
     public function loadPosts()
     {
@@ -35,25 +36,23 @@ abstract class postsContainer extends Controller
                 $quantity = (int)$_POST['quantity'];
 
             if ($offset > 0 && $quantity > 0)
-                $posts = $this->model->getUPosts($offset, $quantity);
+                $posts = $this->model->getPosts($offset, $quantity);
             elseif ($offset > 0)
-                $posts = $this->model->getUPosts($offset);
+                $posts = $this->model->getPosts($offset);
             elseif ($quantity > 0)
-                $posts = $this->model->getUPosts(0, $quantity);
+                $posts = $this->model->getPosts(0, $quantity);
         } else {
-            $posts = $this->model->getUPosts();
+            $posts = $this->model->getPosts();
         }
 
         if (!empty($posts)) {
             //$this->latest_id = $posts[0]['post_id'];
             foreach ($posts as $post) {
-                //if (isset($this->load) || isset($_POST['load'])) {
-                $this->view->posts[] = $this->getModel('Post', $post);
-                //}
-                /*elseif (isset( $_SERVER['HTTP_X_REQUESTED_WITH'])) {
+                if (isset( $_SERVER['HTTP_X_REQUESTED_WITH'])) {
                     $this->post = $this->getModel('Post', $post);
                     include PATH . 'views/post/index.php';
-                }*/
+                } else
+                    $this->view->posts[] = $this->getModel('Post', $post);
             }
         } else {
             //self::anAlert('No more posts available');

@@ -49,7 +49,7 @@ class _User extends Model
                 else //that user doesn't exist, give error and redirect to self
                     header('Location: ../wall?u=' . Session::get('my_user')['id']);
                 break;
-            default : //check if wall exists TODO Add access control based on friendship
+            default : //check if wall exists TODO@Alex Add access control based on friendship
                 $st = $this->db->select('SELECT * FROM users WHERE user_id = :uid', array(
                     ':uid' => $tempID,
                 ));

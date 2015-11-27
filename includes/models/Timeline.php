@@ -36,8 +36,8 @@ class _Timeline extends Model
     }
 
 
-    public function &getUPosts($offset = 0, $quantity = 100)
-    {
+    public function &getPosts($offset = 0, $quantity = 4)
+    {//TODO@Alex Monster query that also does group posts for groups you're in?;
         $st = $this->db->select('SELECT * FROM `post` WHERE (`post_by` IN
                            (SELECT `user_id_a` AS uid FROM `friends` WHERE `user_id_b` = :id AND !isnull(created_date)
                             UNION

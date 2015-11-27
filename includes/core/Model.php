@@ -5,12 +5,12 @@ class Model
 
     protected $db;
 
-    function __construct()
+    public function __construct()
     {
         $this->db = Database::noParam();
     }
 
-    function getError()
+    public function getError()
     {
         return $this->db->errorInfo();
     }

@@ -55,6 +55,7 @@ class Auth extends Controller
             parse_str($_COOKIE['rememberBana']);
         } else {
             $name = $_POST['inputUser'];
+            require_once LIBS . "Hash.php";
             $pass = Hash::create('sha256', $_POST['inputPassword'], HASH_PW_KEY);;
         }
 

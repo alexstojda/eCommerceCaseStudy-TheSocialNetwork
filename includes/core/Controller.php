@@ -93,6 +93,7 @@ abstract class Controller
         return null;
     }
 
+    //Lazy way of making a bootstrap styled alert
     public static function anAlert($msg, $type = 'warning')
     {
         echo '<div style="margin-left: 10%; margin-right: 10%" class="alert alert-' . $type . ' alert-dismissible" role="alert">'
