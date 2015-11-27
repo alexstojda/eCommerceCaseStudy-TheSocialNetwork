@@ -217,11 +217,12 @@ class register extends Controller
             $uploaddir = 'profile_pics/';
             $path_parts = pathinfo($_FILES["picture"]["name"])['extension'];
             $uploadfile = $uploaddir . $this->newUser['username'] . '.' . $path_parts;
-
-            if (move_uploaded_file($_FILES['picture']['tmp_name'], $uploadfile))
-                $this->newUser['profile_picture'] = $uploadfile;
-            else
-                echo "Something wrong with file/directory!!";
+            if($_FILES['picture']['error'] === 0) {
+                if (move_uploaded_file($_FILES['picture']['tmp_name'], $uploadfile))
+                    $this->newUser['profile_picture'] = $uploadfile;
+                else
+                    echo "Something wrong with file/directory!!";
+            }
         }
 
         if ($isValid) {
@@ -340,7 +341,14 @@ class register extends Controller
             $uploaddir = 'user_images/';
             $path_parts = pathinfo($_FILES["picture"]["name"])['extension'];
             $uploadfile = $uploaddir . $this->newUser['username'] . '.' . $path_parts;
-            $this->newUser['profile_picture'] = ((isset($uploadfile) && move_uploaded_file($_FILES['picture']['tmp_name'], $uploadfile)) ? $uploadfile : null);
+
+            if($_FILES['picture']['error'] === 0) {
+                $this->newUser['profile_picture'] = ((isset($uploadfile) && move_uploaded_file($_FILES['picture']['tmp_name'], $uploadfile)) ? $uploadfile : null);
+            }
+            else{
+                $isValid = false;
+                $this->view->profileImageError = 'Image is too large...Or we just don\'t like it.';
+            }
         }
 
 

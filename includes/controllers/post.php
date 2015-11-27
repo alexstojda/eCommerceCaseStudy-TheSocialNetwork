@@ -51,7 +51,7 @@ class Post extends Controller
                 'to' => (isset($_GET['u']) ? $_GET['u'] : (isset($_GET['g']) ? null : Session::get('my_user')['id'])),
                 'group' => (isset($_GET['g']) ? $_GET['g'] : header("Location: .." . $_POST['origin'] . '?fucked=up')),
                 'text' => $_POST['post'],
-                'image' => ((isset($uploadfile) && move_uploaded_file($_FILES['picture']['tmp_name'], $uploadfile)) ? $uploadfile : null),
+                'image' => ((isset($uploadfile) && move_uploaded_file($_FILES['picture']['tmp_name'], $uploadfile)) ? $uploadfile : null) && $_FILES['picture']['error'] ===0,
                 'parent' => (isset($_GET['reply']) ? $_GET['reply'] : null),
                 'privacy' => 0
             ));

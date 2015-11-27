@@ -131,6 +131,13 @@
                         <div class="row">
                             <div
                                 class=" col-xs-11 col-sm-8 col-md-8 col-lg-8 col-xs-offset-0 col-sm-offset-2 col-md-offset-2 col-lg-offset-2">
+                                <?php if (isset($this->profileImageError)) { ?>
+                                    <div class="alert alert-warning alert-dismissable" role="alert">
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span></button>
+                                        <?= $this->profileImageError ?>
+                                    </div>
+                                <?php } ?>
                                 <div class="input-group">
                                     <span class="input-group-addon" id="uname"><strong>Profile Picture:</strong></span>
                                     <a href="#" data-toggle="modal" data-target="#lightbox">
