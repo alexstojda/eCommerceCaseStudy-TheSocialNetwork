@@ -21,6 +21,14 @@ body {
     filter: alpha(opacity=0);
 }
 
+.fa.fa-thumbs-down.rep {
+    color: #bc2627;
+}
+
+.fa.fa-thumbs-up.rep {
+    color: #24bc3a;
+}
+
 #lightbox .modal-content {
     display: inline-block;
     text-align: center;

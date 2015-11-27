@@ -18,12 +18,10 @@ class groups extends Controller
 
     public function makeAdmin()
     {
-
         if (isset($_POST['admin_id']) && isset($_GET['g'])) {
             $this->model->makeAdmin();
             header("Location: ../groups/group?g=" . $_GET['g']);
         }
-
     }
 
     public function update()
@@ -35,19 +33,13 @@ class groups extends Controller
 
         //SETUP AND INIT BASIC WALL
         if (isset($_POST['privacy']) && isset($_POST['description'])) {
-
-            //make update
-            $this->model->updateGroup();
+            $this->model->updateGroup(); //make update
             header("Location: ../groups/group?g=" . $_POST['g']);
         }
         if (isset($_POST['g']) && isset($_POST['member_id'])) {
-
-
             $this->view->title = 'Update Group';
             $this->view->render('groups/update');
-
         }
-
     }
 
     public function kick()
@@ -79,7 +71,6 @@ class groups extends Controller
         }
 
     }
-
 
     public function join()
     {
@@ -181,7 +172,7 @@ class groups extends Controller
             //GET POSTS FROM MODEL
             if (!empty($this->model->getPosts())) {
                 foreach ($this->model->getPosts() as $a_post) {
-                    $this->view->posts[] = $this->getModel('Group_Post', $a_post['group_post_id']);
+                    $this->view->posts[] = $this->getModel('Post', $a_post['group_post_id']);
                 }
             }
         } else {

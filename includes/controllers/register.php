@@ -338,7 +338,7 @@ class register extends Controller
 
 //changes the profile picture
         if ($_FILES['picture']['name'] !== "") {
-            $uploaddir = 'user_images/';
+            $uploaddir = 'profile_pics/';
             $path_parts = pathinfo($_FILES["picture"]["name"])['extension'];
             $uploadfile = $uploaddir . $this->newUser['username'] . '.' . $path_parts;
 
@@ -347,7 +347,7 @@ class register extends Controller
             }
             else{
                 $isValid = false;
-                $this->view->profileImageError = 'Image is too large...Or we just don\'t like it.';
+                $this->view->profileImageError = 'Image is too large... Or we just don\'t like it. Probably that one';
             }
         }
 
