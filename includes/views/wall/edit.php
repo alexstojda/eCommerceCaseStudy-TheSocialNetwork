@@ -6,6 +6,118 @@
  * Time: 3:23 PM
  */
 ?>
+<div id="confirmDelete1" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title"><strong>Close my account</strong></h4>
+            </div>
+            <div class="modal-body">
+                <h4>Are you really really really really really sure you want to delete your account?</h4>
+            </div>
+            <div class="modal-footer">
+                <button type="button" style="width: 100%; font-size: 16px; font-weight: bolder" class="btn btn-success"
+                        data-dismiss="modal">I have realized deleting my account
+                    is a stupid idea
+                </button>
+                <br/>
+                <button type="button" style="width: 100%; font-size: 16px; font-weight: bolder" class="btn btn-danger"
+                        data-toggle="modal" data-target="#confirmDelete2">I am a loser and want to delete my
+                    account.
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="confirmDelete2" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Are you sure?</h4>
+            </div>
+            <div class="modal-body">
+                <h4>Ok look, permanent means forever, and forever is a very long time. </h4>
+            </div>
+            <div class="modal-footer">
+                <button type="button" style="width: 100%; font-size: 16px; font-weight: bolder" class="btn btn-success"
+                        data-dismiss="modal">Permanent is too much of a commitment for me, <br/> I'll keep my account.
+                </button>
+                <br/>
+                <button type="button" style="width: 100%; font-size: 16px; font-weight: bolder" class="btn btn-danger"
+                        data-toggle="modal" data-target="#confirmDelete3">
+                    I'm not 4 years old, I understand this is permanent.
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="confirmDelete3" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Are you sure?</h4>
+            </div>
+            <div class="modal-body">
+                <p>I don't think you understood the first time. This is going to permanently close your account.</p>
+
+                <p>"Forever has no meaning when you're living in the moment. I wasn't ready for that moment to end."
+                    -Ellen Hopkins</p>
+
+                <p>Take her advice dude, keep leaving in the moment</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" style="width: 100%; font-size: 16px; font-weight: bolder" class="btn btn-success"
+                        data-dismiss="modal">She's right! Let me live in the moment!
+                </button>
+                <br/>
+                <button type="button" style="width: 100%; font-size: 16px; font-weight: bolder" class="btn btn-danger"
+                        data-toggle="modal" data-target="#confirmDelete4">
+                    Who cares what Hellen Hopkins thinks.
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="confirmDelete4" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <form action="<?= URL . 'wall/deleteMyAccountAndAllAssociatedData' ?>" method="post">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Last time, I Promise</h4>
+                </div>
+                <div class="modal-body">
+                    <h3>Ok ok ok. Last chance, after this there is 110% no turning back. I guarantee it.</h3>
+                    <p>Just to be sure, type in your password below to confirm this is something
+                        you actually want to do.</p>
+                    <label for="delPass"><strong>Confirm your password: </strong></label>
+                    <input type="password" id="delPass" name="deletePassword" required/>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" style="width: 100%; font-size: 16px; font-weight: bolder"
+                            class="btn btn-success" data-dismiss="modal">Too scary, I'd rather keep my account.
+                    </button>
+                    <br/>
+                    <button type="submit" style="width: 100%; font-size: 16px; font-weight: bolder"
+                            class="btn btn-danger">
+                        I Understand that I will have no friends now
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 <form method="post" action="<?= URL . 'register/doUpdateUser/' . Session::get('my_user')['id'] ?>"
       enctype="multipart/form-data">
     <div class="container-fluid">
@@ -166,7 +278,8 @@
                                     </div>
                                 <?php } ?>
                                 <div class="input-group">
-                                    <span class="input-group-addon" id="gen"><label for="gender_id"><strong>Gender: </strong></label></span>
+                                    <span class="input-group-addon" id="gen"><label
+                                            for="gender_id"><strong>Gender: </strong></label></span>
                                     <select name="gender_id" id="gender_id" class="form-control" aria-describedby="gen">
                                         <option value="">Select a gender...</option>
                                         <?php
@@ -305,7 +418,8 @@
                                     </div>
                                 <?php } ?>
                                 <div class="input-group">
-                                    <span class="input-group-addon" id="cntry"><label for="country"><strong>Country: </strong></label></span>
+                                    <span class="input-group-addon" id="cntry"><label
+                                            for="country"><strong>Country: </strong></label></span>
                                     <select class="form-control" id="country" name="country" aria-describedby="cntry">
                                         <option>Select a country...</option>
                                         <?php foreach ($this->countries as $country) {
@@ -348,6 +462,14 @@
                                 class=" col-xs-11 col-sm-8 col-md-8 col-lg-8 col-xs-offset-0 col-sm-offset-2 col-md-offset-2 col-lg-offset-2">
                                 <div class="input-group">
                                     <button type="submit" class="btn btn-primary btn-lg">Update my Account</button>
+                                    &nbsp;
+                                    &nbsp;
+                                    &nbsp;
+                                    <button type="button"
+                                            class="btn btn-danger btn-lg"
+                                            data-toggle="modal"
+                                            data-target="#confirmDelete1">Close my account
+                                    </button
                                 </div>
                             </div>
                         </div>

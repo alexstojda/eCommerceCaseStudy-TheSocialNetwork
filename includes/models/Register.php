@@ -93,4 +93,9 @@ class _Register extends Model
         unset($user['id']);
         return $this->db->update('users', $user, "user_id = $uid");
     }
+
+    public function deleteAccount($uid, $pass) {
+        $pass = Hash::create('sha256', $pass, HASH_PW_KEY);
+        return $this->db->delete('users', "`user_id` = $uid AND `password` = $pass");
+    }
 }

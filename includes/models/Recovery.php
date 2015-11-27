@@ -117,6 +117,7 @@ class _Recovery extends Model
 
     public function resetPassword($uid, $key, $password)
     {
+        $password = Hash::create('sha256', $password, HASH_PW_KEY);
         if ($this->validateRequest($uid, $key) === false)
             return false;
         elseif ($this->db->update('users', array('password' => $password), "`user_id` = $uid")) {

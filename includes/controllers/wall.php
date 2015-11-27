@@ -75,4 +75,19 @@ class Wall extends postsContainer
         $this->view->title = 'Edit my Account';
         $this->view->render('wall/edit');
     }
+
+    public function deleteMyAccountAndAllAssociatedData() {
+        $uid = Session::get('my_user')['id'];
+        $pass = $_POST['deletePassword'];
+
+        /** @var _Register $model */
+        $model = $this->getModel('Register');
+        if($model->deleteAccount($uid, $pass) > 0){
+            header('Location: '.URL);
+        } else {
+            $this->view->alerts[] = ['Password incorrect. Account not deleted! YAY :D<br/>I\'m taking you to a safe place now', 'success'];
+            header('Refresh: 3; URL=http://devbana.tk/timeline');
+            $this->view->render('home/index');
+        }
+    }
 }

@@ -91,8 +91,6 @@ class register extends Controller
             return false;
         elseif (!isset($this->newUser['date_of_birth']))
             return false;
-        elseif (!isset($this->newUser['profile_picture']))
-            return false;
         elseif (!isset($this->newUser['phone']))
             return false;
         elseif (!isset($this->newUser['address']))
