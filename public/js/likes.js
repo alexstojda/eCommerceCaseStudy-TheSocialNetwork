@@ -13,7 +13,9 @@ function getR(type, post_id) {
         },
         success: function (result) { //TODO: not hardcode... json_encode
             $("[id*=" + post_id + "]").removeClass('rep');
-            $('#' + type + post_id).addClass('rep').html(' ' + result);
+            if(set == 1)
+                $('#' + type + post_id).addClass('rep');
+            $('#' + type + post_id).html(' ' + result);
             if (type === 'like') {
                 type = 'dislike';
             } else {
