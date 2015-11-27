@@ -35,14 +35,47 @@ class _Timeline extends Model
         $this->user = $user;
     }
 
-
+    /* SELECT * FROM `post` WHERE (`post_by` IN
+                               (SELECT `user_id_a` AS uid FROM `friends` WHERE `user_id_b` = :id AND !isnull(created_date)
+                                UNION
+                                SELECT `user_id_b` AS uid FROM `friends` WHERE `user_id_a` = :id AND !isnull(created_date)) OR `post_by` = :id)
+                                                                               AND isnull(parent_id) ORDER BY creation_date DESC*/
     public function &getPosts($offset = 0, $quantity = 4)
-    {//TODO@Alex Monster query that also does group posts for groups you're in?;
-        $st = $this->db->select('SELECT * FROM `post` WHERE (`post_by` IN
-                           (SELECT `user_id_a` AS uid FROM `friends` WHERE `user_id_b` = :id AND !isnull(created_date)
-                            UNION
-                            SELECT `user_id_b` AS uid FROM `friends` WHERE `user_id_a` = :id AND !isnull(created_date)) OR `post_by` = :id)
-                                                                           AND isnull(parent_id) ORDER BY creation_date DESC LIMIT ' .
+    {
+
+        $st = $this->db->select('    SELECT post_id          AS post_id,
+                                            post_by,
+                                            post_to,
+                                            NULL             AS group_id,
+                                            text             AS text,
+                                            image_attachment AS image_attachment,
+                                            creation_date    AS creation_date
+                                       FROM `post`
+                                      WHERE (`post_by` IN
+                                            (SELECT `user_id_a` AS uid
+                                               FROM `friends`
+                                              WHERE `user_id_b` = :id AND !isnull(created_date)
+                                              UNION
+                                             SELECT `user_id_b` AS uid
+                                               FROM `friends`
+                                              WHERE `user_id_a` = :id AND !isnull(created_date))
+                                                 OR `post_by` = :id)
+                                         AND isnull(parent_id)
+                                       UNION
+                                     (SELECT
+                                             group_post_id    AS post_id,
+                                             post_by,
+                                             NULL             AS post_to,
+                                             group_id,
+                                             text             AS text,
+                                             image_attachment AS image_attachment,
+                                             creation_date    AS creation_date
+                                        FROM group_post
+                                       WHERE group_id IN (SELECT group_id
+                                                            FROM group_members
+                                                           WHERE user_id = 2)
+                                         AND isnull(parent_id))
+                                    ORDER BY creation_date DESC LIMIT ' .
             $offset . ',' . $quantity, [':id' => $this->user->getID()]);
 
         if (count($st) > 0)

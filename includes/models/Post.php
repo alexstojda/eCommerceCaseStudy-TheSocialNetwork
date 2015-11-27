@@ -20,7 +20,7 @@ class _Post extends Model
     {
         parent::__construct();
         //check if group cos fuck having 2 quasi-identical models
-        if (isset($_GET['g']) || isset($_POST['is_group'])) {
+        if (isset($_GET['g']) || isset($_POST['is_group']) || (is_array($temp) && isset($array['group_id']))) {
             $this->g_ = 'group_';
         }
 
@@ -47,7 +47,7 @@ class _Post extends Model
 
     private function setAll($array)
     {
-        $this->post_id = $array[$this->g_.'post_id'];
+        $this->post_id = $array['post_id'];
 
         //WILL BE USED FOR WALL LINKS
         $this->post_by = $array['post_by'];
@@ -58,17 +58,18 @@ class _Post extends Model
             ':id' => $array['post_by']
         ))[0]['name'];
 
+
         //Grab relevent name ie either the receiving user's name or the group.
-        if (isset($_GET['g'])) {
-            $this->group_id = $this->db->select('SELECT name FROM groups WHERE group_id = :id', array(
+        if (isset($_GET['g']) || isset($array['group_id'])) {
+            $this->group_id = $this->db->select('SELECT name AS \'name\' FROM groups WHERE group_id = :id', array(
                 ':id' => $array['group_id']
             ))[0]['name'];
+            $this->post_to_name = $this->group_id;
         } else {
             $this->post_to_name = $this->db->select('SELECT CONCAT(first_name,\' \', last_name) AS \'name\' FROM users WHERE user_id = :id', array(
                 ':id' => $array['post_to']
             ))[0]['name'];
         }
-
         //FINISH SETTING THE REST
         $this->post_text = $array['text'];
         $this->post_image = $array['image_attachment'];
@@ -79,8 +80,6 @@ class _Post extends Model
             ':id' => $array['post_by']
         ))[0]['profile_picture'];
     }
-
-
 
     //Grabs all comments pertaining to this post
     public function setComments()
