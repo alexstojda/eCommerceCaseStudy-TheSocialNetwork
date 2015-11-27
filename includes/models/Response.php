@@ -28,7 +28,7 @@ class _Response extends Model
         $this->delete(); //Get rid of your other response types on this post. Only one fam
         $response_id = $this->db->select('SELECT response_id FROM response_type WHERE description = :dsc',[
             ':dsc' => $this->type
-        ]);
+        ])[0];
 
         $this->db->insert($this->g_.'post_likes', [
                       'user_id'  => $this->user_id,

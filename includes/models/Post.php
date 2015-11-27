@@ -96,16 +96,18 @@ class _Post extends Model
 
     //Grabs all comments pertaining to this post
     public function setResponses()
-    {
+    {   require_once PATH . 'models/Response.php';
+
         $st = $this->db->select('SELECT * FROM post_likes WHERE post_id = :id', array(
             ':id' => $this->post_id));
         if (count($st) > 0) {
             foreach ($st as $response) {
-                $response['response'] = $this->db->select('SELECT * FROM response_type WHERE response_id = :id', array(
-                    ':id' => $response['response']));
+                $response['response'] = $this->db->select('SELECT description FROM response_type WHERE response_id = :id', array(
+                    ':id' => $response['response']))[0]['description'];
                 $this->responses[] = new _Response($response);
             }
         }
+        var_dump($this->responses);
     }
 
     public function deletePost()
@@ -181,8 +183,9 @@ class _Post extends Model
         $count = 0;
         if(is_array($this->responses))
             foreach ($this->responses as $response) {
-                if (strcmp($response->getType(), $type))
+                if (strcmp($response->getType(), $type) === 0) {
                     $count++;
+                }
             }
         return $count;
     }
