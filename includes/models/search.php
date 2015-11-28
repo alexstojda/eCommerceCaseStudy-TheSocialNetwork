@@ -18,7 +18,7 @@ class _Search extends Model
 
     public function searchUsers()
     {
-        $st = $this->db->select('SELECT * FROM `users` WHERE first_name LIKE :search OR last_name LIKE :search OR phone LIKE :search OR email LIKE :search  ',
+        $st = $this->db->select('SELECT *, CONCAT(first_name, \' \' , last_name) FROM `users` WHERE first_name LIKE :search OR last_name LIKE :search OR phone LIKE :search OR email LIKE :search OR  CONCAT(first_name, \' \' , last_name) LIKE :search ',
             [':search' => "%" . $_GET['search'] . "%"]);
 
         if (count($st) > 0) {
