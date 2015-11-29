@@ -220,8 +220,14 @@ class register extends Controller
             if($_FILES['picture']['error'] === 0) {
                 if (move_uploaded_file($_FILES['picture']['tmp_name'], $uploadfile))
                     $this->newUser['profile_picture'] = $uploadfile;
-                else
-                    echo "Something wrong with file/directory!!";
+                else {
+                    $isValid = false;
+                    $this->view->picError = 'Image is either too big or is corrupt';
+                }
+            }
+            else {
+                $isValid = false;
+                $this->view->picError = 'Image is either too big or is corrupt';
             }
         }
 
