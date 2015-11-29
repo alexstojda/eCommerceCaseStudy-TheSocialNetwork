@@ -8,12 +8,15 @@
  */
 class wall extends postsContainer
 {
-
+    /**
+     * wall constructor.
+     */
     public function __construct()
     {
         parent::__construct();
         self::checkMember();
     }
+
 
     public function index()
     {
@@ -54,6 +57,10 @@ class wall extends postsContainer
         }
     }
 
+    /**
+     * returns boolean
+     * checks if the two users are already friends
+     */
     public function checkFriendship()
     {
         $ida = $_GET['u'];

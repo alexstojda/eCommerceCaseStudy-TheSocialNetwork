@@ -1,7 +1,7 @@
 <div class="panel panel-default " xmlns="http://www.w3.org/1999/html">
     <div class="panel-heading">
         <?php   /** @var _Post post */
-        if ((isset($sessionUser) && $sessionUser !== 3) || (strcmp(Session::get('my_user')['id'], $this->post->getPostBy()) === 0) || (isset($_GET['u']) && (strcmp(Session::get('my_user')['id'], $_GET['u']) === 0))) {
+        if ((strcmp($_GET['url'], 'public/timeline') !== 0)&& ((isset($sessionUser) && $sessionUser !== 3) || (strcmp(Session::get('my_user')['id'], $this->post->getPostBy()) === 0) || (isset($_GET['u']) && (strcmp(Session::get('my_user')['id'], $_GET['u']) === 0)))) {
             echo '<form  action="' . URL . 'post/deletePost" method="post" style="display:inline; float:right">
                                                     <button class="close" type="submit" name="postID" value="' . $this->post->getPostID() . '"
                                                     aria-label="Close"><span aria-hidden="true">&times;</span></button>';
@@ -51,7 +51,7 @@
                             </a>
                         </div>
                         <div class="media-body">
-                            <?php if ((isset($sessionUser) && $sessionUser !== 3) || (strcmp(Session::get('my_user')['id'], $this->post->getPostBy()) === 0) || (isset($_GET['u']) && (strcmp(Session::get('my_user')['id'], $_GET['u']) === 0))) {
+                            <?php if ((strcmp($_GET['url'], 'public/timeline') !== 0)&& ((isset($sessionUser) && $sessionUser !== 3) || (strcmp(Session::get('my_user')['id'], $this->post->getPostBy()) === 0) || (isset($_GET['u']) && (strcmp(Session::get('my_user')['id'], $_GET['u']) === 0)))) {
                                 echo '<form  action="' . URL . 'post/deletePost" method="post" style="display:inline; float:right">
                                                     <button class="close" type="submit" name="postID" value="' . $comment->getPostID() . '"
                                                     aria-label="Close"><span aria-hidden="true">&times;</span></button>';

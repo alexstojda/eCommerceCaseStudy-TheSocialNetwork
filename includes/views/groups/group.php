@@ -5,10 +5,15 @@
  * Date: 11/21/2015
  * Time: 10:08 PM
  */
+
 $sessionUser = null;
 $owner = [];
 $admin = [];
 $normal = [];
+/**
+ * divides all members into 1 of three categories
+ * also checks to see if the current user is a member of this group
+ */
 foreach ($this->members as $this->member) {
     if ((strcmp($this->member['user_status'], "owner") === 0)) {
         array_push($owner, $this->member);
@@ -69,6 +74,9 @@ foreach ($this->members as $this->member) {
 
                 <p><?= $this->description ?></p>
                 <?php
+                /**
+                 * If the user is an admin or the owner, they have the button to modify the group appear
+                 */
                 if (isset($sessionUser) && $sessionUser !== 3) {
 
                     echo '<form action="' . URL . 'groups/update"  method="post">';
@@ -98,11 +106,17 @@ foreach ($this->members as $this->member) {
                 <ul><?php
                     echo '<p class="media-heading">Group Owner</p>';
                     foreach ($owner as $this->member) {
+                        /**
+                         * outputs link to owners wall
+                         */
                         echo '<li><a href="' . URL . 'wall?u=' . $this->member['user_id'] . '">' . $this->member['name'] . '</a></li>';
                     }
                     echo '<p class="media-heading">Group Admins</p>';
                     if (!empty($admin)) {
                         foreach ($admin as $this->member) {
+                            /**
+                             * outputs list of all admins of the group and links to each admin's wall
+                             */
                             if (isset($sessionUser) && $sessionUser === 1) {
                                 echo '<form action="' . URL . 'groups/removeAdmin?g=' . $_GET['g'] . '" method="post">';
                                 echo '<li><a href="' . URL . 'wall?u=' . $this->member['user_id'] . '">' . $this->member['name'] . '</a></li>';
@@ -117,6 +131,9 @@ foreach ($this->members as $this->member) {
                     if (!empty($normal)) {
                         foreach ($normal as $this->member) {
                             if (isset($sessionUser) && $sessionUser !== 3) {
+                                /**
+                                 *  outputs list of all other members of the group and links to each wall
+                                 */
                                 echo '<form action="' . URL . 'groups/makeAdmin?g=' . $_GET['g'] . '" method="post">';
                                 echo '<li><a href="' . URL . 'wall?u=' . $this->member['user_id'] . '">' . $this->member['name'] . '</a></li>';
                                 echo '<button class="btn btn-default" type="submit" name = "admin_id" value="' . $this->member['user_id'] . '">Make Admin</button></form>';

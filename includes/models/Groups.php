@@ -17,6 +17,9 @@ class _Groups extends Model
 
     public function init($group)
     {
+        /**
+         * get's all the information for the group (not the members)
+         */
         $temp = $this->db->select('SELECT * FROM groups WHERE group_id = :to', array(
             ':to' => $group
         ))[0];
@@ -25,6 +28,9 @@ class _Groups extends Model
             $this->setName($temp['name']);
             $this->setDescription($temp['description']);
             $this->setPrivacy($temp['privacy']);
+            /**
+             * gets the members of the group
+             */
             $membersTemp = $this->db->select('SELECT CONCAT( users.first_name,  \' \', users.last_name ) AS  \'name\', users.user_id, user_status
                                             FROM groups
                                             INNER JOIN group_members ON groups.group_id = group_members.group_id
@@ -34,8 +40,10 @@ class _Groups extends Model
             ));
 
             $this->members = $membersTemp;
-            //RETRIEVE ALL POSTS
-            $st = $this->db->select('SELECT * FROM group_post WHERE group_id = :to AND isnull(parent_id) ORDER BY creation_date DESC', array(
+           /**
+            * RETRIEVE ALL POSTS
+            */
+             $st = $this->db->select('SELECT * FROM group_post WHERE group_id = :to AND isnull(parent_id) ORDER BY creation_date DESC', array(
                 ':to' => $group
             ));
 
@@ -63,6 +71,9 @@ class _Groups extends Model
         $this->db->update('group_members', ['user_status' => 'normal'], 'user_id = ' . $_POST['admin_id'] . ' AND group_id = ' . $_GET['g']);
     }
 
+    /**
+     * kicks member form the group
+     */
     public function kick()
     {
         $this->db->delete('group_members', 'user_id = ' . $_POST['member_id'] . ' AND group_id = ' . $_GET['g']);
@@ -86,6 +97,10 @@ class _Groups extends Model
         $this->db->delete('groups', ' group_id = ' . $_GET['g']);
     }
 
+    /**
+     * @return bool
+     * checks to see if the gorup name is already taken
+     */
     public function validateName()
     {
         if (isset($_POST['name']) && isset($_POST['privacy']) && isset($_POST['description'])) {
@@ -99,6 +114,13 @@ class _Groups extends Model
         return false;
     }
 
+    /**
+     * @param $name : new name for the group
+     * @param $description: new description
+     * @param $privacy : sets privacy
+     * @param $user : sets current user as the owner of the group
+     *
+     */
     public function createGroup($name, $description, $privacy, $user)
     {
         $this->db->insert('groups', ['name' => $name, 'privacy' => $privacy, 'description' => $description]);
@@ -111,6 +133,11 @@ class _Groups extends Model
         $this->db->insert('group_members', ['user_id' => $user, 'group_id' => $tdb['group_id'], 'user_status' => 'owner']);
     }
 
+    /**
+     * @param $uid
+     * @return mixed
+     * gets group information as well as all of it's members
+     */
     public function getGroups($uid)
     {
         return $this->db->select('SELECT name, groups.group_id
