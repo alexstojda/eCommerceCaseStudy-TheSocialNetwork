@@ -36,20 +36,17 @@
         </div>
         <div
             class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xs-offset-2 col-sm-offset-2 col-md-offset-2 col-lg-offset-2">
-            <ul class="list-group">
-                <li class="list-group-item">
-                    <span class="badge">15</span>
-                    Notifications
-                </li>
-                <li class="list-group-item">
-                    <span class="badge">6</span>
-                    Friend Requests
-                </li>
-                <li class="list-group-item">
-                    <span class="badge">9</span>
-                    Group stuff
-                </li>
-            </ul>
+            <div class="list-group">
+                <a href="<?= URL . 'friends' ?>" class="list-group-item">
+                    Friends
+                </a>
+                <a href="<?= URL . 'groups' ?>" class="list-group-item">
+                    Groups
+                </a>
+                <a href="<?= URL . 'wall' ?>" class="list-group-item">
+                    My profile
+                </a>
+            </div>
         </div>
     </div>
 </div>
