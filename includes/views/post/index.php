@@ -1,7 +1,7 @@
 <div class="panel panel-default " xmlns="http://www.w3.org/1999/html">
     <div class="panel-heading">
         <?php   /** @var _Post post */
-        if ((isset($sessionUser) && $sessionUser !== 3) || (strcmp(Session::get('my_user')['id'], $this->post->getPostBy()) === 0) || (isset($_GET['u']) && (strcmp(Session::get('my_user')['id'], $_GET['u']) === 0))) {
+        if ((strcmp($_GET['url'], 'public/timeline') !== 0)&& ((isset($sessionUser) && $sessionUser !== 3) || (strcmp(Session::get('my_user')['id'], $this->post->getPostBy()) === 0) || (isset($_GET['u']) && (strcmp(Session::get('my_user')['id'], $_GET['u']) === 0)))) {
             echo '<form  action="' . URL . 'post/deletePost" method="post" style="display:inline; float:right">
                                                     <button class="close" type="submit" name="postID" value="' . $this->post->getPostID() . '"
                                                     aria-label="Close"><span aria-hidden="true">&times;</span></button>';
@@ -20,7 +20,7 @@
         <b><a href="<?= URL . 'wall?u=' . $this->post->getPostBy(); ?>"><?= $this->post->getPostByName(); ?> </a></b>
         <?php if (!isset($_GET['u']) && !isset($_GET['g']) && $this->post->getPostBy() !== $this->post->getPostTo()) { ?>
             <i class="fa fa-chevron-right"></i>
-            <b><a href="<?= URL . 'wall?u=' . $this->post->getPostTo(); ?>"><?= $this->post->getPostToName(); ?> </a></b>
+            <b><a href="<?= URL . ($this->post->getPostTo() !== null ? ('wall?u=' . $this->post->getPostTo()) : ('groups/group?g=' . $this->post->getGroup())); ?>"><?= $this->post->getPostToName(); ?> </a></b>
         <?php } ?>
         <br/>
         <strong><i><?= $this->post->getDate() ?></i></strong>
@@ -51,7 +51,7 @@
                             </a>
                         </div>
                         <div class="media-body">
-                            <?php if ((isset($sessionUser) && $sessionUser !== 3) || (strcmp(Session::get('my_user')['id'], $this->post->getPostBy()) === 0) || (isset($_GET['u']) && (strcmp(Session::get('my_user')['id'], $_GET['u']) === 0))) {
+                            <?php if ((strcmp($_GET['url'], 'public/timeline') !== 0)&& ((isset($sessionUser) && $sessionUser !== 3) || (strcmp(Session::get('my_user')['id'], $this->post->getPostBy()) === 0) || (isset($_GET['u']) && (strcmp(Session::get('my_user')['id'], $_GET['u']) === 0)))) {
                                 echo '<form  action="' . URL . 'post/deletePost" method="post" style="display:inline; float:right">
                                                     <button class="close" type="submit" name="postID" value="' . $comment->getPostID() . '"
                                                     aria-label="Close"><span aria-hidden="true">&times;</span></button>';
@@ -96,7 +96,7 @@
                 <?php }
                 } ?>
                 <div class="form-group"> <!-- REPLY TO A POST -->
-                    <form action="<?= URL ?>post/doPost?u=<?= $this->post->getPostBy() . '&' . (isset($_GET['g']) ? 'g=' . $_GET['g'] . '&' : '')
+                    <form action="<?= URL ?>post/doPost?u=<?= $this->post->getPostBy() . '&' . ($this->post->getGroup() !== null ? 'g=' . $this->post->getGroup() . '&' : '')
                         ?>reply=<?= $this->post->getPostID() ?>"
                         method="post" style=" display:inline;" enctype="multipart/form-data">
                         <textarea class="form-control" name="post" rows="2" required

@@ -16,6 +16,9 @@ class groups extends Controller
         self::checkMember();
     }
 
+    /**
+     * used to turn a group member into an admin
+     */
     public function makeAdmin()
     {
         if (isset($_POST['admin_id']) && isset($_GET['g'])) {
@@ -24,6 +27,9 @@ class groups extends Controller
         }
     }
 
+    /**
+     * prepares the page where admin/owner can update the groups information
+     */
     public function update()
     {
         $this->model->init($_POST['g']);
@@ -52,6 +58,9 @@ class groups extends Controller
 
     }
 
+    /**
+     * removes the group from the database and then redirects to the group page
+     */
     public function delete()
     {
 
@@ -62,6 +71,10 @@ class groups extends Controller
 
     }
 
+    /**
+     * For admins and members only (owner does not have access)
+     * removes user form the group
+     */
     public function leave()
     {
 
@@ -92,17 +105,12 @@ class groups extends Controller
 
     }
 
+    /**
+     * lists all groups the user is in
+     */
     public function index()
-    {/*
-        if (isset($_GET['g'])) {
-            $gid = $_GET['g'];*/
+    {
         $uid = Session::get('my_user')['id'];
-
-        //SETUP AND INIT BASIC WALL
-
-        // $this->loadModel('Wall');
-        //$this->model->init($uid);
-
         $st = $this->model->getGroups($uid);
         //GET list of groups
         if (!empty($st)) {
@@ -120,7 +128,9 @@ class groups extends Controller
 
     }
 
-
+    /**
+     * loads the create a group page
+     */
     public function create()
     {
         $uid = Session::get('my_user')['id'];
@@ -158,6 +168,9 @@ class groups extends Controller
 
     }
 
+    /**
+     * Loads the groups wall
+     */
     public function group()
     {
         if (isset($_GET['g'])) {
