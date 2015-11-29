@@ -22,6 +22,10 @@ class inbox extends Controller
         self::checkMember();
     }
 
+    /**
+     * Loads the inbox page for the controller
+     * Displays all conversations received by the current user
+     */
     public function index()
     {
         $this->view->title = 'Inbox';
@@ -29,6 +33,10 @@ class inbox extends Controller
         $this->view->render('inbox/index');
     }
 
+    /**
+     * Loads the sent conversations page
+     * Displays all conversations sent by the current user
+     */
     public function sent()
     {
         $this->view->title = 'Inbox - Sent';
@@ -36,6 +44,10 @@ class inbox extends Controller
         $this->view->render('inbox/sent');
     }
 
+    /**
+     * Loads a specific conversation with the given user
+     * @param $uid int ID of user conversation is with
+     */
     public function u($uid)
     {
         $name = $this->model->getName($uid);
@@ -54,6 +66,9 @@ class inbox extends Controller
 
     }
 
+    /**
+     * Sends a message using the POST data to the given user
+     */
     public function doMessage()
     {
         $from = $_POST['from_id'];
