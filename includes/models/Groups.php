@@ -17,7 +17,7 @@ class _Groups extends Model
 
     /**
      * Sets all the group's information so that it may be accessed by the view
-     * @param $group id of group needed to intialized
+     * @param $group int id of group needed to intialized
      */
     public function init($group)
     {
