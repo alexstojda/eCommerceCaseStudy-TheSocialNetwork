@@ -45,34 +45,37 @@ class _Inbox extends Model
 
     public function getReceivedConversations($uid)
     {
-        $query = "SELECT *
-                    FROM (
-                          SELECT `from_user_id`, u1.`first_name`, u1.`last_name`, `message`, `message_id`
-                            FROM `messages`
-                                  INNER JOIN `users` u1 ON u1.`user_id`=`messages`.`from_user_id`
-                           WHERE `from_user_id` IN
-		                         (SELECT DISTINCT `from_user_id`
-                                    FROM `messages`
-                                   WHERE `to_user_id` = :id)
-    				       ORDER BY message_id DESC
-    				       ) AS res
-                    GROUP BY from_user_id ASC
-                    ORDER BY res.message_id";
+        $query = "SELECT
+                      `from_user_id`,
+                      u1.`first_name`,
+                      u1.`last_name`,
+                      `message`,
+                      `message_id`
+                    FROM messages
+                      INNER JOIN users u1 ON u1.user_id = messages.from_user_id
+                    WHERE message_id IN
+                          (SELECT Max(message_id)
+                           FROM messages
+                           WHERE to_user_id = 2
+                           GROUP BY from_user_id)";
         return $this->db->select($query, array(':id' => $uid));
     }
 
     public function getSentConversations($uid)
     {
-        $query = "SELECT *
-                    FROM (
-                          SELECT `to_user_id`, u1.`first_name`, u1.`last_name`, `message`, `message_id`
-                            FROM `messages`
-                                  INNER JOIN `users` u1 ON u1.`user_id`=`messages`.`to_user_id`
-                           WHERE `from_user_id` = :id
-    				       ORDER BY message_id DESC
-    				       ) AS res
-                    GROUP BY to_user_id ASC
-                    ORDER BY res.message_id";
+        $query = "SELECT
+                      `to_user_id`,
+                      u1.`first_name`,
+                      u1.`last_name`,
+                      `message`,
+                      `message_id`
+                    FROM messages
+                      INNER JOIN users u1 ON u1.user_id = messages.to_user_id
+                    WHERE message_id IN
+                          (SELECT Max(message_id)
+                           FROM messages
+                           WHERE from_user_id = 2
+                           GROUP BY to_user_id)";
         return $this->db->select($query, array(':id' => $uid));
     }
 
