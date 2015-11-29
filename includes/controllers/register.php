@@ -5,7 +5,7 @@
  * User: Alex
  * Date: 2015-11-12
  * Time: 5:08 PM
- * @property _User newUser
+ * @property array newUser
  * @property  model
  */
 class register extends Controller
@@ -28,12 +28,23 @@ class register extends Controller
         $this->view->newUser = $this->newUser;
     }
 
+    /**
+     * Loads the index page that displays a welcome message
+     */
     public function index()
     {
         $this->view->title = 'Create new account';
         $this->page(0);
     }
 
+    /**
+     * Loads a page in the registration process
+     * Page 1 = Login information
+     * Page 2 = Profile information
+     * Page 3 = Profile information
+     * Page 4 = Confirm information
+     * @param $page int requested page number
+     */
     public function page($page)
     {
         if (!isset($page))
@@ -65,6 +76,9 @@ class register extends Controller
         }
     }
 
+    /**
+     * Adds the user to the database
+     */
     public function addUser()
     {
         if ($this->model->insertUser($this->newUser)) {
@@ -75,6 +89,10 @@ class register extends Controller
         }
     }
 
+    /**
+     * Validates the user by making sure all the values are set
+     * @return bool True if its valid, False otherwise
+     */
     public function validate()
     {
         if (!isset($this->newUser['username']))
@@ -107,6 +125,9 @@ class register extends Controller
             return true;
     }
 
+    /**
+     * Validates the information from the Authentication Info page and puts it into temp session variable.
+     */
     public function doAuthInfo()
     {
         if (!isset($_POST['submitAccount'])) {
@@ -162,7 +183,7 @@ class register extends Controller
     }
 
     /**
-     * @return bool
+     * Validates the information from the User Information page and puts it into temp session variable.
      */
     public function doUserInfo()
     {
@@ -203,10 +224,16 @@ class register extends Controller
         //Commence ridiculous date checks
         $date_today = date_create();
         $date_birthDate = date_create($_POST['date_of_birth']);
+        $difference = (int)date_diff($date_birthDate, $date_today)->format('%r%y');
         if (preg_match('/^(19|20)\d\d[-](0[1-9]|1[012])[-](0[1-9]|[12][0-9]|3[01])$/', $_POST['date_of_birth']) === 1
-            && (int)date_diff($date_birthDate, $date_today)->format('%r%y') >= 13
+            && $difference >= 13
         )
-            $this->newUser['date_of_birth'] = $_POST['date_of_birth'];
+            if ($difference <= 101) {
+                $this->newUser['date_of_birth'] = $_POST['date_of_birth'];
+            } else {
+                $this->view->dobError = 'Holy shit you are fucking old. This site is for cool, hip people, who still have both hips';
+                $isValid = false;
+            }
         else {
             $this->view->dobError = 'You must be 13 years or older to join';
             $isValid = false;
@@ -217,15 +244,14 @@ class register extends Controller
             $uploaddir = 'profile_pics/';
             $path_parts = pathinfo($_FILES["picture"]["name"])['extension'];
             $uploadfile = $uploaddir . $this->newUser['username'] . '.' . $path_parts;
-            if($_FILES['picture']['error'] === 0) {
+            if ($_FILES['picture']['error'] === 0) {
                 if (move_uploaded_file($_FILES['picture']['tmp_name'], $uploadfile))
                     $this->newUser['profile_picture'] = $uploadfile;
                 else {
                     $isValid = false;
                     $this->view->picError = 'Image is either too big or is corrupt';
                 }
-            }
-            else {
+            } else {
                 $isValid = false;
                 $this->view->picError = 'Image is either too big or is corrupt';
             }
@@ -243,7 +269,7 @@ class register extends Controller
     }
 
     /**
-     * @return bool
+     * Validates the information from the Address Info page and puts it into temp session variable.
      */
     public function doAddressInfo()
     {
@@ -313,19 +339,23 @@ class register extends Controller
         return true;
     }
 
-    public static function isEmpty($string)
+    /**
+     * Simple function to test POST variables to see if they were filled in
+     * @param $string string String to be checked
+     * @return bool True if empty, False otherwise
+     */
+    private static function isEmpty($string)
     {
         return strcmp('', $string) == 0;
     }
 
+    /**
+     * Validates the information from the Edit User page and puts it into temp session variable.
+     */
     public function doUpdateUser()
     {
         //AuthInfo Validation
-
-        echo print_r($_POST);
-
         $this->newUser = $_SESSION['my_user'];
-
 
         $isValid = true;
         if (!self::isEmpty($_POST['username'])) {
@@ -342,22 +372,21 @@ class register extends Controller
             }
         }
 
-//changes the profile picture
+        //Changes the profile picture
         if ($_FILES['picture']['name'] !== "") {
             $uploaddir = 'profile_pics/';
             $path_parts = pathinfo($_FILES["picture"]["name"])['extension'];
             $uploadfile = $uploaddir . $this->newUser['username'] . '.' . $path_parts;
 
-            if($_FILES['picture']['error'] === 0) {
+            if ($_FILES['picture']['error'] === 0) {
                 $this->newUser['profile_picture'] = ((isset($uploadfile) && move_uploaded_file($_FILES['picture']['tmp_name'], $uploadfile)) ? $uploadfile : null);
-            }
-            else{
+            } else {
                 $isValid = false;
                 $this->view->profileImageError = 'Image is too large... Or we just don\'t like it. Probably that one';
             }
         }
 
-
+        //Verifies the password complies
         if (!self::isEmpty($_POST['password'])) {
             if (preg_match('/^([A-z]|\d){6,16}$/', $_POST['password']) === 1) {
                 if ($_POST['password'] == $_POST['confPassword'])
@@ -372,6 +401,7 @@ class register extends Controller
             }
         }
 
+        //Verifies the email complies
         if (!self::isEmpty($_POST['email'])) {
             if (preg_match('/^\S+@\S+\.\S+$/', $_POST['email']) === 1)
                 if ($this->model->validateEmail($_POST['email']))
@@ -385,7 +415,6 @@ class register extends Controller
                 $isValid = false;
             }
         }
-
         //Next Auth info
 
         //ServerSide check if first name conforms
@@ -423,10 +452,16 @@ class register extends Controller
         //Commence ridiculous date checks
         $date_today = date_create();
         $date_birthDate = date_create($_POST['date_of_birth']);
+        $difference = (int)date_diff($date_birthDate, $date_today)->format('%r%y');
         if (preg_match('/^(19|20)\d\d[-](0[1-9]|1[012])[-](0[1-9]|[12][0-9]|3[01])$/', $_POST['date_of_birth']) === 1
-            && (int)date_diff($date_birthDate, $date_today)->format('%r%y') >= 13
+            && $difference >= 13
         )
-            $this->newUser['date_of_birth'] = $_POST['date_of_birth'];
+            if ($difference <= 101) {
+                $this->newUser['date_of_birth'] = $_POST['date_of_birth'];
+            } else {
+                $this->view->dobError = 'Holy shit you are fucking old. This site is for cool, hip people, who still have both hips';
+                $isValid = false;
+            }
         else {
             $this->view->dobError = 'You must be 13 years or older to join';
             $isValid = false;
@@ -492,6 +527,7 @@ class register extends Controller
             }
         }
 
+        //Confirm everything is valid, then update the user
         $uid = Session::get('my_user')['id'];
         $res = $this->model->updateUser($this->newUser, $uid);
         echo print_r($this->newUser);
@@ -499,13 +535,11 @@ class register extends Controller
             $_SESSION['my_user'] = $this->newUser;
             header('Location: ' . URL . 'wall');
         } else {
-
             $this->view->title = 'ERROR - Login information';
             $this->view->user = $_SESSION['my_user'];
             $this->view->countries = $this->model->getCountries();
             $this->view->genders = $this->model->getGenders();
             $this->view->render('wall/edit');
-            echo print_r($this->model->getError());
         }
     }
 }
