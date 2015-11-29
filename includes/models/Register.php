@@ -103,6 +103,11 @@ class _Register extends Model
         }
     }
 
+    /**
+     * Checks if the email already exists in the database
+     * @param $email string Email to be validated
+     * @return bool True if valid, False otherwise
+     */
     public function validateEmail($email)
     {
         $res = $this->db->select('SELECT email FROM users WHERE email= :id',
@@ -114,12 +119,23 @@ class _Register extends Model
         }
     }
 
+    /**
+     * Creates a new user in the database
+     * @param $user Array Array of the user's information, indexed by column name
+     * @return bool True if successful, False otherwise
+     */
     public function insertUser($user)
     {
         $user['password'] = Hash::create('sha256', $user['password'], HASH_PW_KEY);
         return $this->db->insert('users', $user);
     }
 
+    /**
+     * Updates the user's data in the database
+     * @param $user Array Array of the user's information, indexed by column name
+     * @param $uid int ID of the user to be updated
+     * @return bool True if successful, False otherwise
+     */
     public function updateUser($user, $uid)
     {
         $user['password'] = Hash::create('sha256', $user['password'], HASH_PW_KEY);
@@ -127,6 +143,12 @@ class _Register extends Model
         return $this->db->update('users', $user, "user_id = $uid");
     }
 
+    /**
+     * Deletes the given account if the password is valid
+     * @param $uid int ID of user to delete
+     * @param $pass string password of user to delete
+     * @return int rows affected in the database
+     */
     public function deleteAccount($uid, $pass)
     {
         $pass = Hash::create('sha256', $pass, HASH_PW_KEY);
