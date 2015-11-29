@@ -26,6 +26,9 @@ class pokes extends Controller
         self::checkMember();
     }
 
+    /**
+     * Loads the index page for pokes that displays the pokes sent and received by the current user
+     */
     public function index()
     {
         $this->view->uniquePokesSent = $this->model->getUniquePokesSentTo(Session::get('my_user')['id']);
@@ -34,6 +37,10 @@ class pokes extends Controller
         $this->view->render('pokes/index');
     }
 
+    /**
+     * Sends a poke from the current user to the given user ID
+     * @param $uid int ID of user being poked
+     */
     public function poke($uid)
     {
         if ($this->model->areFriends($uid, Session::get('my_user')['id'])) {
