@@ -61,10 +61,10 @@ class _Post extends Model
 
         //Grab relevent name ie either the receiving user's name or the group.
         if (isset($_GET['g']) || isset($array['group_id'])) {
-            $this->group_id = $this->db->select('SELECT name AS \'name\' FROM groups WHERE group_id = :id', array(
+            $this->group_id = $array['group_id'];
+            $this->post_to_name = $this->db->select('SELECT name AS \'name\' FROM groups WHERE group_id = :id', array(
                 ':id' => $array['group_id']
             ))[0]['name'];
-            $this->post_to_name = $this->group_id;
         } else {
             $this->post_to_name = $this->db->select('SELECT CONCAT(first_name,\' \', last_name) AS \'name\' FROM users WHERE user_id = :id', array(
                 ':id' => $array['post_to']
@@ -129,6 +129,11 @@ class _Post extends Model
     public function getPostTo()
     {
         return $this->post_to;
+    }
+
+    public function getGroup()
+    {
+        return $this->group_id;
     }
 
     public function getPostByName()
