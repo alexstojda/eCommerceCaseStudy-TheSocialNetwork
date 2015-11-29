@@ -67,7 +67,7 @@ class _Inbox extends Model
                     WHERE message_id IN
                           (SELECT Max(message_id)
                            FROM messages
-                           WHERE to_user_id = 2
+                           WHERE to_user_id = :id
                            GROUP BY from_user_id)";
         return $this->db->select($query, array(':id' => $uid));
     }
@@ -90,7 +90,7 @@ class _Inbox extends Model
                     WHERE message_id IN
                           (SELECT Max(message_id)
                            FROM messages
-                           WHERE from_user_id = 2
+                           WHERE from_user_id = :id
                            GROUP BY to_user_id)";
         return $this->db->select($query, array(':id' => $uid));
     }
