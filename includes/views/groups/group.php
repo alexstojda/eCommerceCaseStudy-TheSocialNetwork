@@ -146,17 +146,25 @@ foreach ($this->members as $this->member) {
                         }
                     } else
                         echo '<p> No Members </p>';
-
+                    /**
+                     * shows option to delete group to the owner
+                     */
                     if (isset($sessionUser) && $sessionUser === 1) {
                         echo '<form action="' . URL . 'groups/delete?g=' . $_GET['g'] . '" method="post">';
 
                         echo '<button class="btn btn-default" type="submit" name = "delete_group" >Delete Group</button>';
                         echo '</form>';
+                        /**
+                         * shows option to leave the group if member or admin
+                         */
                     } elseif (isset($sessionUser)) {
                         echo '<form action="' . URL . 'groups/leave?g=' . $_GET['g'] . '" method="post">';
                         echo '<button class="btn btn-default" type="submit"  value="' . $this->member['user_id'] . '" name = "leave_id" >Leave Group</button>';
                         echo '</form>';
                     } else {
+                        /**
+                         * shows option to join group if not a member
+                         */
                         echo '<form action="' . URL . 'groups/join?g=' . $_GET['g'] . '" method="post">';
                         echo '<button class="btn btn-default" type="submit"  value="' . Session::get('my_user')['id'] . '" name = "user_id" >Join Group</button>';
                         echo '</form>';

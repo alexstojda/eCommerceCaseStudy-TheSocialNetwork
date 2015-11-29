@@ -8,13 +8,18 @@
  */
 class timeline extends postsContainer
 {
-
+    /**
+     * timeline constructor.
+     */
     public function __construct()
     {
         parent::__construct();
         self::checkMember();
     }
 
+    /**
+     * set up the time line of current user
+     */
     public function index()
     {
         $this->init(Session::get('my_user')['id']);

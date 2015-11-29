@@ -10,6 +10,10 @@ class _Groups extends Model
     private $posts;
     private $members;
 
+    /**
+     * _Groups constructor.
+     * @param int $tempID id of the group
+     */
     public function __construct($tempID = 0)
     {
         parent::__construct();
@@ -89,27 +93,35 @@ class _Groups extends Model
         $this->db->delete('group_members', 'user_id = ' . $_POST['member_id'] . ' AND group_id = ' . $_GET['g']);
     }
 
+    /**
+     * adds user to the group
+     */
     public function join()
     {
 
         $this->db->insert('group_members', ['user_id' => $_POST['user_id'], 'group_id' => $_GET['g'], 'user_status' => 'normal']);
     }
 
+    /**
+     * allows user to leave group (for members and admins)
+     */
     public function leave()
     {
 
         $this->db->delete('group_members', 'user_id = ' . Session::get('my_user')['id'] . ' AND group_id = ' . $_GET['g']);
     }
 
+    /**
+     * deletes group
+     */
     public function delete()
     {
-
         $this->db->delete('groups', ' group_id = ' . $_GET['g']);
     }
 
     /**
      * @return bool
-     * checks to see if the gorup name is already taken
+     * checks to see if the group name is already taken
      */
     public function validateName()
     {
@@ -129,7 +141,7 @@ class _Groups extends Model
      * @param $description: new description
      * @param $privacy : sets privacy
      * @param $user : sets current user as the owner of the group
-     *
+     *add group to the database
      */
     public function createGroup($name, $description, $privacy, $user)
     {

@@ -8,6 +8,9 @@
  */
 class search extends Controller
 {
+    /**
+     * Prepares the list of users and groups linked to the search string
+     */
     public function index()
     {
         if (isset($_GET['search'])) {

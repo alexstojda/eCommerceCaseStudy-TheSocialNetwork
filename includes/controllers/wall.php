@@ -70,6 +70,9 @@ class wall extends postsContainer
         return $this->friendsModel->areFriends($ida, $idb);
     }
 
+    /**
+     * load page that edits user's account information
+     */
     public function edit()
     {
         $user = $_SESSION['my_user'];

@@ -11,11 +11,17 @@ class _Search extends Model
     private $foundUsers;
     private $foundGroups;
 
+    /**
+     * _Search constructor.
+     */
     public function __construct()
     {
         parent::__construct();
     }
 
+    /**
+     * @return mixed|null return list of users if any are found linked to the string
+     */
     public function searchUsers()
     {
         $st = $this->db->select('SELECT *, CONCAT(first_name, \' \' , last_name) FROM `users` WHERE first_name LIKE :search OR last_name LIKE :search OR phone LIKE :search OR email LIKE :search OR  CONCAT(first_name, \' \' , last_name) LIKE :search ',
@@ -26,7 +32,9 @@ class _Search extends Model
         } else
             return null;
     }
-
+    /**
+     * @return mixed|null return list of groups if any are found linked to the string
+     */
     public function searchGroups()
     {
         $st = $this->db->select('SELECT * FROM `groups` WHERE name LIKE :search',

@@ -9,7 +9,9 @@
  */
 class groups extends Controller
 {
-
+    /**
+     * groups constructor.
+     */
     public function __construct()
     {
         parent::__construct();
@@ -85,6 +87,9 @@ class groups extends Controller
 
     }
 
+    /**
+     * adds the user to the group in the database
+     */
     public function join()
     {
 
@@ -95,6 +100,9 @@ class groups extends Controller
 
     }
 
+    /**
+     * owner of the group has the power to remove an admins status, making him a regualer member
+     */
     public function removeAdmin()
     {
 

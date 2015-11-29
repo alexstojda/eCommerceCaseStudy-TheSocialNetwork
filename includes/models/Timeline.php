@@ -15,6 +15,9 @@ class _Timeline extends Model
     private $posts;
     private $friends;
 
+    /**
+     * _Timeline constructor.
+     */
     public function __construct()
     {
         parent::__construct();
@@ -35,11 +38,7 @@ class _Timeline extends Model
         $this->user = $user;
     }
 
-    /* SELECT * FROM `post` WHERE (`post_by` IN
-                               (SELECT `user_id_a` AS uid FROM `friends` WHERE `user_id_b` = :id AND !isnull(created_date)
-                                UNION
-                                SELECT `user_id_b` AS uid FROM `friends` WHERE `user_id_a` = :id AND !isnull(created_date)) OR `post_by` = :id)
-                                                                               AND isnull(parent_id) ORDER BY creation_date DESC*/
+
     public function &getPosts($offset = 0, $quantity = 4)
     {
 

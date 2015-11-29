@@ -13,7 +13,9 @@
             <li role="presentation" class="active"><a>Your Groups</a></li>
             <?php
             if (isset($this->groups) AND count($this->groups) > 0) {
-
+            /**
+             * lists all groups user is in
+             */
             foreach ($this->groups as $group) {
                 ?>
                 <li role="presentation"><a
