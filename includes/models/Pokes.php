@@ -17,17 +17,35 @@ class _Pokes extends Model
         parent::__construct();
     }
 
-    public function getUniquePokes($uid)
+    public function getUniquePokesSentTo($uid)
     {
         return $this->db->select("SELECT
-                                      poked_by,
-                                      poked,
-                                      COUNT(poked),
+                                      poked as id,
+                                      first_name,
+                                      last_name,
+                                      COUNT(poked) as count,
                                       poke_time
                                     FROM pokes
-                                    WHERE poked_by = 2 OR poked = 2
+                                      INNER JOIN users u1 ON pokes.poked = u1.user_id
+                                    WHERE poked_by = :id
                                     GROUP BY poked DESC
                                     ORDER BY poke_time DESC",
+            array(':id' => $uid)
+        );
+    }
+    public function getUniquePokesReceivedBy($uid)
+    {
+        return $this->db->select("SELECT
+                                      poked_by as id,
+                                      first_name,
+                                      last_name,
+                                      COUNT(poked) as count,
+                                      poke_time
+                                    FROM pokes
+                                      INNER JOIN users u1 ON pokes.poked_by = u1.user_id
+                                    WHERE poked = 2
+                                    GROUP BY poked DESC
+                                    ORDER BY poke_time DESC;",
             array(':id' => $uid)
         );
     }
