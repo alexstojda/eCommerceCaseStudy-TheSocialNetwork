@@ -321,6 +321,8 @@
                                            title="yyyy-mm-dd"
                                            max="<?= date_sub(date_create(),
                                                date_interval_create_from_date_string('13 years'))->format('Y-m-d') ?>"
+                                           min="<?= date_sub(date_create(),
+                                               date_interval_create_from_date_string('101 years'))->format('Y-m-d') ?>"
 
                                         <?php if (isset($this->user['date_of_birth'])) {
                                             echo "value='" . $this->user['date_of_birth'] . "'";
