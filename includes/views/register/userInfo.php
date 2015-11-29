@@ -61,8 +61,8 @@
                        aria-describedby="basic-addon1"
                        pattern="^(19|20)\d\d[-](0[1-9]|1[012])[-](0[1-9]|[12][0-9]|3[01])$"
                        title="yyyy-mm-dd"
-                       max="<?= date_sub(date_create(),
-                           date_interval_create_from_date_string('13 years'))->format('Y-m-d') ?>"
+                       max="<?= $this->maxDate->format('Y-m-d') ?>"
+                       min="<?= $this->minDate->format('Y-m-d') ?>"
                        required
                     <?php if (isset($this->newUser['date_of_birth'])) {
                         echo "value='" . $this->newUser['date_of_birth'] . "'";

@@ -43,6 +43,7 @@
  * @property string user
  * @property string dobError
  * @property string addressError
+ * @property DateTime maxDate
  */
 class View
 {
