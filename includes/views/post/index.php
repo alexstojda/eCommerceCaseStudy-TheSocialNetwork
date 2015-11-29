@@ -96,7 +96,7 @@
                 <?php }
                 } ?>
                 <div class="form-group"> <!-- REPLY TO A POST -->
-                    <form action="<?= URL ?>post/doPost?u=<?= $this->post->getPostBy() . '&' . (isset($_GET['g']) ? 'g=' . $_GET['g'] . '&' : '')
+                    <form action="<?= URL ?>post/doPost?u=<?= $this->post->getPostBy() . '&' . ($this->post->getGroup() !== null ? 'g=' . $this->post->getGroup() . '&' : '')
                         ?>reply=<?= $this->post->getPostID() ?>"
                         method="post" style=" display:inline;" enctype="multipart/form-data">
                         <textarea class="form-control" name="post" rows="2" required

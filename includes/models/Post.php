@@ -20,7 +20,7 @@ class _Post extends Model
     {
         parent::__construct();
         //check if group cos fuck having 2 quasi-identical models
-        if (isset($_GET['g']) || isset($_POST['is_group']) || (is_array($temp) && isset($array['group_id']))) {
+        if (isset($_GET['g']) || isset($_POST['is_group']) || (is_array($temp) && isset($temp['group_id']))) {
             $this->g_ = 'group_';
         }
 
@@ -47,8 +47,10 @@ class _Post extends Model
 
     private function setAll($array)
     {
-        $this->post_id = $array[$this->g_.'post_id'];
-
+        if (array_key_exists('post_id',$array))
+            $this->post_id = $array['post_id'];
+        else
+            $this->post_id = $array[$this->g_.'post_id'];
         //WILL BE USED FOR WALL LINKS
         $this->post_by = $array['post_by'];
         $this->post_to = $array['post_to'];
@@ -87,6 +89,7 @@ class _Post extends Model
         $st = $this->db->select('SELECT * FROM '.$this->g_.'post WHERE parent_id = :id', array(
             ':id' => $this->post_id));
         if (count($st) > 0) {
+            $_POST['is_group'] = 1;
             foreach ($st as $post) {
                 $this->comments[] = new self($post[$this->g_.'post_id']);
             }
