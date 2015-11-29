@@ -6,7 +6,7 @@
  * Date: 2015-11-19
  * Time: 5:28 PM
  */
-class _Inbox extends model
+class _Inbox extends Model
 {
 
     /**

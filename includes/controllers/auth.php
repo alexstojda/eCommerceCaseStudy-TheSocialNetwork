@@ -6,7 +6,7 @@
  * Deals with user authentication
  * @property _Recovery recovery
  */
-class auth extends controller
+class auth extends Controller
 {
 
     public function __construct()
