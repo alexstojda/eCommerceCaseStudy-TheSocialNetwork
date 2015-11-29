@@ -47,7 +47,7 @@ class _Post extends Model
 
     private function setAll($array)
     {
-        $this->post_id = $array['post_id'];
+            $this->post_id = $array[$this->g_ . 'post_id'];
 
         //WILL BE USED FOR WALL LINKS
         $this->post_by = $array['post_by'];
