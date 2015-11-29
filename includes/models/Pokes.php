@@ -17,18 +17,47 @@ class _Pokes extends Model
         parent::__construct();
     }
 
-    public function getPokes()
+    public function getUniquePokes($uid)
     {
-        //TODO: Get pokes sent to session user
-    }
-
-    public function sentPokes()
-    {
-        //TODO: Get pokes sent by session var
+        return $this->db->select("SELECT
+                                      poked_by,
+                                      poked,
+                                      COUNT(poked),
+                                      poke_time
+                                    FROM pokes
+                                    WHERE poked_by = 2 OR poked = 2
+                                    GROUP BY poked DESC
+                                    ORDER BY poke_time DESC",
+            array(':id' => $uid)
+        );
     }
 
     public function poke($uid)
     {
-        return $this->db->insert('pokes', array('poked_by' => Session::get('my_user')['id'], 'poked' => $uid));
+        if ($this->db->insert('pokes', array('poked_by' => Session::get('my_user')['id'], 'poked' => $uid)))
+            return true;
+        else
+            return false;
+    }
+
+    public function areFriends($IDa, $IDb)
+    {
+        $res = $this->db->select("SELECT *
+                                    FROM friends
+                                   WHERE
+                                       (
+                                         (user_id_a = :ida AND user_id_b = :idb)
+                                         OR
+                                         (user_id_a = :idb AND user_id_b = :ida)
+                                       )
+                                       AND
+                                       created_date IS NOT NULL",
+            array(':ida' => $IDa, ':idb' => $IDb)
+        );
+
+        if (count($res) === 1)
+            return true;
+        else
+            return false;
     }
 }

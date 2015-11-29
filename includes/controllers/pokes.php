@@ -30,7 +30,11 @@ class pokes extends Controller
 
     public function poke($uid)
     {
-        echo $this->model->poke($uid);
-        echo 'yay';
+        if ($this->model->areFriends($uid, Session::get('my_user')['id'])) {
+            if ($this->model->poke($uid))
+                header('Location: ' . URL . 'wall?u=' . $uid . '&poked=1');
+        } else {
+            header('Location: ' . URL . 'wall?u=' . $uid . '&notPoked=1');
+        }
     }
 }

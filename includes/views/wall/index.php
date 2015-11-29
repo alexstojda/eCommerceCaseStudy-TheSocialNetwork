@@ -46,14 +46,41 @@
             </div>
         </div>
     </div>
+<?php } else if (isset($_GET['poked'])) { ?>
+    <div class="container-fluid">
+        <div class="row">
+            <div
+                class="col-xs-8 col-sm-8 col-md-4 col-lg-4 col-md-offset-4 col-lg-offset-4 col-xs-offset-2 col-sm-offset-2">
+                <div class="alert alert-success alert-dismissible" role="alert" style="font-size: 16px">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <strong>Success!</strong> You poked <strong><?= $this->name ?></strong>!
+                </div>
+            </div>
+        </div>
+    </div>
+<?php } else if (isset($_GET['notPoked'])) { ?>
+    <div class="container-fluid">
+        <div class="row">
+            <div
+                class="col-xs-8 col-sm-8 col-md-4 col-lg-4 col-md-offset-4 col-lg-offset-4 col-xs-offset-2 col-sm-offset-2">
+                <div class="alert alert-success alert-warning" role="alert" style="font-size: 16px">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <strong>Oops</strong> You tried to poke <strong><?= $this->name ?></strong> but it appears you
+                    aren't friends!
+                </div>
+            </div>
+        </div>
+    </div>
 <?php } ?>
 
-<div class="container-fluid" style="padding-bottom: 30px; margin-left: auto; margin-right: auto; ">
+<div class="container-fluid" style="padding-bottom: 30px; margin-left: auto; margin-right: auto;">
     <div class="row">
         <div
             class="col-xs-8 col-sm-8 col-md-4 col-lg-4 col-md-offset-4 col-lg-offset-4 col-xs-offset-2 col-sm-offset-2">
             <div class="btn-group btn-group-justified" role="group" aria-label="UserActions">
-                <a class="btn btn-default" style="width: 33%" href="<?= URL . 'pokes/doPoke/' . $this->id ?>">Poke <br/>
+                <a class="btn btn-default" style="width: 33%" href="<?= URL . 'pokes/poke/' . $this->id ?>">Poke <br/>
                     <i class="fa fa-hand-o-right fa-2x"></i></a>
                 <a class="btn btn-default" style="width: 33%" href="<?= URL . 'inbox/u/' . $this->id ?>">Message <br/>
                     <i class="fa fa-envelope fa-2x"></i></a>
@@ -75,7 +102,7 @@
                       enctype="multipart/form-data">
                     <textarea class="form-control" name="post" rows="2" required placeholder="<?=
                     ($_GET['u'] !== Session::get('my_user')['id']) ? 'Share your thoughts with ' . $this->name : 'What\'s on your mind' ?>?"
-                              style=" display:inline; background-color: white"></textarea>
+                              style="display:inline; background-color: white"></textarea>
 
                     <div class="input-group-btn" align="right" aria-hidden="true">
                         <button type="submit" class="btn btn-default" aria-haspopup="true" aria-expanded="false">Post
@@ -103,7 +130,6 @@
                 if (isset($this->posts) AND count($this->posts) > 0) {
                     foreach ($this->posts as $this->post) {
                         /** @noinspection PhpIncludeInspection */
-                        /** @noinspection PhpIncludeInspection */
                         include PATH . 'views/post/index.php';
                     }
                 } else { ?>
@@ -119,8 +145,8 @@
 <!-- fixing slow page loads by limiting post loading... -->
 <script type="text/javascript">
     var start = <?= count($this->posts)?>;
-    $(window).scroll(function(){
-        if  ($(window).scrollTop() == $(document).height() - $(window).height()) {
+    $(window).scroll(function () {
+        if ($(window).scrollTop() == $(document).height() - $(window).height()) {
             loadMore(start);
         }
     });
@@ -129,9 +155,10 @@
         $.ajax({
             url: '<?=URL.(ltrim($_GET['url'],'public/'))?>/loadPosts',
             type: 'POST',
-            data: {'u'    : <?=(isset($_GET['u']) ? $_GET['u'] : Session::get('my_user')['id'])?>,
-                'off'  : start,
-                'quantity' : increase
+            data: {
+                'u': <?=(isset($_GET['u']) ? $_GET['u'] : Session::get('my_user')['id'])?>,
+                'off': start,
+                'quantity': increase
             }, // An object with the key 'submit' and value 'true;
             success: function (result) {
                 $("#posts").append(result);
