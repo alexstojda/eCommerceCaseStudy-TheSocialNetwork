@@ -22,17 +22,13 @@ class friends extends Controller
         self::checkMember();
     }
 
+    /**
+     * Loads the index page of the controller
+     * Shows a list of friends and links to groups or to create a group
+     */
     public function index()
     {
-        /*
-        if (isset($_GET['g'])) {
-            $gid = $_GET['g'];*/
         $uid = Session::get('my_user')['id'];
-
-        //SETUP AND INIT BASIC WALL
-
-        // $this->loadModel('Wall');
-        //$this->model->init($uid);
 
         $st = $this->model->getFriends($uid);
         //GET list of groups
@@ -43,14 +39,16 @@ class friends extends Controller
             }
 
         }
-
         //FINALLY RENDER THE PAGE HTML
         $this->view->title = 'Your Friends';
         $this->view->render('friends/index');
-        //}
 
     }
 
+    /**
+     * Sends a friend request to the given user
+     * @param $idb int The user receiving a friend request
+     */
     public function doNewFriend($idb)
     {
         $ida = Session::get('my_user')['id']; //$ida ALWAYS has to be the person sending the request. This is used as part of friend validation later.
@@ -59,11 +57,14 @@ class friends extends Controller
         else {
             $this->view->error = 'Seems that we weren\'t able to add that person as your friend.
                                     Maybe you two are already friends?';
-            //TODO: Error for this
         }
 
     }
 
+    /**
+     * Unfriends the given user
+     * @param $idb int User to be unfriended
+     */
     public function doUnFriend($idb)
     {
         $ida = Session::get('my_user')['id'];
@@ -71,10 +72,13 @@ class friends extends Controller
             header('Location: ' . URL . 'wall?u=' . $idb . '&unFriend=1');
         else {
             $this->view->error = 'Uhm, it would seem you were never friends to begin with. Maybe try being friends with them first before kicking them to the curb.';
-            //TODO: Error for this
         }
     }
 
+    /**
+     * Confirms a friend request with the given user
+     * @param $ida int ID of friend to confirm request with
+     */
     public function doConfirmFriend($ida)
     {
         $idb = Session::get('my_user')['id'];
@@ -83,8 +87,6 @@ class friends extends Controller
         else {
             $this->view->error = 'Seems that we weren\'t able to add that person as your friend.
                                     Maybe you two are already friends?';
-            echo 'derp';
-            echo $this->model->getError();
         }
     }
 }
