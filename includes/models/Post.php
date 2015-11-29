@@ -47,10 +47,8 @@ class _Post extends Model
 
     private function setAll($array)
     {
-        if (array_key_exists('post_id',$array))
-            $this->post_id = $array['post_id'];
-        else
-            $this->post_id = $array[$this->g_.'post_id'];
+            $this->post_id = $array[$this->g_ . 'post_id'];
+
         //WILL BE USED FOR WALL LINKS
         $this->post_by = $array['post_by'];
         $this->post_to = $array['post_to'];
