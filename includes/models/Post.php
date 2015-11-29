@@ -27,16 +27,16 @@ class _Post extends Model
         if (is_array($temp) && array_key_exists('post_id', $temp)) { //less querying the server (used by user)
             $this->setAll($temp);
         } elseif (is_array($temp)) {  //if array and no damn id then its prob a new post
-            $this->db->insert($this->g_ . 'post', [
-                    'post_by' => $temp['from'],
-                    'post_to' => $temp['to'],
-                    'text' => $temp['text'],
-                    'image_attachment' => $temp['image'],
-                    'parent_id' => $temp['parent']
-                ] + (isset($_GET['g']) ? ['group_id' => $temp['group']] : [])); //Hacky solution to adding group key
+            $this->db->insert($this->g_.'post', [
+                'post_by' => $temp['from'],
+                'post_to' => $temp['to'],
+                'text' => $temp['text'],
+                'image_attachment' => $temp['image'],
+                'parent_id' => $temp['parent']
+            ] + (isset($_GET['g']) ? ['group_id' => $temp['group']] : [])); //Hacky solution to adding group key
         } elseif (isset($temp)) { //it's an id and you should fetch me the post
 
-            $sql = 'SELECT * FROM' . $this->g_ . 'post WHERE ' . $this->g_ . 'post_id = :id';
+            $sql = 'SELECT * FROM '. $this->g_. 'post WHERE '. $this->g_. 'post_id = :id';
             $st = $this->db->select($sql, array(
                 ':id' => $temp));
             if (count($st) > 0)
@@ -47,7 +47,10 @@ class _Post extends Model
 
     private function setAll($array)
     {
-        $this->post_id = $array[$this->g_ . 'post_id'];
+        if (array_key_exists('post_id',$array))
+            $this->post_id = $array['post_id'];
+        else
+            $this->post_id = $array[$this->g_.'post_id'];
 
         //WILL BE USED FOR WALL LINKS
         $this->post_by = $array['post_by'];
@@ -84,21 +87,22 @@ class _Post extends Model
     //Grabs all comments pertaining to this post
     public function setComments()
     {
-        $st = $this->db->select('SELECT * FROM' . $this->g_ . 'post WHERE parent_id = :id', array(
+        $st = $this->db->select('SELECT * FROM '.$this->g_.'post WHERE parent_id = :id', array(
             ':id' => $this->post_id));
         if (count($st) > 0) {
-            $_POST['is_group'] = 1;
+
             foreach ($st as $post) {
-                $this->comments[] = new self($post[$this->g_ . 'post_id']);
+                if (isset($this->group_id))
+                    $_POST['is_group'] = 1;
+                $this->comments[] = new self($post[$this->g_.'post_id']);
+                unset($_POST['is_group']);
             }
         }
     }
 
     //Grabs all comments pertaining to this post
     public function setResponses()
-    {
-        /** @noinspection PhpIncludeInspection */
-        require_once PATH . 'models/Response.php';
+    {   require_once PATH . 'models/Response.php';
 
         $st = $this->db->select('SELECT * FROM post_likes WHERE post_id = :id', array(
             ':id' => $this->post_id));
@@ -196,7 +200,7 @@ class _Post extends Model
          * @var _Response $response
          */
         $count = 0;
-        if (is_array($this->responses))
+        if(is_array($this->responses))
             foreach ($this->responses as $response) {
                 if (strcmp($response->getType(), $type) === 0) {
                     $count++;
@@ -214,7 +218,7 @@ class _Post extends Model
         /**
          * @var _Response $response
          */
-        if (is_array($this->responses))
+        if(is_array($this->responses))
             foreach ($this->responses as $response) {
                 if (strcmp($response->getUid(), Session::get('my_user')['id']) === 0 &&
                     strcmp($response->getType(), $type) === 0
