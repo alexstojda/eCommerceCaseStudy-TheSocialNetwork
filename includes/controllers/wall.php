@@ -86,6 +86,9 @@ class wall extends postsContainer
         $this->view->render('wall/edit');
     }
 
+    /**
+     * Does what the function's name suggests
+     */
     public function deleteMyAccountAndAllAssociatedData() {
         $uid = Session::get('my_user')['id'];
         $pass = $_POST['deletePassword'];
