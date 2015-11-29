@@ -23,6 +23,7 @@ class pokes extends Controller
     public function __construct()
     {
         parent::__construct();
+        self::checkMember();
     }
 
     public function index()

@@ -43,7 +43,7 @@ class _Pokes extends Model
                                       poke_time
                                     FROM pokes
                                       INNER JOIN users u1 ON pokes.poked_by = u1.user_id
-                                    WHERE poked = 2
+                                    WHERE poked = :id
                                     GROUP BY poked DESC
                                     ORDER BY poke_time DESC;",
             array(':id' => $uid)
