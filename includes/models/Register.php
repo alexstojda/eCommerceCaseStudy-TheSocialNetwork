@@ -17,26 +17,49 @@ class _Register extends Model
         parent::__construct();
     }
 
+    /**
+     * Gets a list of countries and associated data
+     * @return array of country data from the Countries database table
+     */
     public function getCountries()
     {
         return $this->db->select("SELECT * FROM countries");
     }
 
+    /**
+     * Returns and array of the recognized genders from the database
+     * @return array Array of genders and their IDs
+     */
     public function getGenders()
     {
         return $this->db->select('SELECT * FROM gender');
     }
 
+    /**
+     * Returns the name of the country with the given ID
+     * @param $id int Country ID
+     * @return string the country name
+     */
     public function getCountry($id)
     {
         return $this->db->select('SELECT country_name FROM countries WHERE country_ISO_ID = :id', array(':id' => $id))[0]['country_name'];
     }
 
+    /**
+     * Gets the name of the given gender ID
+     * @param $id int Gender ID
+     * @return string the Name of the gender
+     */
     public function getGender($id)
     {
         return $this->db->select('SELECT gender_desc FROM gender WHERE gender_id = :id', array(':id' => $id))[0]['gender_desc'];
     }
 
+    /**
+     * Verifies the given username isn't taken
+     * @param $username string username to be validated
+     * @return bool True if available, false otherwise
+     */
     public function validateUsername($username)
     {
         $res = $this->db->select('SELECT user_id FROM users WHERE username = :username',
@@ -48,6 +71,11 @@ class _Register extends Model
         }
     }
 
+    /**
+     * Validates the country ID
+     * @param $ISOid int Country ID to be validated
+     * @return bool True if valid, false otherwise
+     */
     public function validateCountry($ISOid)
     {
         $res = $this->db->select('SELECT country_ISO_ID FROM countries WHERE country_ISO_ID = :id',
@@ -59,6 +87,11 @@ class _Register extends Model
         }
     }
 
+    /**
+     * Validates the genderID
+     * @param $genderID int genderID
+     * @return bool
+     */
     public function validateGender($genderID)
     {
         $res = $this->db->select('SELECT gender_id FROM gender WHERE gender_id = :id',
@@ -70,6 +103,11 @@ class _Register extends Model
         }
     }
 
+    /**
+     * Checks if the email already exists in the database
+     * @param $email string Email to be validated
+     * @return bool True if valid, False otherwise
+     */
     public function validateEmail($email)
     {
         $res = $this->db->select('SELECT email FROM users WHERE email= :id',
@@ -81,12 +119,23 @@ class _Register extends Model
         }
     }
 
+    /**
+     * Creates a new user in the database
+     * @param $user Array Array of the user's information, indexed by column name
+     * @return bool True if successful, False otherwise
+     */
     public function insertUser($user)
     {
         $user['password'] = Hash::create('sha256', $user['password'], HASH_PW_KEY);
         return $this->db->insert('users', $user);
     }
 
+    /**
+     * Updates the user's data in the database
+     * @param $user Array Array of the user's information, indexed by column name
+     * @param $uid int ID of the user to be updated
+     * @return bool True if successful, False otherwise
+     */
     public function updateUser($user, $uid)
     {
         $user['password'] = Hash::create('sha256', $user['password'], HASH_PW_KEY);
@@ -94,7 +143,14 @@ class _Register extends Model
         return $this->db->update('users', $user, "user_id = $uid");
     }
 
-    public function deleteAccount($uid, $pass) {
+    /**
+     * Deletes the given account if the password is valid
+     * @param $uid int ID of user to delete
+     * @param $pass string password of user to delete
+     * @return int rows affected in the database
+     */
+    public function deleteAccount($uid, $pass)
+    {
         $pass = Hash::create('sha256', $pass, HASH_PW_KEY);
         return $this->db->delete('users', "`user_id` = $uid AND `password` = $pass");
     }

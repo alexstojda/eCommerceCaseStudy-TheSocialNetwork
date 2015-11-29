@@ -15,6 +15,10 @@ class _Groups extends Model
         parent::__construct();
     }
 
+    /**
+     * Sets all the group's information so that it may be accessed by the view
+     * @param $group int id of group needed to intialized
+     */
     public function init($group)
     {
         /**
@@ -56,11 +60,17 @@ class _Groups extends Model
 
     }
 
+    /**
+     * uses information from the $_GET and updates the group in the database
+     */
     public function updateGroup()
     {
         $this->db->update('groups', ['privacy' => $_POST['privacy'], 'description' => $_POST['description']], 'group_id = ' . $_POST['g']);
     }
 
+    /**
+     * uses information from the $_GET and updates the member's power in the database
+     */
     public function makeAdmin()
     {
         $this->db->update('group_members', ['user_status' => 'admin'], 'user_id = ' . $_POST['admin_id'] . ' AND group_id = ' . $_GET['g']);

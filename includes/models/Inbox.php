@@ -17,6 +17,12 @@ class _Inbox extends Model
         parent::__construct();
     }
 
+    /**
+     * Gets all the messages sent between two users in reverse chronological order
+     * @param $IDa Int User_ID of the first person in the conversation
+     * @param $IDb Int User_ID of the second person in the conversation
+     * @return array An array of messages sent between $IDa and $IDb in reverse chronological order
+     */
     public function getMessages($IDa, $IDb)
     {
         $query = "SELECT CONCAT(u1.`first_name`, ' ', u1.`last_name`) AS from_user,
@@ -43,44 +49,69 @@ class _Inbox extends Model
             array(':ida' => $IDa, ':idb' => $IDb));
     }
 
+    /**
+     * Gets a list of the conversations received by the given ID
+     * @param $uid int The ID of the user receiving the conversations
+     * @return array Array of the conversations
+     */
     public function getReceivedConversations($uid)
     {
-        $query = "SELECT *
-                    FROM (
-                          SELECT `from_user_id`, u1.`first_name`, u1.`last_name`, `message`, `message_id`
-                            FROM `messages`
-                                  INNER JOIN `users` u1 ON u1.`user_id`=`messages`.`from_user_id`
-                           WHERE `from_user_id` IN
-		                         (SELECT DISTINCT `from_user_id`
-                                    FROM `messages`
-                                   WHERE `to_user_id` = :id)
-    				       ORDER BY message_id DESC
-    				       ) AS res
-                    GROUP BY from_user_id ASC
-                    ORDER BY res.message_id";
+        $query = "SELECT
+                      `from_user_id`,
+                      u1.`first_name`,
+                      u1.`last_name`,
+                      `message`,
+                      `message_id`
+                    FROM messages
+                      INNER JOIN users u1 ON u1.user_id = messages.from_user_id
+                    WHERE message_id IN
+                          (SELECT Max(message_id)
+                           FROM messages
+                           WHERE to_user_id = 2
+                           GROUP BY from_user_id)";
         return $this->db->select($query, array(':id' => $uid));
     }
 
+    /**
+     * Gets a list of the conversations sent by the given ID
+     * @param $uid int the ID of the user sending the conversations
+     * @return Array Array of the conversations
+     */
     public function getSentConversations($uid)
     {
-        $query = "SELECT *
-                    FROM (
-                          SELECT `to_user_id`, u1.`first_name`, u1.`last_name`, `message`, `message_id`
-                            FROM `messages`
-                                  INNER JOIN `users` u1 ON u1.`user_id`=`messages`.`to_user_id`
-                           WHERE `from_user_id` = :id
-    				       ORDER BY message_id DESC
-    				       ) AS res
-                    GROUP BY to_user_id ASC
-                    ORDER BY res.message_id";
+        $query = "SELECT
+                      `to_user_id`,
+                      u1.`first_name`,
+                      u1.`last_name`,
+                      `message`,
+                      `message_id`
+                    FROM messages
+                      INNER JOIN users u1 ON u1.user_id = messages.to_user_id
+                    WHERE message_id IN
+                          (SELECT Max(message_id)
+                           FROM messages
+                           WHERE from_user_id = 2
+                           GROUP BY to_user_id)";
         return $this->db->select($query, array(':id' => $uid));
     }
 
+    /**
+     * Gets the name of the userID
+     * @param $uid Int ID of the user
+     * @return Array indexed with 'first_name' and 'last_name'
+     */
     public function getName($uid)
     {
         return $this->db->select("SELECT first_name, last_name FROM users WHERE user_id = :id", array(':id' => $uid));
     }
 
+    /**
+     * Sends new $message from $from to $to returns true if successful
+     * @param $from int the ID of the user sending the message
+     * @param $to int the ID of the user received the message
+     * @param $message string the Content of the message
+     * @return bool True if successful, False otherwise.
+     */
     public function newMessage($from, $to, $message)
     {
         return $this->db->insert('messages', array('from_user_id' => $from, 'to_user_id' => $to, 'message' => $message));

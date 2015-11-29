@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * Class _Friends
+ */
 class _Friends extends Model
 {
 
@@ -11,6 +14,11 @@ class _Friends extends Model
         parent::__construct();
     }
 
+    /**
+     * Gets a list of friends belonging to the given ID, indexed by database column name
+     * @param $uid int the ID to retrieve friends of
+     * @return Array Array of the user's friends
+     */
     public function getFriends($uid)
     {
         return $this->db->select('SELECT
@@ -32,6 +40,11 @@ class _Friends extends Model
                                    WHERE friends.user_id_a = :id;', array(':id' => $uid));
     }
 
+    /**
+     * @param $id_from
+     * @param $id_to
+     * @return bool
+     */
     public function addNewFriend($id_from, $id_to)
     {
         if (!$this->areFriends($id_from, $id_to))
@@ -62,6 +75,12 @@ class _Friends extends Model
             return 3;
     }
 
+    /**
+     * Confirms the friendship between $id_from and $id_to by setting the timestamp to the current time
+     * @param $id_from int ID of person confirming the friendship
+     * @param $id_to int ID of person being confirmed as a friend
+     * @return bool True if the friendship is successfully confirmed, false otherwise
+     */
     public function confirmFriend($id_from, $id_to)
     {
         $today = new DateTime('now');
@@ -70,6 +89,12 @@ class _Friends extends Model
             "(user_id_a = $id_from AND user_id_b = $id_to) OR (user_id_b = $id_from AND user_id_a = $id_to)");
     }
 
+    /**
+     * Unfriends the two given IDs
+     * @param $id_from int User sending the unfriend request
+     * @param $id_to int User being unfriended
+     * @return int rows affected
+     */
     public function unFriend($id_from, $id_to)
     {
         return $this->db->delete('friends',

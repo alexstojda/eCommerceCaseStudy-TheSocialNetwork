@@ -221,7 +221,10 @@ class _Post extends Model
         if(is_array($this->responses))
             foreach ($this->responses as $response) {
                 if (strcmp($response->getUid(), Session::get('my_user')['id']) === 0 &&
-                    strcmp($response->getType(), $type) === 0)     {   return true;   }
+                    strcmp($response->getType(), $type) === 0
+                ) {
+                    return true;
+                }
             }
         return false;
     }
