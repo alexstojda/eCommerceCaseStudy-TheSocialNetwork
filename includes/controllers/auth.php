@@ -107,6 +107,9 @@ class auth extends Controller
         $this->view->render('auth/recover');
     }
 
+    /**
+     * Executes a reset request using values from POST
+     */
     public function doReset()
     {
         $key = $_GET['key'];
@@ -127,9 +130,13 @@ class auth extends Controller
         }
     }
 
+    /**
+     * Executes the password reset using the new password from post
+     */
     public function execReset()
     {
         $newPassword = null;
+        //Verifies that the new password is valid and both fields match
         if (preg_match('/^([A-z]|\d){6,16}$/', $_POST['password']) === 1) {
             if ($_POST['password'] == $_POST['confPassword'])
                 $newPassword = $_POST['password'];
@@ -144,6 +151,7 @@ class auth extends Controller
             $this->view->render('auth/recover');
         }
 
+        //If the new password is valid, then reset it
         if (isset($newPassword)) {
             /** @var _Recovery $model */
             $model = $this->getModel('Recovery');
@@ -158,10 +166,10 @@ class auth extends Controller
 
             } else {
                 $this->view->alerts[] = ["Something seems to have gone wrong. Return to your email and try the link again", 'danger'];
+                $this->view->uid = '';
+                $this->view->key = '';
                 $this->view->render('auth/passwordreset');
             }
-
-
         }
     }
 }
