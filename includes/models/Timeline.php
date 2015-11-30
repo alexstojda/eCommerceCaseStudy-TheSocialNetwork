@@ -39,7 +39,7 @@ class _Timeline extends Model
      * @param int $quantity to get
      * @return array of posts
      */
-    public function getPosts($offset = 0, $quantity = 4)
+    public function getPosts($offset = 0, $quantity = 10) //loads default amount of posts here
     {
         //GIANT ASS QUERY FOR OWN, FRIEND & GROUP POSTS...
         $st = $this->db->select('    SELECT post_id          AS post_id,

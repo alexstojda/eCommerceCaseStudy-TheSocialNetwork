@@ -58,7 +58,7 @@ class _Groups extends Model
      * @param int $quantity to get
      * @return array of posts
      */
-    public function getPosts($offset = 0, $quantity = 4)
+    public function getPosts($offset = 0, $quantity = 10) //loads default amount of posts here
     {
         //RETRIEVE ALL POSTS IDS
         $st = $this->db->select('SELECT * FROM group_post WHERE group_id = :id AND isnull(parent_id) ORDER BY creation_date DESC LIMIT ' .

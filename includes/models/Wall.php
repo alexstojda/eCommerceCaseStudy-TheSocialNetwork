@@ -71,7 +71,7 @@ class _Wall extends Model
      * @param int $quantity to get
      * @return array of posts
      */
-    public function getPosts($offset = 0, $quantity = 4)
+    public function getPosts($offset = 0, $quantity = 10)  //loads default amount of posts here
     {
         $st = $this->db->select('SELECT * FROM post WHERE post_to = :id AND isnull(parent_id) ORDER BY creation_date DESC LIMIT ' .
             $offset . ',' . $quantity, [':id' => $this->user->getID()]);
