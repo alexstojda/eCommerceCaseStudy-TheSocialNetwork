@@ -72,7 +72,7 @@ class _Timeline extends Model
                                         FROM group_post
                                        WHERE group_id IN (SELECT group_id
                                                             FROM group_members
-                                                           WHERE user_id = 2)
+                                                           WHERE user_id = :id)
                                          AND isnull(parent_id))
                                     ORDER BY creation_date DESC LIMIT ' .
             $offset . ',' . $quantity, [':id' => $this->user->getID()]);
