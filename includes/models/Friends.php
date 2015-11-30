@@ -21,23 +21,29 @@ class _Friends extends Model
      */
     public function getFriends($uid)
     {
-        return $this->db->select('SELECT
+        return $this->db->select("SELECT
                                       users.first_name,
                                       users.last_name,
+                                      CONCAT(users.city,CONCAT(', ', users.province)) as location,
+                                      users.profile_picture,
                                       friends.user_id_a AS uid,
                                       friends.created_date
                                     FROM friends
-                                         INNER JOIN users ON users.user_id = friends.user_id_a
-                                   WHERE friends.user_id_b = :id
-                                  UNION
-                                  SELECT
+                                      INNER JOIN users ON users.user_id = friends.user_id_a
+                                    WHERE friends.user_id_b = :id
+                                    UNION
+                                    SELECT
                                       users.first_name,
                                       users.last_name,
+                                      CONCAT(users.city,CONCAT(', ', users.province)) as location,
+                                      users.profile_picture,
                                       friends.user_id_b AS uid,
                                       friends.created_date
                                     FROM friends
-                                         INNER JOIN users ON users.user_id = friends.user_id_b
-                                   WHERE friends.user_id_a = :id;', array(':id' => $uid));
+                                      INNER JOIN users ON users.user_id = friends.user_id_b
+                                    WHERE friends.user_id_a = :id",
+            array(':id' => $uid)
+        );
     }
 
     /**
@@ -63,8 +69,15 @@ class _Friends extends Model
      */
     public function areFriends($ida, $idb)
     {
-        $res = $this->db->select('SELECT * FROM friends WHERE (user_id_a = :ida AND user_id_b = :idb) OR (user_id_a = :idb AND user_id_b = :ida)',
-            array('ida' => $ida, ':idb' => $idb));
+        $res = $this->db->select('SELECT *
+                                    FROM friends
+                                    WHERE
+                                      (user_id_a = :ida AND user_id_b = :idb)
+                                    OR
+                                      (user_id_a = :idb AND user_id_b = :ida)',
+            array('ida' => $ida, ':idb' => $idb)
+        );
+
         if (count($res) == 0)
             return 0;
         else if ($res[0]['created_date'] == null && $res[0]['user_id_b'] == $ida)
