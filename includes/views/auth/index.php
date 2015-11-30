@@ -18,12 +18,11 @@
                    autocomplete="off">
         </div>
 
-        <div class="checkbox">
-            <label>
-                <input type="checkbox" name="remember" id="remember" value="remember-me"> Remember me
-            </label>
+        <div class="checkbox input-group">
+            <span class="input-group-addon"> </span>
+                <input type="checkbox" name="inputRemember" id="inputRemember">Remember Me
         </div>
         <button class="btn btn-lg btn-primary btn-block" type="submit">Log In</button>
-        <a href="<?= URL . 'auth/recover' ?>">Forgot your password?</a>
     </form>
+    <a href="<?= URL . 'auth/recover' ?>">Forgot your password?</a>
 </div>
