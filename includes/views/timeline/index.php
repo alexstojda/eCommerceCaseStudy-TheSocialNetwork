@@ -43,6 +43,9 @@
                 <a href="<?= URL . 'groups' ?>" class="list-group-item">
                     Groups
                 </a>
+                <a href="<?= URL . 'pokes' ?>" class="list-group-item">
+                    Pokes
+                </a>
                 <a href="<?= URL . 'wall' ?>" class="list-group-item">
                     My profile
                 </a>
@@ -50,28 +53,3 @@
         </div>
     </div>
 </div>
-
-<!-- fixing slow page loads by limiting post loading... -->
-<script type="text/javascript">
-     var start = <?= count($this->posts)?>;
-     $(window).scroll(function(){
-        if  ($(window).scrollTop() == $(document).height() - $(window).height()) {
-            loadMore(start);
-        }
-     });
-
-     function loadMore(increase) {
-         $.ajax({
-             url: '<?=URL.(ltrim($_GET['url'],'public/'))?>/loadPosts',
-             type: 'POST',
-             data: {'u'    : <?=(isset($_GET['u']) ? $_GET['u'] : Session::get('my_user')['id'])?>,
-                 'off'  : start,
-                 'quantity' : increase
-             }, // An object with the key 'submit' and value 'true;
-             success: function (result) {
-                 $("#posts").append(result);
-                 start += increase;
-             }
-        });
-     }
-</script>

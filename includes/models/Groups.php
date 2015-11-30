@@ -33,9 +33,10 @@ class _Groups extends Model
         ))[0];
 
         if (!empty($temp)) {
-            $this->setName($temp['name']);
-            $this->setDescription($temp['description']);
-            $this->setPrivacy($temp['privacy']);
+            $this->group_id    = $group;
+            $this->name        = $temp['name'];
+            $this->description = $temp['description'];
+            $this->privacy     = $temp['privacy'];
             /**
              * gets the members of the group
              */
@@ -46,23 +47,21 @@ class _Groups extends Model
                                             WHERE groups.group_id =:to', array(
                 ':to' => $group
             ));
-
             $this->members = $membersTemp;
-           /**
-            * RETRIEVE ALL POSTS
-            */
-             $st = $this->db->select('SELECT * FROM group_post WHERE group_id = :to AND isnull(parent_id) ORDER BY creation_date DESC', array(
-                ':to' => $group
-            ));
 
-            if (count($st) > 0) {
-                $this->posts = $st;
-            } else { //no posts on wall ;(
-                echo 'Sucks to suck, ' . $this->getName();
-            }
         }
-
     }
+
+    public function getPosts($offset = 0, $quantity = 4)
+    {
+        //RETRIEVE ALL POSTS IDS
+        $st = $this->db->select('SELECT * FROM group_post WHERE group_id = :id AND isnull(parent_id) ORDER BY creation_date DESC LIMIT ' .
+            $offset . ',' . $quantity, [':id' => $this->group_id]);
+        if (count($st) > 0)
+            $this->posts = $st;
+        return $this->posts;
+    }
+
 
     /**
      * uses information from the $_GET and updates the group in the database
@@ -195,11 +194,6 @@ class _Groups extends Model
     public function getDescription()
     {
         return $this->description;
-    }
-
-    public function getPosts()
-    {
-        return $this->posts;
     }
 
     //Setters

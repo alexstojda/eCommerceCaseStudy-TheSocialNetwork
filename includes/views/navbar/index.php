@@ -48,6 +48,7 @@
                             <li><a href="<?= URL ?>wall">My Pokes</a></li>
                             <li><a href="<?= URL ?>friends">My Friends</a></li>
                             <li><a href="<?= URL ?>groups">My Groups</a></li>
+                            <li><a href="<?= URL ?>pokes">My Pokes</a></li>
                             <li role="separator" class="divider"></li>
                             <li><a href="<?= URL ?>wall/edit">Manage Account</a></li>
                             <li role="separator" class="divider"></li>

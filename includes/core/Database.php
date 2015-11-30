@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Class Database
+ * Wrapper for PDO with our own methods for easier database actions
+ */
 class Database extends PDO
 {
 
@@ -83,7 +87,6 @@ class Database extends PDO
 
     /**
      * delete
-     *
      * @param string $table
      * @param string $where
      * @param integer $limit

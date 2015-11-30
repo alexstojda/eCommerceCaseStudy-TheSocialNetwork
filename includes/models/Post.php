@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Class _Post
+ *
+ * This is the model used for anything post related and supports normal & group posts.
+ * Also contains both comment (array of posts) and responses (array of like/unlikes)
+ */
 class _Post extends Model
 {
     private $post_id;
@@ -24,7 +30,7 @@ class _Post extends Model
             $this->g_ = 'group_';
         }
 
-        if (is_array($temp) && array_key_exists('post_id', $temp)) { //less querying the server (used by user)
+        if (is_array($temp) && array_key_exists($this->g_.'post_id', $temp)) { //less querying the server (used by user)
             $this->setAll($temp);
         } elseif (is_array($temp)) {  //if array and no damn id then its prob a new post
             $this->db->insert($this->g_.'post', [
@@ -45,14 +51,19 @@ class _Post extends Model
         //header('Location: ../timeline');
     }
 
+    /**
+     * initializes parameters based on an array
+     * @param $array contains all post information
+     */
     private function setAll($array)
     {
+        //grabbing id regardless of it being group post or otherwise.
         if (array_key_exists('post_id',$array))
             $this->post_id = $array['post_id'];
         else
             $this->post_id = $array[$this->g_.'post_id'];
 
-        //WILL BE USED FOR WALL LINKS
+        //WILL BE USED FOR USER WALL LINKS
         $this->post_by = $array['post_by'];
         $this->post_to = $array['post_to'];
 
@@ -84,7 +95,9 @@ class _Post extends Model
         ))[0]['profile_picture'];
     }
 
-    //Grabs all comments pertaining to this post
+    /**
+     * Grabs all comments pertaining to this post
+     */
     public function setComments()
     {
         $st = $this->db->select('SELECT * FROM '.$this->g_.'post WHERE parent_id = :id', array(
@@ -100,14 +113,17 @@ class _Post extends Model
         }
     }
 
-    //Grabs all comments pertaining to this post
+    /**
+     * Grabs all responses pertaining to this post
+     * currently like/unlike
+     */
     public function setResponses()
-    {   require_once PATH . 'models/Response.php';
+    {   require_once PATH . 'models/Response.php'; //because autoload magic method doesn't load up models.
 
-        $st = $this->db->select('SELECT * FROM post_likes WHERE post_id = :id', array(
+        $st = $this->db->select('SELECT user_id,'.$this->g_.'post_id as \'post_id\',response FROM '.$this->g_.'post_likes WHERE '.$this->g_.'post_id = :id', array(
             ':id' => $this->post_id));
         if (count($st) > 0) {
-            foreach ($st as $response) {
+            foreach ($st as $response) { //get the type text from response_type table
                 $response['response'] = $this->db->select('SELECT description FROM response_type WHERE response_id = :id', array(
                     ':id' => $response['response']))[0]['description'];
                 $this->responses[] = new _Response($response);
@@ -115,6 +131,9 @@ class _Post extends Model
         }
     }
 
+    /**
+     * Deletes the current post from db
+     */
     public function deletePost()
     {
         (isset($_POST['is_group']) ? $g_ = 'group_' : $g_ = '');

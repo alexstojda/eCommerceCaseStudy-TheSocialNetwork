@@ -1,8 +1,8 @@
 <?php
-//Exists to avoid redundant code between wall & timeline TODO@Alex Too different.. only useful thing would be the loadPosts If I have time on weekend ;add group walls to this...;
 /**
  * @property Model model
  * @property string load
+ * Exists to avoid redundant code between wall & timeline
  */
 abstract class postsContainer extends Controller
 {
@@ -11,24 +11,32 @@ abstract class postsContainer extends Controller
         parent::__construct();
     }
 
-    public function init($uid)
+    public function init($id)
     {
         //TODO@Alex Timeline/Wall Models. Can't really specify cos it has to be able to call it for both. Since it's loaded dynamically inspector no happy.
-        $this->model->init($this->getModel('User', $uid));
+        if (isset($_GET['g']))
+            $this->model->init($id);
+        else
+            $this->model->init($this->getModel('User', $id));
 
         //GET POSTS FROM MODEL
         $this->load = 'all';
         $this->loadPosts();
     }
 
-
+    /**
+     * AJAX ready, calls model's get posts to well get sum more posts....
+     */
     public function loadPosts()
     {
         $offset = 0;
         $quantity = 0;
         if (isset($_SERVER['HTTP_X_REQUESTED_WITH'])) {//if ajax
-            if (isset($_POST['u']))
+            if (isset($_POST['g']))
+                $this->model->init($_POST['g']);
+            elseif (isset($_POST['u']))
                 $this->model->init($this->getModel('User', $_POST['u']));
+
 
             if (isset($_POST['off']))
                 $offset = (int)$_POST['off'];

@@ -7,7 +7,7 @@
  * Time: 7:57 PM
  * @property _Groups model
  */
-class groups extends Controller
+class groups extends postsContainer
 {
     /**
      * groups constructor.

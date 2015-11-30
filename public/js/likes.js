@@ -1,4 +1,5 @@
-function getR(type, post_id) {
+//Some good ajax to deal with them likes
+function getR(type, post_id, group) {
     var set = 1;
     if($('#' + type + post_id).hasClass('rep')) {
         set = 0;
@@ -7,9 +8,10 @@ function getR(type, post_id) {
         url: 'http://devbana.tk/post/newResponse',
         type: 'POST',
         data: {
-            'post_id': post_id,
-            'rep'    : type,
-            'set'    : set
+            'post_id' : post_id,
+            'rep'     : type,
+            'set'     : set,
+            'is_group': group
         },
         success: function (result) { //TODO: not hardcode... json_encode
             $("[id*=" + post_id + "]").removeClass('rep');

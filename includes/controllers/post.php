@@ -1,6 +1,7 @@
 <?php
 
 /**
+ * Post controller for doing post things (make, delete, respond to post, comment on post, etc.)
  * @property _Post model
  */
 class post extends Controller
@@ -12,6 +13,10 @@ class post extends Controller
         self::checkMember();
     }
 
+    /**
+     * TESTING POST + AJAX
+     * Gets a specific post for you based on post_id
+     */
     public function index()
     { //TODO Implement privacy
         if (isset($_GET['id'])) {
@@ -22,6 +27,9 @@ class post extends Controller
         }
     }
 
+    /**
+     * Deletes a post for yah
+     */
     public function deletePost()
     {
         if (isset($_POST['postID'])) {
@@ -35,6 +43,9 @@ class post extends Controller
         }
     }
 
+    /**
+     * Adds a post for yah
+     */
     public function doPost()
     {
         if (isset($_POST['post'])) {
@@ -64,7 +75,12 @@ class post extends Controller
         }
     }
 
-    //Trying to make things expandable here god damn it.....
+
+    /**
+     * Send a reaction via POST and we'll take care of it for yah
+     *
+     * Trying to make things expandable here god damn it.....
+     */
     public function newResponse() {
         if(isset($_POST['post_id'],$_POST['rep'])) {
             $this->loadModel('Response',[
@@ -86,6 +102,9 @@ class post extends Controller
         }
     }
 
+    /**
+     * Gets the current count of the specified response (only via $_POST)
+     */
     public function getResponse() {
         if(isset($_POST['post_id'],$_POST['rep'])) {
             $this->loadModel('Post',$_POST['post_id']);

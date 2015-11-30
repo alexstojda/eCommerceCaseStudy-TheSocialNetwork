@@ -1,6 +1,6 @@
 <div class="panel panel-default " xmlns="http://www.w3.org/1999/html">
     <div class="panel-heading">
-        <?php   /** @var _Post post */
+        <?php   /** @var _Post post */ //Evan's thing for deleting posts... Pretty scary looking eh?
         if ((strcmp($_GET['url'], 'public/timeline') !== 0)&& ((isset($sessionUser) && $sessionUser !== 3) || (strcmp(Session::get('my_user')['id'], $this->post->getPostBy()) === 0) || (isset($_GET['u']) && (strcmp(Session::get('my_user')['id'], $_GET['u']) === 0)))) {
             echo '<form  action="' . URL . 'post/deletePost" method="post" style="display:inline; float:right">
                                                     <button class="close" type="submit" name="postID" value="' . $this->post->getPostID() . '"
@@ -16,7 +16,7 @@
         <a href="#" data-toggle="modal" data-target="#lightbox">
             <img class="media-object thumbnail" src="<?= URL . $this->post->getPostByImg() ?>" alt="..."
                  style="float: left;display: inline-block; height: 4em; margin: 0 8px 0 0;">
-        </a>
+        </a> <!--Get them to / from names -->
         <b><a href="<?= URL . 'wall?u=' . $this->post->getPostBy(); ?>"><?= $this->post->getPostByName(); ?> </a></b>
         <?php if (!isset($_GET['u']) && !isset($_GET['g']) && $this->post->getPostBy() !== $this->post->getPostTo()) { ?>
             <i class="fa fa-chevron-right"></i>
@@ -26,7 +26,7 @@
         <strong><i><?= $this->post->getDate() ?></i></strong>
 
     </div>
-    <div class="media">
+    <div class="media"><!-- The actual msg/picture -->
         <div class="media-body media-right">
             <p><?= $this->post->getPostText() ?></p>
             <?php $img = $this->post->getPostImage();
@@ -39,7 +39,7 @@
     <div class="panel-footer">
         <div class="container-fluid">
             <div class="row">
-                <?php //LOADS ALL COMMENTS
+                <?php //LOADS ALL COMMENTS (is carbon copy from above. sry, its the only way to have 1lvl comments)
                 if ($this->post->getComments() !== null) { /** @var _Post $comment */
                 foreach ($this->post->getComments() as $comment) { ?>
                 <div class="panel panel-collapse">
@@ -77,12 +77,12 @@
 
                             <div class="input-group-btn" aria-hidden="true" style="float: right; display: inline-table;">
                                 <button type="submit" class="btn btn-default" aria-haspopup="true" aria-expanded="false"
-                                        onclick="getR('like',<?=$comment->getPostID()?>)">
+                                        onclick="getR('like',<?=$comment->getPostID()?><?=$comment->getGroup()!==null ? ",1": ''?>)">
                                     <i id="like<?= $comment->getPostID() ?>"
                                        class="fa fa-thumbs-up <?=$comment->isILike('like')?'rep':''?>"> <?= $comment->getCount('like') ?></i>
                                 </button>
                                 <button type="submit" class="btn btn-default" aria-haspopup="true" aria-expanded="false"
-                                        onclick="getR('dislike',<?=$comment->getPostID()?>)">
+                                        onclick="getR('dislike',<?=$comment->getPostID()?><?=$comment->getGroup()!==null ? ",1": ''?>)">
                                     <i id="dislike<?= $comment->getPostID() ?>"
                                        class="fa fa-thumbs-down <?=$comment->isILike('dislike')?'rep':''?>"> <?= $comment->getCount('dislike') ?></i>
                                 </button>
@@ -121,12 +121,12 @@
                     </form>
                     <div class="input-group-btn" align="left" aria-hidden="true">
                         <button type="submit" class="btn btn-default" aria-haspopup="true" aria-expanded="false"
-                                onclick="getR('like',<?=$this->post->getPostID()?>)">
+                                onclick="getR('like',<?=$this->post->getPostID()?><?=$this->post->getGroup()!==null ? ",1": ''?>)">
                             <i id="like<?=$this->post->getPostID()?>"
                                class="fa fa-thumbs-up <?=$this->post->isILike('like')?'rep':''?>"> <?=$this->post->getCount('like')?></i>
                         </button>
                         <button type="submit" class="btn btn-default" aria-haspopup="true" aria-expanded="false"
-                                onclick="getR('dislike',<?=$this->post->getPostID()?>)">
+                                onclick="getR('dislike',<?=$this->post->getPostID()?><?=$this->post->getGroup()!==null ? ",1": ''?>)">
                             <i id="dislike<?=$this->post->getPostID()?>"
                                class="fa fa-thumbs-down <?=$this->post->isILike('dislike')?'rep':''?>"> <?=$this->post->getCount('dislike')?></i>
                         </button>

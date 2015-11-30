@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Class Hash
+ * Used to create a hash for the passwords...
+ */
 class Hash
 {
 

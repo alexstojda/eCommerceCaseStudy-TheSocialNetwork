@@ -30,7 +30,10 @@ abstract class Controller
         }
     }
 
-    //Generate random string for files mainly
+    /**
+     * Generate random string used mainly on file uploads
+     * @param $random_string_length well pretty obvious
+     */
     public static function randomGen($random_string_length)
     {
         $characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -41,7 +44,9 @@ abstract class Controller
         return $string;
     }
 
-
+    /**
+     * the one method that every controller should have
+     */
     abstract public function index();
 
     /**
@@ -93,7 +98,11 @@ abstract class Controller
         return null;
     }
 
-    //Lazy way of making a bootstrap styled alert
+    /**
+     * Lazy way of making a bootstrap styled alert
+     * @param $msg what you want to say
+     * @param string $type type of alert (look on twitter bootstrap alerts section)
+     */
     public static function anAlert($msg, $type = 'warning')
     {
         echo '<div style="margin-left: 10%; margin-right: 10%" class="alert alert-' . $type . ' alert-dismissible" role="alert">'

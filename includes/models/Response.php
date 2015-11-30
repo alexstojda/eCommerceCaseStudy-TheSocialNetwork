@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Class _Response
+ * Model used to contain and operate with response actions such as liking/un-liking
+ */
 class _Response extends Model
 {
     private $post_id;
@@ -23,9 +27,11 @@ class _Response extends Model
             header('Location: ../timeline');
     }
 
-
+    /**
+     * Adds response to appropriate table
+     */
     public function add() {
-        $this->delete(); //Get rid of your other response types on this post. Only one fam
+        $this->delete(); //Get rid of your other response types on this post. Only one reaction allowed, fam
         $response_id = $this->db->select('SELECT response_id FROM response_type WHERE description = :dsc',[
             ':dsc' => $this->type
         ])[0];
@@ -37,7 +43,9 @@ class _Response extends Model
         ]);
     }
 
-    //You want to unlike your like? do this
+    /**
+     * You want to unlike your like? do this
+     */
     public function delete()
     {//Why not specify response type : I call this on every new like thing to unset previous crap. that with ajax should = right counters.
         $this->db->delete($this->g_.'post_likes','user_id = '.$this->user_id.' AND '.$this->g_.'post_id = '.$this->post_id);
