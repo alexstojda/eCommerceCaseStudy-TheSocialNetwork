@@ -15,6 +15,9 @@
         </a>
 
         <?php
+        /**
+         * lists the users found and links to their wall
+         */
             if(isset($this->foundUsers)) {
                 foreach ($this->foundUsers as $person) {
                     echo '<a href="'.URL . 'wall?u=' . $person['user_id']  .'" class="list-group-item">'. $person['first_name']. ' ' . $person['last_name'] . '</a>';
@@ -33,6 +36,9 @@
             Groups Found
         </a>
         <?php
+        /**
+         * lists all groups found and links to their wall
+         */
         if(isset($this->foundGroups)) {
             foreach ($this->foundGroups as $group) {
                 echo '<a href="'.URL . 'groups/group?g=' . $group['group_id']  .'" class="list-group-item">'. $group['name'] . '</a>';

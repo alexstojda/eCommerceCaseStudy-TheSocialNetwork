@@ -176,7 +176,9 @@ class _Groups extends Model
         ));
     }
 
-    //Getters
+    /**
+     * Getters
+     */
     public function getGroup_id()
     {
         return $$this->group_id;
@@ -202,8 +204,9 @@ class _Groups extends Model
         return $this->description;
     }
 
-    //Setters
-
+    /**
+     * Setters
+     */
     public function setName($newThing)
     {
         $this->name = $newThing;

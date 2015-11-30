@@ -17,7 +17,9 @@ class wall extends postsContainer
         self::checkMember();
     }
 
-
+    /**
+     * Sets view and model for a wall page
+     */
     public function index()
     {
         if (isset($_GET['u'])) {

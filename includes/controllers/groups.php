@@ -50,6 +50,9 @@ class groups extends postsContainer
         }
     }
 
+    /**
+     * Removes member from the group
+     */
     public function kick()
     {
 
