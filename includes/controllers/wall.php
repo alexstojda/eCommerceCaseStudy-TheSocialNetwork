@@ -91,14 +91,16 @@ class wall extends postsContainer
     /**
      * Does what the function's name suggests
      */
-    public function deleteMyAccountAndAllAssociatedData() {
+    public function deleteMyAccountAndAllAssociatedData()
+    {
         $uid = Session::get('my_user')['id'];
         $pass = $_POST['deletePassword'];
 
         /** @var _Register $model */
         $model = $this->getModel('Register');
-        if($model->deleteAccount($uid, $pass) > 0){
-            header('Location: '.URL);
+        if ($model->deleteAccount($uid, $pass) > 0) {
+            Session::destroy();
+            header('Location: ' . URL);
         } else {
             $this->view->alerts[] = ['Password incorrect. Account not deleted! YAY :D<br/>I\'m taking you to a safe place now', 'success'];
             header('Refresh: 3; URL=http://devbana.tk/timeline');

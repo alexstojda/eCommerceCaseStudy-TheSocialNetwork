@@ -152,6 +152,7 @@ class _Register extends Model
     public function deleteAccount($uid, $pass)
     {
         $pass = Hash::create('sha256', $pass, HASH_PW_KEY);
-        return $this->db->delete('users', "`user_id` = $uid AND `password` = $pass");
+        $res = $this->db->delete('users', "user_id = $uid AND password = \"$pass\"");
+        return $res;
     }
 }
