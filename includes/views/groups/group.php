@@ -80,7 +80,7 @@ foreach ($this->members as $this->member) {
                 if (isset($sessionUser) && $sessionUser !== 3) {
 
                     echo '<form action="' . URL . 'groups/update"  method="post">';
-                    echo '<button type="submit" name = "member_id" value="' . $this->member['user_id'] . '">Modify Group Information</button>
+                    echo '<button class="btn btn-lg btn-default" type="submit" name = "member_id" value="' . $this->member['user_id'] . '">Modify Group Information</button>
                     <input type="hidden" name="g" value= "' . $_GET['g'] . '""></input></form>';
                 }
                 ?>
