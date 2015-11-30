@@ -87,18 +87,20 @@ foreach ($this->members as $this->member) {
             </div>
         </div>
         <div class="col-xs-10 col-sm-10 col-md-6 col-lg-6">
-            <?php
-            if (isset($this->posts) AND count($this->posts) > 0) {
-                foreach ($this->posts as $this->post) {
-                    /** @noinspection PhpIncludeInspection */
-                    /** @noinspection PhpIncludeInspection */
-                    include PATH . 'views/post/index.php';
-                }
-            } else { ?>
-                <h4 class="bg-warning">
-                    Sorry but it looks like no one posted in your group yet
-                </h4>
-            <?php } ?>
+            <div id="posts">
+                <?php
+                if (isset($this->posts) AND count($this->posts) > 0) {
+                    foreach ($this->posts as $this->post) {
+                        /** @noinspection PhpIncludeInspection */
+                        /** @noinspection PhpIncludeInspection */
+                        include PATH . 'views/post/index.php';
+                    }
+                } else { ?>
+                    <h4 class="bg-warning">
+                        Sorry but it looks like no one posted in your group yet
+                    </h4>
+                <?php } ?>
+            </div>
         </div>
         <div class="jumbotron col-md-3 col-lg-3 col-xs-1 col-sm-1">
             <div class="media">
@@ -120,7 +122,7 @@ foreach ($this->members as $this->member) {
                             if (isset($sessionUser) && $sessionUser === 1) {
                                 echo '<form action="' . URL . 'groups/removeAdmin?g=' . $_GET['g'] . '" method="post">';
                                 echo '<li><a href="' . URL . 'wall?u=' . $this->member['user_id'] . '">' . $this->member['name'] . '</a></li>';
-                                echo '<button type="submit" name="admin_id" value="' . $this->member['user_id'] . '">Remove Admin</button></form>';
+                                echo '<button class="btn btn-default btn-xs" type="submit" name="admin_id" value="' . $this->member['user_id'] . '">Remove Admin</button></form>';
                             } else {
                                 echo '<li><a href="' . URL . 'wall?u=' . $this->member['user_id'] . '">' . $this->member['name'] . ' </a></li>';
                             }

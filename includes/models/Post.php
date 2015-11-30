@@ -30,7 +30,7 @@ class _Post extends Model
             $this->g_ = 'group_';
         }
 
-        if (is_array($temp) && array_key_exists($this->g_.'post_id', $temp)) { //less querying the server (used by user)
+        if (is_array($temp) && (array_key_exists($this->g_.'post_id', $temp) || array_key_exists('post_id', $temp))) { //less querying the server (used by user)
             $this->setAll($temp);
         } elseif (is_array($temp)) {  //if array and no damn id then its prob a new post
             $this->db->insert($this->g_.'post', [

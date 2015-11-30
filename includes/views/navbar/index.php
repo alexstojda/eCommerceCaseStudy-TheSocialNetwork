@@ -45,7 +45,7 @@
                                 style="margin-bottom: auto;display: inline-block; height: 3em">
                             <span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a href="<?= URL ?>wall">My Pokes</a></li>
+                            <li><a href="<?= URL ?>wall">My Wall</a></li>
                             <li><a href="<?= URL ?>friends">My Friends</a></li>
                             <li><a href="<?= URL ?>groups">My Groups</a></li>
                             <li><a href="<?= URL ?>pokes">My Pokes</a></li>
