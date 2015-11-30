@@ -39,7 +39,7 @@
             }
         }
         else
-            echo '<a class="list-group-item">No Users Found</a>';
+            echo '<a class="list-group-item">No Groups Found</a>';
         ?>
     </div>
 </div>
