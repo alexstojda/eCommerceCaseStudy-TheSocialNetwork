@@ -130,19 +130,20 @@ foreach ($this->members as $this->member) {
                     echo '<p class="media-heading">Group Members</p>';
                     if (!empty($normal)) {
                         foreach ($normal as $this->member) {
+                            echo '<div style="display: inline">';
                             if (isset($sessionUser) && $sessionUser !== 3) {
                                 /**
                                  *  outputs list of all other members of the group and links to each wall
                                  */
-                                echo '<form action="' . URL . 'groups/makeAdmin?g=' . $_GET['g'] . '" method="post">';
+                                echo '<form class="form-horizontal" action="' . URL . 'groups/makeAdmin?g=' . $_GET['g'] . '" method="post" style="display: inline">';
                                 echo '<li><a href="' . URL . 'wall?u=' . $this->member['user_id'] . '">' . $this->member['name'] . '</a></li>';
-                                echo '<button class="btn btn-default" type="submit" name = "admin_id" value="' . $this->member['user_id'] . '">Make Admin</button></form>';
-                                echo '<form action="' . URL . 'groups/kick?g=' . $_GET['g'] . '" method="post">';
-                                echo '<button class="btn btn-default" type="submit" name = "member_id" value="' . $this->member['user_id'] . '">kick</button></form>';
+                                echo '<button class="btn btn-default btn-xs" type="submit" name = "admin_id" value="' . $this->member['user_id'] . '">Make Admin</button></form>';
+                                echo '<form class="form-horizontal" action="' . URL . 'groups/kick?g=' . $_GET['g'] . '" method="post" style="display: inline">';
+                                echo '<button class="btn btn-default btn-xs" type="submit" name = "member_id" value="' . $this->member['user_id'] . '">kick</button></form>';
                             } else {
                                 echo '<li><a href="' . URL . 'wall?u=' . $this->member['user_id'] . '">' . $this->member['name'] . '</a></li>';
                             }
-
+                            echo '</div>';
                         }
                     } else
                         echo '<p> No Members </p>';
@@ -150,7 +151,7 @@ foreach ($this->members as $this->member) {
                      * shows option to delete group to the owner
                      */
                     if (isset($sessionUser) && $sessionUser === 1) {
-                        echo '<form action="' . URL . 'groups/delete?g=' . $_GET['g'] . '" method="post">';
+                        echo '<br/><br/><form action="' . URL . 'groups/delete?g=' . $_GET['g'] . '" method="post">';
 
                         echo '<button class="btn btn-default" type="submit" name = "delete_group" >Delete Group</button>';
                         echo '</form>';
@@ -158,14 +159,14 @@ foreach ($this->members as $this->member) {
                          * shows option to leave the group if member or admin
                          */
                     } elseif (isset($sessionUser)) {
-                        echo '<form action="' . URL . 'groups/leave?g=' . $_GET['g'] . '" method="post">';
+                        echo '<br/><br/><form action="' . URL . 'groups/leave?g=' . $_GET['g'] . '" method="post">';
                         echo '<button class="btn btn-default" type="submit"  value="' . $this->member['user_id'] . '" name = "leave_id" >Leave Group</button>';
                         echo '</form>';
                     } else {
                         /**
                          * shows option to join group if not a member
                          */
-                        echo '<form action="' . URL . 'groups/join?g=' . $_GET['g'] . '" method="post">';
+                        echo '<br/><br/><form action="' . URL . 'groups/join?g=' . $_GET['g'] . '" method="post">';
                         echo '<button class="btn btn-default" type="submit"  value="' . Session::get('my_user')['id'] . '" name = "user_id" >Join Group</button>';
                         echo '</form>';
                     } ?>
