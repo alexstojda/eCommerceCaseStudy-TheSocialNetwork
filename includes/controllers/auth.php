@@ -44,7 +44,9 @@ class auth extends Controller
         $this->view->render('auth/index');
     }
 
-    //Attempt to authenticate user credentials
+    /**
+     * Attempt to authenticate user credentials
+     */
     public function doAuth()
     {
         $name = '';
@@ -68,7 +70,9 @@ class auth extends Controller
         }
     }
 
-    //destroy session aka logout
+    /**
+     * destroy session aka logout
+     */
     public function doLogout()
     {
         Session::clear('my_user');
@@ -79,6 +83,9 @@ class auth extends Controller
         exit();
     }
 
+    /**
+     * Send a recovery email when you don't use lastpass and forget passwords
+     */
     public function sendRecovery()
     {
         $email = $_POST['email'];

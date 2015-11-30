@@ -52,6 +52,12 @@ class _Groups extends Model
         }
     }
 
+    /**
+     * Gets the posts from your group (limited cos ajax son)
+     * @param int $offset to start at
+     * @param int $quantity to get
+     * @return array of posts
+     */
     public function getPosts($offset = 0, $quantity = 4)
     {
         //RETRIEVE ALL POSTS IDS

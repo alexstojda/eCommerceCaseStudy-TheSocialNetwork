@@ -1,10 +1,8 @@
 <?php
 
 /**
- * Created by PhpStorm.
- * User: Evan
- * Date: 11/20/2015
- * Time: 4:45 PM
+ * Class _Timeline
+ * Like wall but only posts... and aaallll kinds of posts..
  */
 class _Timeline extends Model
 {
@@ -15,9 +13,6 @@ class _Timeline extends Model
     private $posts;
     private $friends;
 
-    /**
-     * _Timeline constructor.
-     */
     public function __construct()
     {
         parent::__construct();
@@ -38,10 +33,15 @@ class _Timeline extends Model
         $this->user = $user;
     }
 
-
-    public function &getPosts($offset = 0, $quantity = 4)
+    /**
+     * Grabs all posts sent to a specified id
+     * @param int $offset to start at
+     * @param int $quantity to get
+     * @return array of posts
+     */
+    public function getPosts($offset = 0, $quantity = 4)
     {
-
+        //GIANT ASS QUERY FOR OWN, FRIEND & GROUP POSTS...
         $st = $this->db->select('    SELECT post_id          AS post_id,
                                             post_by,
                                             post_to,

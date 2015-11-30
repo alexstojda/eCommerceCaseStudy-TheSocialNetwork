@@ -9,6 +9,11 @@
  */
 class search extends Controller
 {
+    public function __construct()
+    {
+        parent::__construct();
+        self::checkMember();
+    }
     /**
      * Prepares the list of users and groups linked to the search string
      */

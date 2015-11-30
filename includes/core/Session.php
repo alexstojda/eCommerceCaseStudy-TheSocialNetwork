@@ -1,6 +1,9 @@
 <?php
 
-
+/**
+ * Class Session
+ * Wrapper for all session things because laziness is an asset
+ */
 class Session
 {
     public static function init()

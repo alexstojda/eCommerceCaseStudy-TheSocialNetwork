@@ -1,7 +1,9 @@
 <?php
 
 /**
+ * Class _Wall
  * @property _User wallUser
+ * Model for all wall things, mostly posts right now
  */
 class _Wall extends Model
 {
@@ -63,9 +65,14 @@ class _Wall extends Model
         */
     }
 
+    /**
+     * Grabs all posts sent to a specified id
+     * @param int $offset to start at
+     * @param int $quantity to get
+     * @return array of posts
+     */
     public function getPosts($offset = 0, $quantity = 4)
     {
-        //RETRIEVE ALL POSTS IDS
         $st = $this->db->select('SELECT * FROM post WHERE post_to = :id AND isnull(parent_id) ORDER BY creation_date DESC LIMIT ' .
             $offset . ',' . $quantity, [':id' => $this->user->getID()]);
         if (count($st) > 0)

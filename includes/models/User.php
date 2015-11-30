@@ -20,11 +20,15 @@ class _User extends Model
     private $privacy;
 
     //"Constructor makes generic if not own wall" -Evan
+    /**
+     * _User constructor
+     * @param int $tempID User_ID
+     */
     public function __construct($tempID = -1)
     {
         parent::__construct();
         switch ($tempID) {
-            case -1 :
+            case -1 : //Guest, not implemented I think...
                 $this->userID = 0;
                 $this->username = 'guest';
                 $this->password = 'nop';
@@ -61,14 +65,21 @@ class _User extends Model
         }
     }
 
+    /**
+     * Initializes your logged in user (so password + session storage)
+     * @param $st array
+     */
     public function init_self($st)
     {
-
         $this->init_generic($st);
         $this->setPassword($st['password']);
         $this->store(); //STORE USER INFO IN SESSION ARRAY
     }
 
+    /**
+     * Initializes a basic user
+     * @param $st array
+     */
     public function init_generic($st)
     {
         $this->userID = $st['user_id'];
@@ -89,6 +100,9 @@ class _User extends Model
         self::setCountry($st['country']);
     }
 
+    /**
+     * Saves a my_user array to the session
+     */
     public function store()
     {
         Session::set('my_user', [
@@ -245,6 +259,12 @@ class _User extends Model
         $this->privacy = $newThings;
     }
 
+    /**
+     * Verifies user/pass combo for website access
+     * @param $username username to verify
+     * @param $password hashed password to test
+     * @return bool    result of the process....
+     */
     public function authenticate($username, $password)
     {
         //Search db for user/password and get as array
@@ -282,17 +302,11 @@ class _User extends Model
         return $this->fname . ' ' . $this->lname;
     }
 
-    /**
-     * @return mixed
-     */
     public function getGender()
     {
         return $this->gender;
     }
 
-    /**
-     * @param mixed $gender
-     */
     public function setGender($gender)
     {
         $this->gender = $gender;
