@@ -100,7 +100,7 @@ class _Recovery extends Model
         $mail = new PHPMailer();
 
         $mail->isSMTP();
-        $mail->SMTPDebug =3;
+        //$mail->SMTPDebug =3;
         $mail->Host = EMAIL_HOST;
         $mail->SMTPAuth = true;
         $mail->Username = EMAIL_USER;

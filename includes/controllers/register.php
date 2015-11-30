@@ -55,7 +55,7 @@ class register extends Controller
         } elseif ($page == 2) {
             $this->view->title = 'Profile information';
             $this->view->genders = $this->model->getGenders();
-            $this->view->maxDate = date_sub(date_create(), date_interval_create_from_date_string('3 years'));
+            $this->view->maxDate = date_sub(date_create(), date_interval_create_from_date_string('13 years'));
             $this->view->minDate = date_sub(date_create(), date_interval_create_from_date_string('101 years'));
             $this->view->render('register/userInfo');
         } elseif ($page == 3) {
