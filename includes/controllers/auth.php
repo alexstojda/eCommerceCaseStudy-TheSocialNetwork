@@ -111,6 +111,7 @@ class auth extends Controller
 
     public function recover()
     {
+        $this->view->title = 'Recover lost password';
         $this->view->render('auth/recover');
     }
 
