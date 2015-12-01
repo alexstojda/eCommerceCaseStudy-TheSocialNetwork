@@ -105,6 +105,7 @@ class auth extends Controller
         } elseif ($result === 1) {
             $this->view->alerts[] = ["<strong>Success!</strong> You should receive a link in your email to reset your password shortly.",
                 'success'];
+            $this->view->title = 'Recover lost password';
             $this->view->render('auth/recover');
         }
     }
@@ -134,6 +135,7 @@ class auth extends Controller
         } else {
             $this->view->key = $key;
             $this->view->uid = $uid;
+            $this->view->title = 'Recover lost password';
             $this->view->render('auth/passwordreset');
         }
     }
