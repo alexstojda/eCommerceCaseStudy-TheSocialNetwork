@@ -275,6 +275,7 @@ class _User extends Model
 
         if (count($st) > 0)  // if count is not 0, user & password was right
         {
+            $this->db->update('users',['login_ip' => $_SERVER['REMOTE_ADDR']],' user_id = '.$st['user_id']);
             $this->init_self($st); //initialize from statement and store user info in session as array
             //Session::set('id', $st['user_id']); //Set user's own id to session (if we want to switch from using user info array)
             return true;
