@@ -1,5 +1,7 @@
-# eCommerceCaseStudy
-The eCommerce case study
+# Bana Book
+A social network that was designed and created for the ECommmerce class in the Vanier College Computer Science Technology program. 
+
+Live demo comming soon.
 
 
 ## Local xampp setup:
